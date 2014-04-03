@@ -45,16 +45,16 @@ public class Ticket extends Model {
 	}
 	
 	// creator method
-	public static Ticket create(String agentname, String subject, String description, int priority, String status, String requestername) {
+	public static Ticket create(String username, String subject, String description, int priority, String status, String email) {
 		Date startdate = Calendar.getInstance().getTime();
-		Ticket ticket = new Ticket(Agent.find.ref(agentname), 
+		Ticket ticket = new Ticket(Agent.find.ref(username), 
 				subject, 
 				description, 
 				startdate,
 				startdate,
 				priority,
 				status,
-				Contact.find.ref(requestername));
+				Contact.find.ref(email));
 		ticket.save();
 		return ticket;
 	}
