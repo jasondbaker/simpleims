@@ -6,6 +6,8 @@ import play.db.ebean.*;
 import play.db.ebean.Model.Finder;
 
 import com.avaje.ebean.*;
+import play.data.format.*;
+import play.data.validation.*;
 
 import java.util.*;
 
@@ -17,12 +19,15 @@ public class Ticket extends Model {
 	public int id;
 	@ManyToOne
 	public Agent owner;
+	
+	@Constraints.Required
 	public String subject;
+	
 	public String description;
 	public Date startdate;
 	public Date enddate;
-	public int priority;
-	public String status;
+	public int priority = 3;
+	public String status = "Open";
 	@ManyToOne
 	public Contact requester;
 	
