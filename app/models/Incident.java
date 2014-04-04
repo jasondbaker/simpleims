@@ -11,9 +11,9 @@ import play.data.validation.*;
 
 import java.util.*;
 
-// A Ticket represents a single support incident.
+// An Incident represents a problem experienced by a contact.
 @Entity
-public class Ticket extends Model {
+public class Incident extends Model {
 
 	@Id
 	public int id;
@@ -32,7 +32,7 @@ public class Ticket extends Model {
 	public Contact requester;
 	
 	// constructor for new Agent
-	public Ticket(Agent owner, String subject, String description, 
+	public Incident(Agent owner, String subject, String description, 
 			Date startdate, Date enddate, int priority, String status, Contact requester) {
 			this.owner = owner;
 			this.subject = subject;
@@ -45,9 +45,9 @@ public class Ticket extends Model {
 	}
 	
 	// creator method
-	public static Ticket create(String username, String subject, String description, int priority, String status, String email) {
+	public static Incident create(String username, String subject, String description, int priority, String status, String email) {
 		Date startdate = Calendar.getInstance().getTime();
-		Ticket ticket = new Ticket(Agent.find.ref(username), 
+		Incident incident = new Incident(Agent.find.ref(username), 
 				subject, 
 				description, 
 				startdate,
@@ -55,13 +55,13 @@ public class Ticket extends Model {
 				priority,
 				status,
 				Contact.find.ref(email));
-		ticket.save();
-		return ticket;
+		incident.save();
+		return incident;
 	}
 	
 	//create a find method for data queries
-	public static Finder<Integer, Ticket> find = new Finder<Integer, Ticket>(
-			Integer.class, Ticket.class
+	public static Finder<Integer, Incident> find = new Finder<Integer, Incident>(
+			Integer.class, Incident.class
 			);
 	
 	

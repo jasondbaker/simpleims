@@ -42,7 +42,7 @@ public class ModelsTest extends WithApplication {
     }
     
     @Test
-    public void createAndVerifyTicket() {
+    public void createAndVerifyIncident() {
     	Agent agent = new Agent("jsmith", "group123", "John Smith", "john@smith.com");
         agent.save();
         
@@ -52,10 +52,10 @@ public class ModelsTest extends WithApplication {
         Contact contact = new Contact("bob@jones.com", "Bob Jones", "612-222-3333", company);
         contact.save();
         
-        Ticket ticket = Ticket.create(agent.username, "Reported problem with software", "Cannot start software", 2, "Open", contact.email);
-        ticket.save();
+        Incident incident = Incident.create(agent.username, "Reported problem with software", "Cannot start software", 2, "Open", contact.email);
+        incident.save();
     	
-        Ticket test = Ticket.find.where().eq("owner_username", agent.username).eq("description", ticket.description).findUnique();
+        Incident test = Incident.find.where().eq("owner_username", agent.username).eq("description", incident.description).findUnique();
         
         assertNotNull(test);
         assertEquals("Reported problem with software", test.subject);

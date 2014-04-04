@@ -20,7 +20,7 @@ public class Action extends Model {
 	public Agent agent;
 	public String description;
 	@ManyToOne
-	public Ticket ticket;
+	public Incident incident;
 	
 	//create a find method for data queries
 	public static Finder<Integer, Action> find = new Finder<Integer, Action>(

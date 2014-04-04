@@ -8,7 +8,7 @@ create table action (
   startdate                 timestamp,
   agent_username            varchar(255),
   description               varchar(255),
-  ticket_id                 integer,
+  incident_id               integer,
   constraint pk_action primary key (id))
 ;
 
@@ -39,7 +39,7 @@ create table contact (
   constraint pk_contact primary key (email))
 ;
 
-create table ticket (
+create table incident (
   id                        integer not null,
   owner_username            varchar(255),
   subject                   varchar(255),
@@ -49,7 +49,7 @@ create table ticket (
   priority                  integer,
   status                    varchar(255),
   requester_email           varchar(255),
-  constraint pk_ticket primary key (id))
+  constraint pk_incident primary key (id))
 ;
 
 create sequence action_seq;
@@ -60,18 +60,18 @@ create sequence company_seq;
 
 create sequence contact_seq;
 
-create sequence ticket_seq;
+create sequence incident_seq;
 
 alter table action add constraint fk_action_agent_1 foreign key (agent_username) references agent (username) on delete restrict on update restrict;
 create index ix_action_agent_1 on action (agent_username);
-alter table action add constraint fk_action_ticket_2 foreign key (ticket_id) references ticket (id) on delete restrict on update restrict;
-create index ix_action_ticket_2 on action (ticket_id);
+alter table action add constraint fk_action_incident_2 foreign key (incident_id) references incident (id) on delete restrict on update restrict;
+create index ix_action_incident_2 on action (incident_id);
 alter table contact add constraint fk_contact_company_3 foreign key (company_name) references company (name) on delete restrict on update restrict;
 create index ix_contact_company_3 on contact (company_name);
-alter table ticket add constraint fk_ticket_owner_4 foreign key (owner_username) references agent (username) on delete restrict on update restrict;
-create index ix_ticket_owner_4 on ticket (owner_username);
-alter table ticket add constraint fk_ticket_requester_5 foreign key (requester_email) references contact (email) on delete restrict on update restrict;
-create index ix_ticket_requester_5 on ticket (requester_email);
+alter table incident add constraint fk_incident_owner_4 foreign key (owner_username) references agent (username) on delete restrict on update restrict;
+create index ix_incident_owner_4 on incident (owner_username);
+alter table incident add constraint fk_incident_requester_5 foreign key (requester_email) references contact (email) on delete restrict on update restrict;
+create index ix_incident_requester_5 on incident (requester_email);
 
 
 
@@ -87,7 +87,7 @@ drop table if exists company;
 
 drop table if exists contact;
 
-drop table if exists ticket;
+drop table if exists incident;
 
 SET REFERENTIAL_INTEGRITY TRUE;
 
@@ -99,5 +99,5 @@ drop sequence if exists company_seq;
 
 drop sequence if exists contact_seq;
 
-drop sequence if exists ticket_seq;
+drop sequence if exists incident_seq;
 
