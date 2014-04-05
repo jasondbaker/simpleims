@@ -8,7 +8,7 @@ import views.html.*;
 public class Application extends Controller {
 
     public static Result index() {
-        return ok(index.render("Let's rock this project."));
+        return ok(index.render("Let's rock this project!!!!!!"));
     }
 
 }
