@@ -12,6 +12,17 @@ create table action (
   constraint pk_action primary key (id))
 ;
 
+create table address (
+  addressid                 integer not null,
+  address1                  varchar(255),
+  address2                  varchar(255),
+  city                      varchar(255),
+  state                     varchar(255),
+  zipcode                   varchar(255),
+  company_name              varchar(255),
+  constraint pk_address primary key (addressid))
+;
+
 create table agent (
   username                  varchar(255) not null,
   password                  varchar(255),
@@ -22,11 +33,6 @@ create table agent (
 
 create table company (
   name                      varchar(255) not null,
-  address1                  varchar(255),
-  address2                  varchar(255),
-  city                      varchar(255),
-  state                     varchar(255),
-  zipcode                   varchar(255),
   notes                     varchar(255),
   constraint pk_company primary key (name))
 ;
@@ -54,6 +60,8 @@ create table incident (
 
 create sequence action_seq;
 
+create sequence address_seq;
+
 create sequence agent_seq;
 
 create sequence company_seq;
@@ -66,12 +74,14 @@ alter table action add constraint fk_action_agent_1 foreign key (agent_username)
 create index ix_action_agent_1 on action (agent_username);
 alter table action add constraint fk_action_incident_2 foreign key (incident_id) references incident (id) on delete restrict on update restrict;
 create index ix_action_incident_2 on action (incident_id);
-alter table contact add constraint fk_contact_company_3 foreign key (company_name) references company (name) on delete restrict on update restrict;
-create index ix_contact_company_3 on contact (company_name);
-alter table incident add constraint fk_incident_owner_4 foreign key (owner_username) references agent (username) on delete restrict on update restrict;
-create index ix_incident_owner_4 on incident (owner_username);
-alter table incident add constraint fk_incident_requester_5 foreign key (requester_email) references contact (email) on delete restrict on update restrict;
-create index ix_incident_requester_5 on incident (requester_email);
+alter table address add constraint fk_address_company_3 foreign key (company_name) references company (name) on delete restrict on update restrict;
+create index ix_address_company_3 on address (company_name);
+alter table contact add constraint fk_contact_company_4 foreign key (company_name) references company (name) on delete restrict on update restrict;
+create index ix_contact_company_4 on contact (company_name);
+alter table incident add constraint fk_incident_owner_5 foreign key (owner_username) references agent (username) on delete restrict on update restrict;
+create index ix_incident_owner_5 on incident (owner_username);
+alter table incident add constraint fk_incident_requester_6 foreign key (requester_email) references contact (email) on delete restrict on update restrict;
+create index ix_incident_requester_6 on incident (requester_email);
 
 
 
@@ -80,6 +90,8 @@ create index ix_incident_requester_5 on incident (requester_email);
 SET REFERENTIAL_INTEGRITY FALSE;
 
 drop table if exists action;
+
+drop table if exists address;
 
 drop table if exists agent;
 
@@ -92,6 +104,8 @@ drop table if exists incident;
 SET REFERENTIAL_INTEGRITY TRUE;
 
 drop sequence if exists action_seq;
+
+drop sequence if exists address_seq;
 
 drop sequence if exists agent_seq;
 
