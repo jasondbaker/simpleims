@@ -1,0 +1,137 @@
+---
+# Agents
+
+agents:
+
+  - !!models.Agent
+      username:   jacksmith
+      password:   group123
+      fullname:   Jack
+      email:      jack@bigsoftware.com
+
+  - !!models.Agent
+      username:   benj
+      password:   luck4star
+      fullname:   Ben
+      email:      benj@bigsoftware.com
+
+  - !!models.Agent
+      username:   jwilliams
+      password:   mellojello
+      fullname:   Jill
+      email:      jwilliams@bigsoftware.com
+
+# Companies
+
+companies: 
+
+  - !!models.Company
+    name:       Acme Corporation
+    notes:      A great place to work.
+    
+  - !!models.Company
+    name:       The Widget Factory
+    notes:      We like to build stuff.
+    
+# Addresses
+
+addresses:
+
+  - !!models.Address
+      address1:   123 Way Lane
+      address2:   Suite 100
+      city:       Minneapolis
+      state:      Minnesota
+      zipcode:    55401
+      company:    !!models.Company
+                      name: Acme Corporation   
+
+  - !!models.Address
+      address1:   455 Starry Road
+      address2:   2nd Floor
+      city:       Orlando
+      state:      Florida
+      zipcode:    32801
+      company:    !!models.Company
+                      name: The Widget Factory
+                      
+# Contacts
+
+contacts:
+
+  - !!models.Contact
+      email:      brichards@acme.com
+      fullname:   Bill Richards
+      phone:      612-584-4888
+      company:    !!models.Company
+                    name: Acme Corporation
+
+  - !!models.Contact
+      email:      bgoodwin@acme.com
+      fullname:   Beth Goodwin
+      phone:      612-584-3342
+      company:    !!models.Company
+                    name: Acme Corporation
+    
+  - !!models.Contact
+      email:      tanya@widgetfactory.com
+      fullname:   Tanya Goldberg
+      phone:      443-234-2156
+      company:    !!models.Company
+                    name: Acme Corporation
+                    
+# Incidents
+
+incidents:
+
+  - !!models.Incident
+      owner:      !!models.Agent
+                      username: jacksmith
+      subject:    Application error
+      description: The application produces an error when the user initially runs it.
+      startdate:  "2014-04-07 11:02:05"
+      enddate:    "2014-04-07 11:02:05"
+      priority:   3
+      status:     Open
+      requester:  !!models.Contact
+                      email: brichards@acme.com
+
+  - !!models.Incident
+      owner:      !!models.Agent
+                      username: jacksmith
+      subject:    Forgot password
+      description: Customer is requesting that we reset her password because she cannot access the system.
+      startdate:  "2014-04-08 17:22:11"
+      enddate:    "2014-04-08 17:22:11"
+      priority:   2
+      status:     Open
+      requester:  !!models.Contact
+                      email: bgoodwin@acme.com
+
+  - !!models.Incident
+      owner:      !!models.Agent
+                      username: benj
+      subject:    System is down
+      description: The system is reporting a database failure when the customer tries to access the application.
+      startdate:  "2014-04-09 09:13:33"
+      enddate:    "2014-04-09 09:13:33"
+      priority:   1
+      status:     Open
+      requester:  !!models.Contact
+                      email: tanya@widgetfactory.com  
+
+  - !!models.Incident
+      owner:      !!models.Agent
+                      username: jwilliams
+      subject:    Unexpected application behavior
+      description: The application does not display the proper report when the report is selected.
+      startdate:  "2014-04-06 13:01:15"
+      enddate:    "2014-04-06 13:01:15"
+      priority:   3
+      status:     Open
+      requester:  !!models.Contact
+                      email: brichards@acme.com                         
+                  
+                                                              
+                        
+             
