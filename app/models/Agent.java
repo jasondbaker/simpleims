@@ -1,7 +1,10 @@
 package models;
 
 import javax.persistence.*;
+
+import play.data.validation.Constraints;
 import play.db.ebean.*;
+
 import com.avaje.ebean.*;
 
 // An Agent represents the system user responsible for documenting and managing incident requests.
@@ -9,6 +12,7 @@ import com.avaje.ebean.*;
 public class Agent extends Model {
 
 	@Id
+	@Constraints.Required
 	public String username;
 	public String password;
 	public String fullname;

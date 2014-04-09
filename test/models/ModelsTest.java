@@ -1,10 +1,19 @@
 package models;
 
 import models.*;
+
+
+import play.*;
+import play.libs.*;
+import com.avaje.ebean.Ebean;
+import java.util.*;
+
 import org.junit.*;
+
 import static org.junit.Assert.*;
 import play.test.WithApplication;
 import static play.test.Helpers.*;
+
 
 public class ModelsTest extends WithApplication {
     @Before
@@ -99,4 +108,31 @@ public class ModelsTest extends WithApplication {
         
     }
     
+    @Test
+    public void loadFullTestdata() {
+    	Map<String,List<Object>> all = (Map<String,List<Object>>)Yaml.load("testdata.yml");
+    	// Insert agents first
+    	Ebean.save(all.get("agents"));
+    	
+    	// Insert companies 
+    	Ebean.save(all.get("companies"));
+ 
+    	// Insert addresses 
+    	Ebean.save(all.get("addresses"));
+    	
+    	// Insert contacts 
+    	Ebean.save(all.get("contacts"));
+
+    	// Insert incidents 
+    	Ebean.save(all.get("incidents"));
+    	
+    	// Count number of rows
+        assertEquals(3, Agent.find.findRowCount());
+        assertEquals(2, Company.find.findRowCount());
+        assertEquals(2, Address.find.findRowCount());
+        assertEquals(3, Contact.find.findRowCount());
+        assertEquals(4, Incident.find.findRowCount());        
+    }
+    	
+    	
 }
