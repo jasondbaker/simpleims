@@ -1,7 +1,26 @@
-@(message: String)
+@(incidents: List[Incident])
 
 @main("Incident Management System") {
 
-    @message
+	<header>
+		<hgroup>
+			<h2>Incident Queue</h2>
+		</hgroup>
+	</header>
 
+	
+	<table class="table table-hover">
+		<tr>
+			<th>ID</th>
+			<th>Priority</th>
+			<th>Date</th>
+			<th>Subject</th>
+		</tr>
+		
+	@for(i <- incidents) {
+		@views.html.incidents.incident(i)
+		}
+	
+	</table>
+	
 }

@@ -6,19 +6,19 @@ agents:
   - !!models.Agent
       username:   jacksmith
       password:   group123
-      fullname:   Jack
+      fullname:   Jack Smith
       email:      jack@bigsoftware.com
 
   - !!models.Agent
       username:   benj
       password:   luck4star
-      fullname:   Ben
+      fullname:   Ben Johnson
       email:      benj@bigsoftware.com
 
   - !!models.Agent
       username:   jwilliams
       password:   mellojello
-      fullname:   Jill
+      fullname:   Jill Williams
       email:      jwilliams@bigsoftware.com
 
 # Companies
@@ -39,7 +39,7 @@ addresses:
 
   - !!models.Address
       address1:   123 Way Lane
-      address2:   Suite 100
+      address2:   Suite 105
       city:       Minneapolis
       state:      Minnesota
       zipcode:    55401
@@ -84,7 +84,7 @@ contacts:
 
 incidents:
 
-  - !!models.Incident
+  - &incident1 !!models.Incident
       owner:      !!models.Agent
                       username: jacksmith
       subject:    Application error
@@ -96,7 +96,7 @@ incidents:
       requester:  !!models.Contact
                       email: brichards@acme.com
 
-  - !!models.Incident
+  - &incident2 !!models.Incident
       owner:      !!models.Agent
                       username: jacksmith
       subject:    Forgot password
@@ -108,7 +108,7 @@ incidents:
       requester:  !!models.Contact
                       email: bgoodwin@acme.com
 
-  - !!models.Incident
+  - &incident3 !!models.Incident
       owner:      !!models.Agent
                       username: benj
       subject:    System is down
@@ -120,7 +120,7 @@ incidents:
       requester:  !!models.Contact
                       email: tanya@widgetfactory.com  
 
-  - !!models.Incident
+  - &incident4 !!models.Incident
       owner:      !!models.Agent
                       username: jwilliams
       subject:    Unexpected application behavior
@@ -132,6 +132,35 @@ incidents:
       requester:  !!models.Contact
                       email: brichards@acme.com                         
                   
-                                                              
-                        
-             
+# Actions
+
+actions:
+
+  - !!models.Action
+      startdate:  "2014-04-08 08:03:17"
+      agent:      !!models.Agent
+                      username: jacksmith
+      description: I contacted the customer and walked through a process to reproduce the application failure.
+      incident:   *incident1                                                                               
+ 
+  - !!models.Action
+      startdate:  "2014-04-09 12:23:22"
+      agent:  !!models.Agent
+                    username: jacksmith
+      description: The customer is now seeing a different error while trying to use the application.
+      incident: *incident1
+
+  - !!models.Action
+      startdate:  "2014-04-09 18:21:44"
+      agent:      !!models.Agent
+                      username: benj
+      description: I reset the application database. I asked our DBAs to review the system error logs.
+      incident:   *incident3
+
+  - !!models.Action
+      startdate:  "2014-04-09 12:53:33"
+      agent:      !!models.Agent
+                      username: jacksmith
+      description: The customer is now seeing a different error while trying to use the application.
+      incident:   *incident4                    
+                     
