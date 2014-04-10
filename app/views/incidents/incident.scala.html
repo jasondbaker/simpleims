@@ -1,0 +1,8 @@
+@(incident: Incident)
+
+		<tr>
+			<td data-incident-id="@incident.id">@incident.id</td>
+			<td>@incident.priority</td>
+			<td>@incident.startdate.date.format("MMM dd hh:mm")</td>
+			<td>@incident.subject</td>
+		</tr>
