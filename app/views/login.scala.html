@@ -1,0 +1,42 @@
+@(form: Form[Application.Login])
+
+<html>
+    @header("Incident Managmement System Login")
+    
+    <body>
+
+        
+        @helper.form(routes.Application.authenticate) {
+        
+        <div id="loginModal" class="modal show" tabindex="-1" role="dialog" aria-hidden="true">
+		  <div class="modal-dialog">
+		  <div class="modal-content">
+		      <div class="modal-header">
+		          
+		          <h1 class="text-center">Login</h1>
+		      </div>
+		      <div class="modal-body">
+		      	@if(form.hasGlobalErrors) {
+		      		<p style="font-weight:800; color: red">@form.globalError.message</p>
+		      		}
+		          <form class="form col-md-12 center-block">
+		            <div class="form-group">
+		              <input type="text" name="username" class="form-control input-lg" placeholder="Username" value="@form("username").value">
+		            </div>
+		            <div class="form-group">
+		              <input type="password" name="password" class="form-control input-lg" placeholder="Password">
+		            </div>
+		            <div class="form-group">
+		              <button class="btn btn-primary btn-lg btn-block">Sign In</button>
+		              
+		            </div>
+		          </form>
+		      </div>
+		  </div>
+		  </div>
+		</div>
+        	
+        }
+    
+    </body>
+</html>
