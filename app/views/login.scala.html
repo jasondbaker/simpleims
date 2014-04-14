@@ -19,6 +19,9 @@
 		      	@if(form.hasGlobalErrors) {
 		      		<p style="font-weight:800; color: red">@form.globalError.message</p>
 		      		}
+		      	@if(flash.contains("success")) {
+		      		<p style="font-weight:800; color: green">@flash.get("success")</p>
+		      	}
 		          <form class="form col-md-12 center-block">
 		            <div class="form-group">
 		              <input type="text" name="username" class="form-control input-lg" placeholder="Username" value="@form("username").value">

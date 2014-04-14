@@ -20,6 +20,7 @@ public class Application extends Controller {
 		}
 	}
 	
+	@Security.Authenticated(Authenticated.class)
     public static Result index() {
         return ok(index.render(
         		Incident.find.orderBy("priority asc, startdate asc").findList()
@@ -33,6 +34,12 @@ public class Application extends Controller {
     			);
     }
 
+    public static Result logout() {
+    	session().clear();
+    	flash("success", "You have been logged out.");
+    	return redirect(routes.Application.login());
+    }
+    
     public static class Login {
     	public String username;
     	public String password;
