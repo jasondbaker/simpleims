@@ -78,4 +78,22 @@ public class Incident extends Model {
 				.findList();
 	}
 	
+	public static boolean isOwner(int incidentId, String username) {
+		return find.where()
+				.eq("id", incidentId)
+				.eq("owner.username", username)
+				.findRowCount() > 0;
+				
+	}
+	
+	public static String update(int incidentId, String username, String subject, String description, int priority, String email) {
+		Incident incident = find.ref(incidentId);
+		incident.owner = Agent.find.ref(username);
+		incident.subject = subject;
+		incident.description = description;
+		incident.priority = priority;
+		incident.requester = Contact.find.ref(email);
+		incident.update();
+		return subject;
+	}
 }
