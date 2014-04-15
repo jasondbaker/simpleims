@@ -1,3 +1,5 @@
+@(agent: Agent)
+
 <!-- Fixed navbar -->
 	    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 	      <div class="container">
@@ -19,7 +21,7 @@
 	            
 	          </ul>
 	          <ul class="nav navbar-nav navbar-right">
-	        	<li> <a href="@routes.Application.logout()">Logout</a></li>
+	        	<li> <a href="@routes.Application.logout()">Logout (@agent.username)</a></li>
 	       	  </ul>
 	        </div><!--/.nav-collapse -->
 	       

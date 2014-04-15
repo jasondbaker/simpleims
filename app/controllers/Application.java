@@ -20,20 +20,25 @@ public class Application extends Controller {
 		}
 	}
 	
+	// display the dashboard page
 	@Security.Authenticated(Authenticated.class)
     public static Result index() {
         return ok(index.render(
-        		Incident.find.orderBy("priority asc, startdate asc").findList()
+        		Incident.findByOwner(request().username()),
+        		Incident.findUnassigned(),
+        		Agent.find.byId(request().username())
         		
         		));
     }
     
+	// display the login page
     public static Result login() {
     	return ok(
     			login.render(form(Login.class))
     			);
     }
 
+   // logout user session
     public static Result logout() {
     	session().clear();
     	flash("success", "You have been logged out.");

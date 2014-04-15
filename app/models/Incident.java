@@ -64,5 +64,18 @@ public class Incident extends Model {
 			Integer.class, Incident.class
 			);
 	
+	public static List<Incident> findByOwner(String username) {
+        return find.where()
+                .eq("owner.username", username)
+                .orderBy("priority asc, startdate asc")
+                .findList();
+	}
+	
+	public static List<Incident> findUnassigned() {
+		return find.where()
+				.eq("owner", null)
+				.orderBy("priority asc, startdate asc")
+				.findList();
+	}
 	
 }
