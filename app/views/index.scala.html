@@ -1,9 +1,9 @@
-@(incidents: List[Incident])
+@(myIncidents: List[Incident], unassignedIncidents: List[Incident], agent: Agent)
 
-@main("Incident Management System") {
+@main("Incident Management System", agent) {
 
 	<div class="page-header">
-		<h2>Current Incidents</h2>
+		<h2>My Incidents</h2>
 	</div>
 	
 	<table class="table table-hover">
@@ -11,10 +11,30 @@
 			<th>ID</th>
 			<th>Priority</th>
 			<th>Date</th>
+			<th>Requester</th>
 			<th>Subject</th>
 		</tr>
 		
-	@for(i <- incidents) {
+	@for(i <- myIncidents) {
+		@views.html.incidents.incident(i)
+		}
+	
+	</table>
+	
+	<div class="page-header">
+		<h2>Unassigned Incidents</h2>
+	</div>
+	
+	<table class="table table-hover">
+		<tr>
+			<th>ID</th>
+			<th>Priority</th>
+			<th>Date</th>
+			<th>Requester</th>
+			<th>Subject</th>
+		</tr>
+		
+	@for(i <- unassignedIncidents) {
 		@views.html.incidents.incident(i)
 		}
 	

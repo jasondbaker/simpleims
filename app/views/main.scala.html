@@ -1,4 +1,4 @@
-@(title: String)(content: Html)
+@(title: String, agent: Agent)(content: Html)
 
 <!DOCTYPE html>
 
@@ -8,7 +8,7 @@
     
     <body role="document">
     
-        @mainnav()
+        @mainnav(agent)
     	
     	<div class="container theme-showcase" role="main">
     	

@@ -131,7 +131,17 @@ incidents:
       status:     Open
       requester:  !!models.Contact
                       email: brichards@acme.com                         
-                  
+  - &incident5 !!models.Incident
+      owner:      
+      subject:    Application database queries are responding slowly
+      description: I am running a large set of queries on the corporate database and the query results are taking too long.
+      startdate:  "2014-04-11 07:41:25"
+      enddate:    "2014-04-11 07:41:25"
+      priority:   2
+      status:     Open
+      requester:  !!models.Contact
+                      email: brichards@acme.com  
+                                        
 # Actions
 
 actions:
