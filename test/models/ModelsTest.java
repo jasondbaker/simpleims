@@ -134,7 +134,7 @@ public class ModelsTest extends WithApplication {
         assertEquals(2, Company.find.findRowCount());
         assertEquals(2, Address.find.findRowCount());
         assertEquals(3, Contact.find.findRowCount());
-        assertEquals(4, Incident.find.findRowCount());    
+        assertEquals(5, Incident.find.findRowCount());    
         assertEquals(4, Action.find.findRowCount());    
     }
     	
