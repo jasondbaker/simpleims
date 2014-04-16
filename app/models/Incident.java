@@ -31,7 +31,10 @@ public class Incident extends Model {
 	@ManyToOne
 	public Contact requester;
 	
-	// constructor for new Agent
+	@OneToMany(mappedBy="incident", cascade=CascadeType.ALL)
+	public List<Action> actions;
+	
+	// constructor for new incident
 	public Incident(Agent owner, String subject, String description, 
 			Date startdate, Date enddate, int priority, String status, Contact requester) {
 			this.owner = owner;
@@ -42,6 +45,15 @@ public class Incident extends Model {
 			this.priority = priority;
 			this.status = status;
 			this.requester = requester;
+			this.actions = new ArrayList<Action>();
+	}
+	
+	public Incident addAction(String username, String description) {
+		Action newAction = Action.create(username, description, this.id);
+		this.actions.add(newAction);
+		this.save();
+		return this;
+		
 	}
 	
 	// creator method
