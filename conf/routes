@@ -6,6 +6,9 @@
 GET     /                           controllers.Application.index()
 
 # Incidents 
+GET		/incidents					controllers.Incidents.getOwned()
+GET		/incidents/unassigned		controllers.Incidents.getUnassigned()
+GET		/incidents/:id				controllers.Incidents.get(id: Integer)
 POST	/incidents					controllers.Incidents.add()
 DELETE	/incidents/:incident		controllers.Incidents.delete(incident: Integer)
 PUT		/incidents/:incident		controllers.Incidents.update(incident: Integer)

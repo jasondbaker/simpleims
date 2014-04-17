@@ -6,6 +6,8 @@ import play.db.ebean.*;
 import play.db.ebean.Model.Finder;
 
 import com.avaje.ebean.*;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import play.data.format.*;
 import play.data.validation.*;
 
@@ -31,7 +33,8 @@ public class Incident extends Model {
 	@ManyToOne
 	public Contact requester;
 	
-	@OneToMany(mappedBy="incident", cascade=CascadeType.ALL)
+	@OneToMany(mappedBy="incident", cascade=CascadeType.ALL) 
+	@JsonManagedReference
 	public List<Action> actions;
 	
 	// constructor for new incident
