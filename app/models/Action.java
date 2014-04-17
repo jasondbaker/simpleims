@@ -6,6 +6,7 @@ import play.db.ebean.*;
 import play.db.ebean.Model.Finder;
 
 import com.avaje.ebean.*;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import play.data.format.*;
 import play.data.validation.*;
@@ -23,6 +24,7 @@ public class Action extends Model {
 	public Agent agent;
 	public String description;
 	@ManyToOne
+	@JsonBackReference
 	public Incident incident;
 	
 	// constructor methods

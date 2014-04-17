@@ -4,10 +4,13 @@ import play.*;
 import play.mvc.*;
 import play.data.*;
 import static play.data.Form.*;
+
 import java.util.*;
+
 import models.*;
 import views.html.*;
 import views.html.incidents.*;
+import play.libs.Json;
 
 @Security.Authenticated(Authenticated.class)
 public class Incidents extends Controller {
@@ -55,5 +58,17 @@ public class Incidents extends Controller {
 			return forbidden();
 			
 		}
+	}
+	
+	public static Result getOwned() {
+		return ok(Json.toJson(Incident.findByOwner(request().username())));
+	}
+	
+	public static Result get(Integer id) {
+		return ok(Json.toJson(Incident.find.byId(id)));
+	}
+	
+	public static Result getUnassigned() {
+		return ok(Json.toJson(Incident.findUnassigned()));
 	}
 }
