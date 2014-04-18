@@ -5,19 +5,19 @@ agents:
 
   - !!models.Agent
       username:   jacksmith
-      password:   group123
+      password:   $2a$10$g6YPYnUM1XEfsL55.xdH1u2Ug0C6CGMVLNgw5MG0oKCOlBp1ksIde
       fullname:   Jack Smith
       email:      jack@bigsoftware.com
 
   - !!models.Agent
       username:   benj
-      password:   luck4star
+      password:   $2a$10$g6YPYnUM1XEfsL55.xdH1u2Ug0C6CGMVLNgw5MG0oKCOlBp1ksIde
       fullname:   Ben Johnson
       email:      benj@bigsoftware.com
 
   - !!models.Agent
       username:   jwilliams
-      password:   mellojello
+      password:   $2a$10$g6YPYnUM1XEfsL55.xdH1u2Ug0C6CGMVLNgw5MG0oKCOlBp1ksIde
       fullname:   Jill Williams
       email:      jwilliams@bigsoftware.com
 
