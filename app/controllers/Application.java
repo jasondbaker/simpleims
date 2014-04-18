@@ -24,10 +24,7 @@ public class Application extends Controller {
 	@Security.Authenticated(Authenticated.class)
     public static Result index() {
         return ok(index.render(
-        		Incident.findByOwner(request().username()),
-        		Incident.findUnassigned(),
         		Agent.find.byId(request().username())
-        		
         		));
     }
     
@@ -56,4 +53,5 @@ public class Application extends Controller {
     		return null;
     	}
     }
+    
 }

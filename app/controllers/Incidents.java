@@ -9,7 +9,6 @@ import java.util.*;
 
 import models.*;
 import views.html.*;
-import views.html.incidents.*;
 import play.libs.Json;
 
 @Security.Authenticated(Authenticated.class)
@@ -26,7 +25,7 @@ public class Incidents extends Controller {
 				form().bindFromRequest().get("status"),
 				form().bindFromRequest().get("email"));
 		
-		return ok(incident.render(newIncident));
+		return ok();
 	}
 
 	// delete an existing incident based on the incident id
