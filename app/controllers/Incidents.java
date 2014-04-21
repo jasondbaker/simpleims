@@ -7,6 +7,8 @@ import static play.data.Form.*;
 
 import java.util.*;
 
+import com.fasterxml.jackson.databind.JsonNode;
+
 import models.*;
 import views.html.*;
 import play.libs.Json;
@@ -14,18 +16,29 @@ import play.libs.Json;
 @Security.Authenticated(Authenticated.class)
 public class Incidents extends Controller {
 
-	// add a new incident
+	
+	@BodyParser.Of(BodyParser.Json.class)
 	public static Result add() {
+		JsonNode json = request().body().asJson();
+	
+		JsonNode jsonUsername = json.get("username");
+		JsonNode jsonSubject = json.get("subject");
+		JsonNode jsonDescription = json.get("description");
+		JsonNode jsonPriority = json.get("priority");
+		JsonNode jsonStatus = json.get("status");
+		JsonNode jsonContactId = json.get("contactId");
 		
 		Incident newIncident = Incident.create(
-				form().bindFromRequest().get("username"),
-				form().bindFromRequest().get("subject"),
-				form().bindFromRequest().get("description"),
-				Integer.parseInt(form().bindFromRequest().get("priority")),
-				form().bindFromRequest().get("status"),
-				Integer.parseInt(form().bindFromRequest().get("contactId")));
+				jsonUsername.asText(),
+				jsonSubject.asText(),
+				jsonDescription.asText(),
+				jsonPriority.asInt(),
+				jsonStatus.asText(),
+				jsonContactId.asInt()
+				);
 		
-		return ok();
+		return ok(Json.toJson(newIncident));
+		
 	}
 
 	// delete an existing incident based on the incident id

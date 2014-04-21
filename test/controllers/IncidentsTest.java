@@ -14,6 +14,7 @@ import models.*;
 import models.Action;
 
 import com.avaje.ebean.Ebean;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.google.common.collect.ImmutableMap;
 
 public class IncidentsTest extends WithApplication {
@@ -43,19 +44,21 @@ public class IncidentsTest extends WithApplication {
     
    @Test
    public void newIncident() {
+	   
+	   ObjectNode json = Json.newObject();
+	   json.put("username", "jacksmith");
+	   json.put("subject","Storage system alert");
+	   json.put("description", "The storage system is emitting an alert sound.");
+	   json.put("priority", "2");
+	   json.put("status", "Open");
+	   json.put("contactId", "1");
+
 	   Result result = callAction(
 			   controllers.routes.ref.Incidents.add(),
 			   fakeRequest().withSession("username", "jacksmith")
-			   	.withFormUrlEncodedBody(
-			   			new ImmutableMap.Builder<String, String>()
-			   			.put("username", "jacksmith")
-			   			.put("subject", "Storage system alert")
-			   			.put("description", "The storage system is emitting an alert sound.")
-			   			.put("priority", "2")
-			   			.put("status", "Open")
-			   			.put("contactId", "1")
-			   			.build())
+			   	.withJsonBody(json)
 			   );
+	   
 			   assertEquals(200, status(result));
 			   Incident incident = Incident.find.where().eq("subject", "Storage system alert").findUnique();
 			   assertNotNull(incident);
