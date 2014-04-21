@@ -14,7 +14,7 @@ import com.avaje.ebean.*;
 public class Contact extends Model {
 	
 	@Id
-	int id;
+	public int id;
 	public String email;
 	public String fullname;
 	public String phone;

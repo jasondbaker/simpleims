@@ -14,7 +14,7 @@ import com.avaje.ebean.*;
 public class Company extends Model {
 	
 	@Id
-	int id;
+	public int id;
 	public String name;
 	public String notes;
 	
