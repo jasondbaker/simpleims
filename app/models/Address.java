@@ -13,7 +13,7 @@ import com.avaje.ebean.*;
 public class Address extends Model {
 	
 	@Id
-	public int addressid;
+	public int id;
 	public String address1;
 	public String address2;
 	public String city;
@@ -33,8 +33,8 @@ public class Address extends Model {
 		this.company = company;
 	}
 	
-	public static Address create(String address1, String address2, String city, String state, String zipcode, String companyname){
-		Address address = new Address(address1, address2, city, state, zipcode, Company.find.ref(companyname));
+	public static Address create(String address1, String address2, String city, String state, String zipcode, int companyId){
+		Address address = new Address(address1, address2, city, state, zipcode, Company.find.ref(companyId));
 		address.save();
 		return address;
 	}

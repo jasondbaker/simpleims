@@ -6,6 +6,7 @@ import play.db.ebean.*;
 import play.db.ebean.Model.Finder;
 import play.data.format.*;
 import play.data.validation.*;
+
 import com.avaje.ebean.*;
 
 // A Contact represents a person that uses the provider's product or service
@@ -13,6 +14,7 @@ import com.avaje.ebean.*;
 public class Contact extends Model {
 	
 	@Id
+	int id;
 	public String email;
 	public String fullname;
 	public String phone;
@@ -28,8 +30,16 @@ public class Contact extends Model {
 	}
 	
 	//create a find method for data queries
-	public static Finder<String, Contact> find = new Finder<String, Contact>(
-			String.class, Contact.class
+	public static Finder<Integer, Contact> find = new Finder<Integer, Contact>(
+			Integer.class, Contact.class
 			);
 	
+	//update
+	public static String update(int id, String email, String fullname, String phone) {
+		Contact contact = find.byId(id);
+		contact.email = email;
+		contact.fullname = fullname;
+		contact.phone = phone;
+		return email;
+	}
 }

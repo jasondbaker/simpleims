@@ -75,7 +75,7 @@ public class ModelsTest extends WithApplication {
         Contact contact = new Contact("bob@jones.com", "Bob Jones", "612-222-3333", company);
         contact.save();
         
-        Incident incident = Incident.create(agent.username, "Reported problem with software", "Cannot start software", 2, "Open", contact.email);
+        Incident incident = Incident.create(agent.username, "Reported problem with software", "Cannot start software", 2, "Open", contact.id);
         incident.save();
     	
         Incident test = Incident.find.where().eq("owner_username", agent.username).eq("description", incident.description).findUnique();
@@ -97,7 +97,7 @@ public class ModelsTest extends WithApplication {
         Contact contact = new Contact("bob@jones.com", "Bob Jones", "612-222-3333", company);
         contact.save();
         
-        Incident incident = Incident.create(agent.username, "Reported problem with software", "Cannot start software", 2, "Open", contact.email);
+        Incident incident = Incident.create(agent.username, "Reported problem with software", "Cannot start software", 2, "Open", contact.id);
     	
         Action.create(agent.username, "Contacted customer for more information", incident.id);
         

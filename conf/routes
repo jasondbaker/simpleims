@@ -5,6 +5,14 @@
 # Dashboard page
 GET     /                           controllers.Application.index()
 
+# Companies
+GET		/companies					controllers.Companies.list()
+GET		/companies/:id				controllers.Companies.get(id: Integer)
+
+# Contacts
+GET		/contacts					controllers.Contacts.list()
+GET		/contacts/:id				controllers.Contacts.get(id: Integer)
+
 # Incidents 
 GET		/incidents					controllers.Incidents.getOwned()
 GET		/incidents/unassigned		controllers.Incidents.getUnassigned()
