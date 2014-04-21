@@ -25,11 +25,11 @@ agents:
 
 companies: 
 
-  - !!models.Company
+  - &company1 !!models.Company
     name:       Acme Corporation
     notes:      A great place to work.
     
-  - !!models.Company
+  - &company2 !!models.Company
     name:       The Widget Factory
     notes:      We like to build stuff.
     
@@ -43,8 +43,7 @@ addresses:
       city:       Minneapolis
       state:      Minnesota
       zipcode:    55401
-      company:    !!models.Company
-                      name: Acme Corporation   
+      company:    *company1
 
   - !!models.Address
       address1:   455 Starry Road
@@ -52,33 +51,29 @@ addresses:
       city:       Orlando
       state:      Florida
       zipcode:    32801
-      company:    !!models.Company
-                      name: The Widget Factory
+      company:    *company2
                       
 # Contacts
 
 contacts:
 
-  - !!models.Contact
+  - &contact1 !!models.Contact
       email:      brichards@acme.com
       fullname:   Bill Richards
       phone:      612-584-4888
-      company:    !!models.Company
-                    name: Acme Corporation
+      company:    *company1
 
-  - !!models.Contact
+  - &contact2 !!models.Contact
       email:      bgoodwin@acme.com
       fullname:   Beth Goodwin
       phone:      612-584-3342
-      company:    !!models.Company
-                    name: Acme Corporation
+      company:    *company1
     
-  - !!models.Contact
+  - &contact3 !!models.Contact
       email:      tanya@widgetfactory.com
       fullname:   Tanya Goldberg
       phone:      443-234-2156
-      company:    !!models.Company
-                    name: Acme Corporation
+      company:    *company1
                     
 # Incidents
 
@@ -93,8 +88,7 @@ incidents:
       enddate:    "2014-04-07 11:02:05"
       priority:   3
       status:     Open
-      requester:  !!models.Contact
-                      email: brichards@acme.com
+      requester:  *contact1
 
   - &incident2 !!models.Incident
       owner:      !!models.Agent
@@ -105,8 +99,7 @@ incidents:
       enddate:    "2014-04-08 17:22:11"
       priority:   2
       status:     Open
-      requester:  !!models.Contact
-                      email: bgoodwin@acme.com
+      requester:  *contact2
 
   - &incident3 !!models.Incident
       owner:      !!models.Agent
@@ -117,8 +110,7 @@ incidents:
       enddate:    "2014-04-09 09:13:33"
       priority:   1
       status:     Open
-      requester:  !!models.Contact
-                      email: tanya@widgetfactory.com  
+      requester:  *contact3 
 
   - &incident4 !!models.Incident
       owner:      !!models.Agent
@@ -129,8 +121,8 @@ incidents:
       enddate:    "2014-04-06 13:01:15"
       priority:   3
       status:     Open
-      requester:  !!models.Contact
-                      email: brichards@acme.com                         
+      requester:  *contact1
+                               
   - &incident5 !!models.Incident
       owner:      
       subject:    Application database queries are responding slowly
@@ -139,8 +131,7 @@ incidents:
       enddate:    "2014-04-11 07:41:25"
       priority:   2
       status:     Open
-      requester:  !!models.Contact
-                      email: brichards@acme.com  
+      requester:  *contact1 
                                         
 # Actions
 

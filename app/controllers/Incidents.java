@@ -23,7 +23,7 @@ public class Incidents extends Controller {
 				form().bindFromRequest().get("description"),
 				Integer.parseInt(form().bindFromRequest().get("priority")),
 				form().bindFromRequest().get("status"),
-				form().bindFromRequest().get("email"));
+				Integer.parseInt(form().bindFromRequest().get("contactId")));
 		
 		return ok();
 	}
@@ -49,7 +49,7 @@ public class Incidents extends Controller {
 						form().bindFromRequest().get("subject"),
 						form().bindFromRequest().get("description"),
 						Integer.parseInt(form().bindFromRequest().get("priority")),
-						form().bindFromRequest().get("email")
+						Integer.parseInt(form().bindFromRequest().get("contactId"))
 							)
 					);
 					
@@ -59,14 +59,22 @@ public class Incidents extends Controller {
 		}
 	}
 	
+	// get a list of all incidents owned by the user
 	public static Result getOwned() {
 		return ok(Json.toJson(Incident.findByOwner(request().username())));
 	}
 	
+	// get information for a specific incident owned by the user
 	public static Result get(Integer id) {
+		if (Authenticated.isOwnerOf(id)) {
+			
 		return ok(Json.toJson(Incident.find.byId(id)));
+		} else {
+			return forbidden();
+		}
 	}
 	
+	// get all incidents that have no owner
 	public static Result getUnassigned() {
 		return ok(Json.toJson(Incident.findUnassigned()));
 	}

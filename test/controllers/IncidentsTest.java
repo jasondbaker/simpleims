@@ -53,7 +53,7 @@ public class IncidentsTest extends WithApplication {
 			   			.put("description", "The storage system is emitting an alert sound.")
 			   			.put("priority", "2")
 			   			.put("status", "Open")
-			   			.put("email", "brichards@acme.com")
+			   			.put("contactId", "1")
 			   			.build())
 			   );
 			   assertEquals(200, status(result));
@@ -78,7 +78,7 @@ public class IncidentsTest extends WithApplication {
 			   			.put("subject", "Storage system alert")
 			   			.put("description", "The storage system is smoking.")
 			   			.put("priority", "1")
-			   			.put("email", "brichards@acme.com")
+			   			.put("contactId", "1")
 			   			.build())
 			   );
 			   assertEquals(200, status(result));
