@@ -50,7 +50,6 @@ public class IncidentsTest extends WithApplication {
 	   json.put("subject","Storage system alert");
 	   json.put("description", "The storage system is emitting an alert sound.");
 	   json.put("priority", "2");
-	   json.put("status", "Open");
 	   json.put("contactId", "1");
 
 	   Result result = callAction(
@@ -70,25 +69,29 @@ public class IncidentsTest extends WithApplication {
    public void updateIncident() {
 	   
 	   // first step is to find an existing incident and then use that incident id for the update
-	   int testIncidentId = Incident.find.where().eq("owner.username", "jacksmith").eq("subject", "Application error").findUnique().id;
+	   Incident testIncident = Incident.find.where().eq("owner_username", "jacksmith").eq("subject", "Application error").findUnique();
+	   
+	   
+	   ObjectNode json = Json.newObject();
+	   
+	   json.put("username", testIncident.owner.username);
+	   json.put("subject", testIncident.subject);
+	   json.put("description", "The storage system is smoking.");
+	   json.put("priority", "1");
+	   json.put("contactId", testIncident.requester.id);
+	   
 	   
 	   Result result = callAction(
-			   controllers.routes.ref.Incidents.update(testIncidentId),
+			   controllers.routes.ref.Incidents.update(testIncident.id),
 			   fakeRequest().withSession("username", "jacksmith")
-			   	.withFormUrlEncodedBody(
-			   			new ImmutableMap.Builder<String, String>()
-			   			.put("username", "jacksmith")
-			   			.put("subject", "Storage system alert")
-			   			.put("description", "The storage system is smoking.")
-			   			.put("priority", "1")
-			   			.put("contactId", "1")
-			   			.build())
-			   );
-			   assertEquals(200, status(result));
-			   Incident incident = Incident.find.where().eq("subject", "Storage system alert").findUnique();
-			   assertNotNull(incident);
-			   assertEquals("The storage system is smoking.", incident.description);
-			   assertEquals(1, incident.priority);
+			   	.withJsonBody(json));
+	   
+	   
+	   assertEquals(200, status(result));
+	   Incident incident = Incident.find.where().eq("subject", "Application error").findUnique();
+	   assertNotNull(incident);
+	   assertEquals("The storage system is smoking.", incident.description);
+	   assertEquals(1, incident.priority);
    }
     
    @Test

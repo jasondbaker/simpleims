@@ -19,24 +19,26 @@ public class Incidents extends Controller {
 	
 	@BodyParser.Of(BodyParser.Json.class)
 	public static Result add() {
+		// retrieve json from the request body
 		JsonNode json = request().body().asJson();
 	
+		// slice up the json and store values in individual variables
 		JsonNode jsonUsername = json.get("username");
 		JsonNode jsonSubject = json.get("subject");
 		JsonNode jsonDescription = json.get("description");
 		JsonNode jsonPriority = json.get("priority");
-		JsonNode jsonStatus = json.get("status");
 		JsonNode jsonContactId = json.get("contactId");
 		
+		// create a new incident based on the json values
 		Incident newIncident = Incident.create(
 				jsonUsername.asText(),
 				jsonSubject.asText(),
 				jsonDescription.asText(),
 				jsonPriority.asInt(),
-				jsonStatus.asText(),
 				jsonContactId.asInt()
 				);
 		
+		// return the created incident back to the user in json
 		return ok(Json.toJson(newIncident));
 		
 	}
@@ -53,18 +55,32 @@ public class Incidents extends Controller {
 	}
 	
 	// update an existing incident based on the incident id
+	@BodyParser.Of(BodyParser.Json.class)
 	public static Result update(int incident) {
 		if (Authenticated.isOwnerOf(incident)) {
-			return ok(
-					Incident.update(
-						incident,
-						form().bindFromRequest().get("username"),
-						form().bindFromRequest().get("subject"),
-						form().bindFromRequest().get("description"),
-						Integer.parseInt(form().bindFromRequest().get("priority")),
-						Integer.parseInt(form().bindFromRequest().get("contactId"))
-							)
+			
+			// retrieve json from the request body
+			JsonNode json = request().body().asJson();
+		
+			// slice up the json and store values in individual variables
+			JsonNode jsonUsername = json.get("username");
+			JsonNode jsonSubject = json.get("subject");
+			JsonNode jsonDescription = json.get("description");
+			JsonNode jsonPriority = json.get("priority");
+			JsonNode jsonContactId = json.get("contactId");
+			
+			// create a new incident based on the json values
+			Incident updateIncident = Incident.update(
+					incident,
+					jsonUsername.asText(),
+					jsonSubject.asText(),
+					jsonDescription.asText(),
+					jsonPriority.asInt(),
+					jsonContactId.asInt()
 					);
+			
+			return ok(Json.toJson(updateIncident));
+			
 					
 		} else {
 			return forbidden();

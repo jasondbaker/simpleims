@@ -60,7 +60,7 @@ public class Incident extends Model {
 	}
 	
 	// creator method
-	public static Incident create(String username, String subject, String description, int priority, String status, int contactId) {
+	public static Incident create(String username, String subject, String description, int priority, int contactId) {
 		Date startdate = Calendar.getInstance().getTime();
 		Incident incident = new Incident(Agent.find.ref(username), 
 				subject, 
@@ -68,7 +68,7 @@ public class Incident extends Model {
 				startdate,
 				startdate,
 				priority,
-				status,
+				"Open",
 				Contact.find.ref(contactId));
 		incident.save();
 		return incident;
@@ -101,7 +101,7 @@ public class Incident extends Model {
 				
 	}
 	
-	public static String update(int incidentId, String username, String subject, String description, int priority, int contactId) {
+	public static Incident update(int incidentId, String username, String subject, String description, int priority, int contactId) {
 		Incident incident = find.ref(incidentId);
 		incident.owner = Agent.find.ref(username);
 		incident.subject = subject;
@@ -109,6 +109,6 @@ public class Incident extends Model {
 		incident.priority = priority;
 		incident.requester = Contact.find.ref(contactId);
 		incident.update();
-		return subject;
+		return incident;
 	}
 }
