@@ -28,10 +28,12 @@ companies:
   - &company1 !!models.Company
     name:       Acme Corporation
     notes:      A great place to work.
+    website:    www.acmecorporation.com
     
   - &company2 !!models.Company
     name:       The Widget Factory
     notes:      We like to build stuff.
+    website:    www.thewidgetfactory.com
     
 # Addresses
 
@@ -73,7 +75,7 @@ contacts:
       email:      tanya@widgetfactory.com
       fullname:   Tanya Goldberg
       phone:      443-234-2156
-      company:    *company1
+      company:    *company2
                     
 # Incidents
 

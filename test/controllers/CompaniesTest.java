@@ -73,6 +73,75 @@ public class CompaniesTest extends WithApplication {
  	   assertThat(contentAsString(result)).contains("The Widget Factory");
 
     }
+
+    @Test
+    public void getCompanyContactsTest() {
+
+  	   // first step is to find an existing contact and then use that contact id for the test
+  	   Company testCompany = Company.find.where().eq("name", "Acme Corporation").findUnique();
+  	   
+ 	   Result result = callAction(
+ 			   controllers.routes.ref.Companies.getContacts(testCompany.id),
+ 			   fakeRequest().withSession("username", "jacksmith"));
+ 	   
+ 	   
+ 	   assertEquals(200, status(result));
+ 	   assertThat(contentAsString(result)).contains("Bill Richards");
+ 	   assertThat(contentAsString(result)).doesNotContain("Tanya Goldberg");
+
+    }
+ 
+    @Test
+    public void addCompanyContactTest() {
+ 	   
+ 	   // first step is to find an existing contact and then use that contact id for the update
+ 	   Company testCompany = Company.find.where().eq("name", "The Widget Factory").findUnique();
+ 	   
+ 	   ObjectNode json = Json.newObject();
+ 	   
+ 	   json.put("email", "ryan@thewidgetfactory.com");
+ 	   json.put("fullname", "Ryan Robertson");
+ 	   json.put("phone", "712-333-4523");
+	   
+ 	   Result result = callAction(
+ 			   controllers.routes.ref.Companies.addContacts(testCompany.id),
+ 			   fakeRequest().withSession("username", "jacksmith")
+ 			   	.withJsonBody(json));
+ 	   
+ 	   
+ 	   assertEquals(200, status(result));
+ 	   
+ 	   Result result2 = callAction(
+ 			   controllers.routes.ref.Companies.getContacts(testCompany.id),
+ 			   fakeRequest().withSession("username", "jacksmith"));
+ 	   
+ 	   assertEquals(200, status(result2));
+ 	   assertThat(contentAsString(result2)).contains("Ryan Robertson");
+
+    }
+    
+    @Test
+    public void addCompanyTest() {
+ 	   
+ 	   ObjectNode json = Json.newObject();
+ 	   
+ 	   json.put("name", "Standard Products Corp");
+ 	   json.put("notes", "We sell lots of different products.");
+ 	   json.put("website", "www.standardproducts.com");
+	   
+ 	   Result result = callAction(
+ 			   controllers.routes.ref.Companies.add(),
+ 			   fakeRequest().withSession("username", "jacksmith")
+ 			   	.withJsonBody(json));
+ 	   
+ 	   
+ 	   assertEquals(200, status(result));
+
+ 	   Company testCompany = Company.find.where().eq("name", "Standard Products Corp").findUnique();
+ 	   assertNotNull(testCompany);
+ 	   assertEquals(testCompany.name, "Standard Products Corp");
+
+    }
     
     @Test
     public void updateCompanyTest() {
@@ -84,6 +153,7 @@ public class CompaniesTest extends WithApplication {
  	   
  	   json.put("name", testCompany.name);
  	   json.put("notes", "Test note");
+ 	   json.put("website", "www.standardproducts.com");
 	   
  	   Result result = callAction(
  			   controllers.routes.ref.Companies.update(testCompany.id),

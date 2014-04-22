@@ -31,7 +31,7 @@ public class ModelsTest extends WithApplication {
     
     @Test
     public void createAndVerifyCompany() {
-        new Company("Acme Corp", "Great customer").save();
+        new Company("Acme Corp", "Great customer", "www.acmecorporation.com").save();
         Company acme = Company.find.where().eq("name", "Acme Corp").findUnique();
         assertNotNull(acme);
         assertEquals("Acme Corp", acme.name);
@@ -39,7 +39,7 @@ public class ModelsTest extends WithApplication {
     
     @Test
     public void createAndVerifyAddress() {
-        new Company("Acme Corp", "Great customer").save();
+        new Company("Acme Corp", "Great customer", "www.acmecorporation.com").save();
         Company acme = Company.find.where().eq("name", "Acme Corp").findUnique();
         new Address("123 Way Lane", "Suite 100", "Minneapolis", "MN", "55401", acme).save();
         
@@ -51,7 +51,7 @@ public class ModelsTest extends WithApplication {
     
     @Test
     public void createAndVerifyContact() {
-    	Company acme = new Company("Acme Corp", "Great customer");
+    	Company acme = new Company("Acme Corp", "Great customer", "www.acmecorporation.com");
         acme.save();
         new Address("123 Way Lane", "Suite 100", "Minneapolis", "MN", "55401", acme).save();
         
@@ -68,7 +68,7 @@ public class ModelsTest extends WithApplication {
     	Agent agent = new Agent("jsmith", "group123", "John Smith", "john@smith.com");
         agent.save();
         
-    	Company company = new Company("Acme Corp", "Great customer");
+    	Company company = new Company("Acme Corp", "Great customer", "www.acmecorporation.com");
         company.save();
         new Address("123 Way Lane", "Suite 100", "Minneapolis", "MN", "55401", company).save();
         
@@ -90,7 +90,7 @@ public class ModelsTest extends WithApplication {
     	Agent agent = new Agent("jsmith", "group123", "John Smith", "john@smith.com");
         agent.save();
         
-    	Company company = new Company("Acme Corp", "Great customer");
+    	Company company = new Company("Acme Corp", "Great customer", "www.acmecorporation.com");
         company.save();
         new Address("123 Way Lane", "Suite 100", "Minneapolis", "MN", "55401", company).save();
         
@@ -128,7 +128,7 @@ public class ModelsTest extends WithApplication {
     	Agent agent = new Agent("jsmith", "group123", "John Smith", "john@smith.com");
         agent.save();
         
-    	Company company = new Company("Acme Corp", "Great customer");
+    	Company company = new Company("Acme Corp", "Great customer", "www.acmecorporation.com");
         company.save();
         new Address("123 Way Lane", "Suite 100", "Minneapolis", "MN", "55401", company).save();
         
