@@ -23,7 +23,24 @@ public class Companies extends Controller {
 			Company.find.byId(id).delete();
 			return ok();
 	}
-		
+	
+	// get a list of all companies
+	public static Result list() {
+		return ok(Json.toJson(Company.find.all()));
+	}
+	
+	// get information for a specific company
+	public static Result get(Integer id) {
+			
+		return ok(Json.toJson(Company.find.byId(id)));
+
+	}
+	
+	// get contacts for a specific company
+	public static Result getContacts(Integer id) {
+		return ok(Json.toJson(Contact.find.where().eq("company_id", id).findList()));
+	}
+	
 	// update an existing company based on the company id
 	@BodyParser.Of(BodyParser.Json.class)
 	public static Result update(int id) {
@@ -45,17 +62,4 @@ public class Companies extends Controller {
 		return ok(Json.toJson(updateCompany));
 			
 	}
-	
-	// get a list of all companies
-	public static Result list() {
-		return ok(Json.toJson(Company.find.all()));
-	}
-	
-	// get information for a specific company
-	public static Result get(Integer id) {
-			
-		return ok(Json.toJson(Company.find.byId(id)));
-
-	}
-	
 }

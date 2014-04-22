@@ -73,6 +73,23 @@ public class CompaniesTest extends WithApplication {
  	   assertThat(contentAsString(result)).contains("The Widget Factory");
 
     }
+
+    @Test
+    public void getCompanyContactsTest() {
+
+  	   // first step is to find an existing contact and then use that contact id for the test
+  	   Company testCompany = Company.find.where().eq("name", "Acme Corporation").findUnique();
+  	   
+ 	   Result result = callAction(
+ 			   controllers.routes.ref.Companies.getContacts(testCompany.id),
+ 			   fakeRequest().withSession("username", "jacksmith"));
+ 	   
+ 	   
+ 	   assertEquals(200, status(result));
+ 	   assertThat(contentAsString(result)).contains("Bill Richards");
+ 	   assertThat(contentAsString(result)).doesNotContain("Tanya Goldberg");
+
+    }
     
     @Test
     public void updateCompanyTest() {

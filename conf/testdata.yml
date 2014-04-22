@@ -73,7 +73,7 @@ contacts:
       email:      tanya@widgetfactory.com
       fullname:   Tanya Goldberg
       phone:      443-234-2156
-      company:    *company1
+      company:    *company2
                     
 # Incidents
 
