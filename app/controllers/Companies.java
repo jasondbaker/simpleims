@@ -7,6 +7,8 @@ import static play.data.Form.*;
 
 import java.util.*;
 
+import com.fasterxml.jackson.databind.JsonNode;
+
 import models.*;
 import views.html.*;
 import play.libs.Json;
@@ -21,17 +23,27 @@ public class Companies extends Controller {
 			Company.find.byId(id).delete();
 			return ok();
 	}
-	
+		
 	// update an existing company based on the company id
+	@BodyParser.Of(BodyParser.Json.class)
 	public static Result update(int id) {
-			return ok(
-					Company.update(
-						id,
-						form().bindFromRequest().get("name"),
-						form().bindFromRequest().get("notes")
-							)
-					);
 
+		// retrieve json from the request body
+		JsonNode json = request().body().asJson();
+	
+		// slice up the json and store values in individual variables
+		JsonNode jsonName = json.get("name");
+		JsonNode jsonNotes = json.get("notes");
+		
+		// update company based on the json values
+		Company updateCompany = Company.update(
+				id,
+				jsonName.asText(),
+				jsonNotes.asText()
+				);
+		
+		return ok(Json.toJson(updateCompany));
+			
 	}
 	
 	// get a list of all companies

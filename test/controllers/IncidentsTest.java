@@ -2,6 +2,7 @@ package controllers;
 
 import org.junit.*;
 
+import static org.fest.assertions.Assertions.assertThat;
 import static org.junit.Assert.*;
 
 import java.util.*;
@@ -41,9 +42,49 @@ public class IncidentsTest extends WithApplication {
     	// Insert incidents 
     	Ebean.save(all.get("actions"));
     }
+
+    @Test
+    public void getIncidentTest() {
+ 	   
+ 	   // first step is to find an existing incident and then use that incident id for the update
+ 	   Incident testIncident = Incident.find.where().eq("owner_username", "jacksmith").eq("subject", "Forgot password").findUnique();
+ 	     
+ 	   Result result = callAction(
+ 			   controllers.routes.ref.Incidents.get(testIncident.id),
+ 			   fakeRequest().withSession("username", "jacksmith")); 
+ 	   
+ 	   assertEquals(200, status(result));
+ 	   assertThat(contentAsString(result)).contains("Forgot password");
+
+    }
+
+    @Test
+    public void getAllIncidentsTest() {
+ 	   
+ 	   Result result = callAction(
+ 			   controllers.routes.ref.Incidents.getOwned(),
+ 			   fakeRequest().withSession("username", "jacksmith")); 
+ 	   
+ 	   assertEquals(200, status(result));
+ 	   assertThat(contentAsString(result)).contains("Forgot password");
+ 	   assertThat(contentAsString(result)).contains("Application error");
+
+    }
+    
+    @Test
+    public void getUnassignedIncidentsTest() {
+ 	   
+ 	   Result result = callAction(
+ 			   controllers.routes.ref.Incidents.getUnassigned(),
+ 			   fakeRequest().withSession("username", "jacksmith")); 
+ 	   
+ 	   assertEquals(200, status(result));
+ 	   assertThat(contentAsString(result)).contains("Application database queries are responding slowly");
+
+    }
     
    @Test
-   public void newIncident() {
+   public void newIncidentTest() {
 	   
 	   ObjectNode json = Json.newObject();
 	   json.put("username", "jacksmith");
@@ -66,7 +107,7 @@ public class IncidentsTest extends WithApplication {
    }
    
    @Test
-   public void updateIncident() {
+   public void updateIncidentTest() {
 	   
 	   // first step is to find an existing incident and then use that incident id for the update
 	   Incident testIncident = Incident.find.where().eq("owner_username", "jacksmith").eq("subject", "Application error").findUnique();
@@ -95,7 +136,7 @@ public class IncidentsTest extends WithApplication {
    }
     
    @Test
-   public void deleteIncident() {
+   public void deleteIncidentTest() {
 	   
 	   // first step is to find an existing incident and then use that incident id for the delete
 	   int testIncidentId = Incident.find.where().eq("owner.username", "jacksmith").eq("subject", "Application error").findUnique().id;

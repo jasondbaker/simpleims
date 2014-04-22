@@ -69,7 +69,7 @@ public class Incidents extends Controller {
 			JsonNode jsonPriority = json.get("priority");
 			JsonNode jsonContactId = json.get("contactId");
 			
-			// create a new incident based on the json values
+			// update incident based on the json values
 			Incident updateIncident = Incident.update(
 					incident,
 					jsonUsername.asText(),

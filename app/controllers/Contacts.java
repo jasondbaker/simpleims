@@ -7,6 +7,8 @@ import static play.data.Form.*;
 
 import java.util.*;
 
+import com.fasterxml.jackson.databind.JsonNode;
+
 import models.*;
 import views.html.*;
 import play.libs.Json;
@@ -15,24 +17,35 @@ import play.libs.Json;
 public class Contacts extends Controller {
 
 
-	// delete an existing contact based on the contact email
+	// delete an existing contact based on the contact id
 	public static Result delete(int id) {
 
 			Contact.find.byId(id).delete();
 			return ok();
 	}
-	
-	// update an existing contact based on the contact email
+		
+	// update an existing contact based on the contact id
+	@BodyParser.Of(BodyParser.Json.class)
 	public static Result update(int id) {
-			return ok(
-					Contact.update(
-						id,
-						form().bindFromRequest().get("email"),
-						form().bindFromRequest().get("fullname"),
-						form().bindFromRequest().get("phone")
-							)
-					);
 
+		// retrieve json from the request body
+		JsonNode json = request().body().asJson();
+	
+		// slice up the json and store values in individual variables
+		JsonNode jsonEmail = json.get("email");
+		JsonNode jsonFullname = json.get("fullname");
+		JsonNode jsonPhone = json.get("phone");
+		
+		// update contact based on the json values
+		Contact updateContact = Contact.update(
+				id,
+				jsonEmail.asText(),
+				jsonFullname.asText(),
+				jsonPhone.asText()
+				);
+		
+		return ok(Json.toJson(updateContact));
+			
 	}
 	
 	// get a list of all contacts

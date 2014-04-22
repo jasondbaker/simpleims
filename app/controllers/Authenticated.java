@@ -2,15 +2,23 @@ package controllers;
 
 import play.*;
 import play.mvc.*;
+import play.data.*;
+import static play.data.Form.*;
+import models.*;
+import views.html.*;
+
 import play.mvc.Http.*;
 
-import models.*;
+
 
 public class Authenticated extends Security.Authenticator {
 
 	// get the username of the user from the current session variable
-    @Override
+    @Override  
     public String getUsername(Context ctx) {
+    	
+    	//see if user is logged in
+    	if (ctx.session().get("username") == null) return null;
         return ctx.session().get("username");
     }
 
