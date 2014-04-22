@@ -86,6 +86,44 @@ public class ModelsTest extends WithApplication {
     }
     
     @Test
+    public void closeAndReopenIncident() {
+    	Agent agent = new Agent("jsmith", "group123", "John Smith", "john@smith.com");
+        agent.save();
+        
+    	Company company = new Company("Acme Corp", "Great customer");
+        company.save();
+        new Address("123 Way Lane", "Suite 100", "Minneapolis", "MN", "55401", company).save();
+        
+        Contact contact = new Contact("bob@jones.com", "Bob Jones", "612-222-3333", company);
+        contact.save();
+        
+        Incident incident = Incident.create(agent.username, "Datacenter alarm", "Alarm siren is going off in the datacenter.", 2, contact.id);
+        incident.save();
+    	
+        Incident test = Incident.find.where().eq("owner_username", agent.username).eq("description", incident.description).findUnique();
+        
+        assertNotNull(test);
+        assertEquals("Datacenter alarm", test.subject);
+        
+        // close incident
+        Incident closedIncident = Incident.close(test.id, "jsmith");
+        
+        assertNotNull(closedIncident);
+        assertEquals("Closed", closedIncident.status);
+        
+        Action action = Action.find.where().eq("incident_id", closedIncident.id).findUnique();
+        
+        assertNotNull(action);
+        assertEquals("The incident was closed.", action.description);
+       
+        // reopen incident
+        Incident reopenIncident = Incident.reopen(test.id, "jsmith");
+        
+        assertNotNull(reopenIncident);
+        assertEquals("Open", reopenIncident.status);
+    }
+    
+    @Test
     public void createAndVerifyAction() {
     	Agent agent = new Agent("jsmith", "group123", "John Smith", "john@smith.com");
         agent.save();
