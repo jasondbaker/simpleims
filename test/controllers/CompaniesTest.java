@@ -121,6 +121,29 @@ public class CompaniesTest extends WithApplication {
     }
     
     @Test
+    public void addCompanyTest() {
+ 	   
+ 	   ObjectNode json = Json.newObject();
+ 	   
+ 	   json.put("name", "Standard Products Corp");
+ 	   json.put("notes", "We sell lots of different products.");
+ 	   json.put("website", "www.standardproducts.com");
+	   
+ 	   Result result = callAction(
+ 			   controllers.routes.ref.Companies.add(),
+ 			   fakeRequest().withSession("username", "jacksmith")
+ 			   	.withJsonBody(json));
+ 	   
+ 	   
+ 	   assertEquals(200, status(result));
+
+ 	   Company testCompany = Company.find.where().eq("name", "Standard Products Corp").findUnique();
+ 	   assertNotNull(testCompany);
+ 	   assertEquals(testCompany.name, "Standard Products Corp");
+
+    }
+    
+    @Test
     public void updateCompanyTest() {
  	   
  	   // first step is to find an existing contact and then use that contact id for the update
@@ -130,6 +153,7 @@ public class CompaniesTest extends WithApplication {
  	   
  	   json.put("name", testCompany.name);
  	   json.put("notes", "Test note");
+ 	   json.put("website", "www.standardproducts.com");
 	   
  	   Result result = callAction(
  			   controllers.routes.ref.Companies.update(testCompany.id),

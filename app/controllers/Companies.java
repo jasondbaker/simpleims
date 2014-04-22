@@ -17,6 +17,28 @@ import play.libs.Json;
 public class Companies extends Controller {
 
 	@BodyParser.Of(BodyParser.Json.class)
+	public static Result add() {
+		// retrieve json from the request body
+		JsonNode json = request().body().asJson();
+	
+		// slice up the json and store values in individual variables
+		JsonNode jsonName = json.get("name");
+		JsonNode jsonNotes = json.get("notes");
+		JsonNode jsonWebsite = json.get("website");
+		
+		// create a new company based on the json values
+		Company newCompany = Company.create(
+				jsonName.asText(),
+				jsonNotes.asText(),
+				jsonWebsite.asText()
+				);
+		
+		// return the created incident back to the user in json
+		return ok(Json.toJson(newCompany));
+		
+	}
+	
+	@BodyParser.Of(BodyParser.Json.class)
 	public static Result addContacts(Integer id) {
 		// retrieve json from the request body
 		JsonNode json = request().body().asJson();
@@ -73,12 +95,14 @@ public class Companies extends Controller {
 		// slice up the json and store values in individual variables
 		JsonNode jsonName = json.get("name");
 		JsonNode jsonNotes = json.get("notes");
+		JsonNode jsonWebsite = json.get("website");
 		
 		// update company based on the json values
 		Company updateCompany = Company.update(
 				id,
 				jsonName.asText(),
-				jsonNotes.asText()
+				jsonNotes.asText(),
+				jsonWebsite.asText()
 				);
 		
 		return ok(Json.toJson(updateCompany));

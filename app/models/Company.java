@@ -17,16 +17,18 @@ public class Company extends Model {
 	public int id;
 	public String name;
 	public String notes;
+	public String website;
 	
 	// constructor
-	public Company(String name, String notes){
+	public Company(String name, String notes, String website){
 		this.name = name;
 		this.notes = notes;
+		this.website = website;
 	}
 	
 	// creator
-	public static Company create(String name, String notes){
-		Company company = new Company(name, notes);
+	public static Company create(String name, String notes, String website){
+		Company company = new Company(name, notes, website);
 		company.save();
 		return company;
 	}
@@ -37,10 +39,11 @@ public class Company extends Model {
 			);
 
 	//update
-	public static Company update(int id, String name, String notes) {
+	public static Company update(int id, String name, String notes, String website) {
 		Company company = find.byId(id);
 		company.name = name;
 		company.notes = notes;
+		company.website = website;
 		company.update();
 		return company;
 	}

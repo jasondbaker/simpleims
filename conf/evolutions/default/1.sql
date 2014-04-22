@@ -35,6 +35,7 @@ create table company (
   id                        integer not null,
   name                      varchar(255),
   notes                     varchar(255),
+  website                   varchar(255),
   constraint pk_company primary key (id))
 ;
 
