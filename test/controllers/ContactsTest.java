@@ -75,6 +75,22 @@ public class ContactsTest extends WithApplication {
     }
     
     @Test
+    public void getContactIncidentsTest() {
+ 	   
+ 	   // first step is to find an existing contact and then use that contact id for the test
+ 	   Contact testContact = Contact.find.where().eq("fullname", "Beth Goodwin").findUnique();
+ 	   
+ 	   Result result = callAction(
+ 			   controllers.routes.ref.Contacts.getIncidents(testContact.id),
+ 			   fakeRequest().withSession("username", "jacksmith"));
+ 	   
+ 	   
+ 	   assertEquals(200, status(result));
+ 	   assertThat(contentAsString(result)).contains("Forgot password");
+
+    }
+    
+    @Test
     public void updateContactTest() {
  	   
  	   // first step is to find an existing contact and then use that contact id for the update

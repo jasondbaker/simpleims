@@ -60,4 +60,10 @@ public class Contacts extends Controller {
 
 	}
 	
+	// get incidents associated with a specific contact
+	public static Result getIncidents(Integer id) {
+			
+		return ok(Json.toJson(Incident.find.where().eq("requester_id", id).findList()));
+
+	}
 }
