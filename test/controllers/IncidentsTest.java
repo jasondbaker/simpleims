@@ -189,6 +189,7 @@ public class IncidentsTest extends WithApplication {
 	   	
 	   Incident reopenedIncident = Incident.find.byId(testIncidentId);
 	   assertEquals("Open", reopenedIncident.status);
+	   assertEquals(1, reopenedIncident.priority);
 	   
    }
     

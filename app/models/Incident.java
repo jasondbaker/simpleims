@@ -119,6 +119,8 @@ public class Incident extends Model {
 	public static Incident reopen(int incidentId, String username) {
 		Incident incident = find.ref(incidentId);
 		incident.status = "Open";
+		// set re-opened incidents to the highest priority
+		incident.priority = 1;
 		incident.update();
 		Action.create(
 				username,

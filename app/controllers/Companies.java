@@ -85,6 +85,12 @@ public class Companies extends Controller {
 		return ok(Json.toJson(Contact.find.where().eq("company_id", id).findList()));
 	}
 	
+	// get incidents associated with a specific company
+	public static Result getIncidents(Integer id) {
+		//stub this method
+		return ok();
+	}
+	
 	// update an existing company based on the company id
 	@BodyParser.Of(BodyParser.Json.class)
 	public static Result update(int id) {

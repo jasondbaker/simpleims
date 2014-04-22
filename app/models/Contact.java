@@ -8,6 +8,7 @@ import play.data.format.*;
 import play.data.validation.*;
 
 import com.avaje.ebean.*;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 // A Contact represents a person that uses the provider's product or service
 @Entity
@@ -19,6 +20,7 @@ public class Contact extends Model {
 	public String fullname;
 	public String phone;
 	@ManyToOne
+	@JsonBackReference
 	public Company company;
 	
 	//constructor
