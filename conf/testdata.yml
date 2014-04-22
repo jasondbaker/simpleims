@@ -87,7 +87,7 @@ incidents:
       startdate:  "2014-04-07 11:02:05"
       enddate:    "2014-04-07 11:02:05"
       priority:   3
-      status:     Open
+      status:     "Open"
       requester:  *contact1
 
   - &incident2 !!models.Incident
@@ -98,7 +98,7 @@ incidents:
       startdate:  "2014-04-08 17:22:11"
       enddate:    "2014-04-08 17:22:11"
       priority:   2
-      status:     Open
+      status:     "Open"
       requester:  *contact2
 
   - &incident3 !!models.Incident
@@ -109,7 +109,7 @@ incidents:
       startdate:  "2014-04-09 09:13:33"
       enddate:    "2014-04-09 09:13:33"
       priority:   1
-      status:     Open
+      status:     "Open"
       requester:  *contact3 
 
   - &incident4 !!models.Incident
@@ -120,7 +120,7 @@ incidents:
       startdate:  "2014-04-06 13:01:15"
       enddate:    "2014-04-06 13:01:15"
       priority:   3
-      status:     Open
+      status:     "Open"
       requester:  *contact1
                                
   - &incident5 !!models.Incident
@@ -130,7 +130,7 @@ incidents:
       startdate:  "2014-04-11 07:41:25"
       enddate:    "2014-04-11 07:41:25"
       priority:   2
-      status:     Open
+      status:     "Open"
       requester:  *contact1 
                                         
 # Actions
