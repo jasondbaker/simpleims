@@ -16,7 +16,29 @@ import play.libs.Json;
 @Security.Authenticated(Authenticated.class)
 public class Companies extends Controller {
 
-
+	@BodyParser.Of(BodyParser.Json.class)
+	public static Result addContacts(Integer id) {
+		// retrieve json from the request body
+		JsonNode json = request().body().asJson();
+	
+		// slice up the json and store values in individual variables
+		JsonNode jsonEmail = json.get("email");
+		JsonNode jsonFullname = json.get("fullname");
+		JsonNode jsonPhone = json.get("phone");
+		
+		// create a new contact based on the json values
+		Contact newContact = Contact.create(
+				jsonEmail.asText(),
+				jsonFullname.asText(),
+				jsonPhone.asText(),
+				id
+				);
+		
+		// return the created incident back to the user in json
+		return ok(Json.toJson(newContact));
+		
+	}
+	
 	// delete an existing company based on the company id
 	public static Result delete(int id) {
 

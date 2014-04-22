@@ -29,6 +29,13 @@ public class Contact extends Model {
 		this.company = company;
 	}
 	
+	public static Contact create(String email, String fullname, String phone, int companyId) {
+		Company company = Company.find.byId(companyId);
+		Contact contact = new Contact(email, fullname, phone, company);
+		contact.save();
+		return contact;
+	}
+	
 	//create a find method for data queries
 	public static Finder<Integer, Contact> find = new Finder<Integer, Contact>(
 			Integer.class, Contact.class

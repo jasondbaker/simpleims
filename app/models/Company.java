@@ -24,6 +24,13 @@ public class Company extends Model {
 		this.notes = notes;
 	}
 	
+	// creator
+	public static Company create(String name, String notes){
+		Company company = new Company(name, notes);
+		company.save();
+		return company;
+	}
+	
 	//create a find method for data queries
 	public static Finder<Integer, Company> find = new Finder<Integer, Company>(
 			Integer.class, Company.class

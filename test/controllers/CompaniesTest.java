@@ -90,6 +90,35 @@ public class CompaniesTest extends WithApplication {
  	   assertThat(contentAsString(result)).doesNotContain("Tanya Goldberg");
 
     }
+ 
+    @Test
+    public void addCompanyContactTest() {
+ 	   
+ 	   // first step is to find an existing contact and then use that contact id for the update
+ 	   Company testCompany = Company.find.where().eq("name", "The Widget Factory").findUnique();
+ 	   
+ 	   ObjectNode json = Json.newObject();
+ 	   
+ 	   json.put("email", "ryan@thewidgetfactory.com");
+ 	   json.put("fullname", "Ryan Robertson");
+ 	   json.put("phone", "712-333-4523");
+	   
+ 	   Result result = callAction(
+ 			   controllers.routes.ref.Companies.addContacts(testCompany.id),
+ 			   fakeRequest().withSession("username", "jacksmith")
+ 			   	.withJsonBody(json));
+ 	   
+ 	   
+ 	   assertEquals(200, status(result));
+ 	   
+ 	   Result result2 = callAction(
+ 			   controllers.routes.ref.Companies.getContacts(testCompany.id),
+ 			   fakeRequest().withSession("username", "jacksmith"));
+ 	   
+ 	   assertEquals(200, status(result2));
+ 	   assertThat(contentAsString(result2)).contains("Ryan Robertson");
+
+    }
     
     @Test
     public void updateCompanyTest() {

@@ -16,6 +16,7 @@ GET		/companies					controllers.Companies.list()
 GET		/companies/:id				controllers.Companies.get(id: Integer)
 GET		/companies/:id/contacts		controllers.Companies.getContacts(id: Integer)
 POST	/companies/:id				controllers.Companies.update(id: Integer)
+POST	/companies/:id/contacts		controllers.Companies.addContacts(id: Integer)		
 DELETE	/companies/:id				controllers.Companies.delete(id: Integer)
 
 # Contacts
