@@ -35,11 +35,12 @@ public class Contact extends Model {
 			);
 	
 	//update
-	public static String update(int id, String email, String fullname, String phone) {
+	public static Contact update(int id, String email, String fullname, String phone) {
 		Contact contact = find.byId(id);
 		contact.email = email;
 		contact.fullname = fullname;
 		contact.phone = phone;
-		return email;
+		contact.update();
+		return contact;
 	}
 }

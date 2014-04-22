@@ -30,11 +30,12 @@ public class Company extends Model {
 			);
 
 	//update
-	public static String update(int id, String name, String notes) {
+	public static Company update(int id, String name, String notes) {
 		Company company = find.byId(id);
 		company.name = name;
 		company.notes = notes;
-		return name;
+		company.update();
+		return company;
 	}
 	
 }

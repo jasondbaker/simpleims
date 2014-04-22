@@ -20,7 +20,7 @@ public class Application extends Controller {
 		}
 	}
 	
-	// display the dashboard page
+	// display the main page
 	@Security.Authenticated(Authenticated.class)
     public static Result index() {
         return ok(index.render(

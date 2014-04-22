@@ -2,17 +2,25 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
-# Dashboard page
+# Home page
 GET     /                           controllers.Application.index()
+
+# Agents
+GET		/agents						controllers.Agents.list()
+GET		/login						controllers.Application.login()
+GET		/logout						controllers.Application.logout()
+POST	/login						controllers.Application.authenticate()
 
 # Companies
 GET		/companies					controllers.Companies.list()
 GET		/companies/:id				controllers.Companies.get(id: Integer)
+POST	/companies/:id				controllers.Companies.update(id: Integer)
 DELETE	/companies/:id				controllers.Companies.delete(id: Integer)
 
 # Contacts
 GET		/contacts					controllers.Contacts.list()
 GET		/contacts/:id				controllers.Contacts.get(id: Integer)
+POST	/contacts/:id				controllers.Contacts.update(id: Integer)
 DELETE	/contacts/:id				controllers.Contacts.delete(id: Integer)
 
 # Incidents 
@@ -24,12 +32,6 @@ POST	/incidents/:id/close		controllers.Incidents.close(id: Integer)
 POST	/incidents					controllers.Incidents.add()
 POST	/incidents/:incident		controllers.Incidents.update(incident: Integer)
 DELETE	/incidents/:incident		controllers.Incidents.delete(incident: Integer)
-
-
-# User authentication
-GET		/login						controllers.Application.login()
-POST	/login						controllers.Application.authenticate()
-GET		/logout						controllers.Application.logout()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
