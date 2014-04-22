@@ -43,12 +43,32 @@ public class Incidents extends Controller {
 		
 	}
 
+	// close an incident based on the incident id
+	public static Result close(int incidentId) {
+		if (Authenticated.isOwnerOf(incidentId)) {
+			Incident.close(incidentId, request().username());
+			return ok();
+		} else {
+			return forbidden();
+		}
+	}
+	
 	// delete an existing incident based on the incident id
 	public static Result delete(int incident) {
 		if (Authenticated.isOwnerOf(incident)) {
 			Incident.find.ref(incident).delete();
 			return ok();
 				
+		} else {
+			return forbidden();
+		}
+	}
+	
+	// close an incident based on the incident id
+	public static Result reopen(int incidentId) {
+		if (Authenticated.isOwnerOf(incidentId)) {
+			Incident.reopen(incidentId, request().username());
+			return ok();
 		} else {
 			return forbidden();
 		}
