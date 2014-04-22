@@ -83,6 +83,21 @@ public class IncidentsTest extends WithApplication {
 
     }
     
+    @Test
+    public void getIncidentActionsTest() {
+
+  	   // first step is to find an existing incident and then use that incident id for the update
+  	   Incident testIncident = Incident.find.where().eq("owner_username", "jacksmith").eq("subject", "Application error").findUnique();
+  
+ 	   Result result = callAction(
+ 			   controllers.routes.ref.Incidents.getActions(testIncident.id),
+ 			   fakeRequest().withSession("username", "jacksmith")); 
+ 	   
+ 	   assertEquals(200, status(result));
+ 	   assertThat(contentAsString(result)).contains("process to reproduce the application failure");
+ 	   assertThat(contentAsString(result)).contains("now seeing a different error");
+    }
+    
    @Test
    public void newIncidentTest() {
 	   
