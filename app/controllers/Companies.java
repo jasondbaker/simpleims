@@ -63,8 +63,15 @@ public class Companies extends Controller {
 	
 	// delete an existing company based on the company id
 	// disable the record, don't delete the data because we need it for reporting
+	// also, disable the associated contacts
 	public static Result delete(int id) {
 
+			// get the list of contacts associated with the company and delete (de-active) them
+			List<Contact> contacts = Contact.find.where().eq("company_id", id).findList();
+			for (Contact contact : contacts) {
+				Contact.delete(contact.id);
+			}
+			
 			if(Company.delete(id)) {
 				return ok();
 			} else {
