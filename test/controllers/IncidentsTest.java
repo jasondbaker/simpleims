@@ -93,6 +93,48 @@ public class IncidentsTest extends WithApplication {
 	   assertEquals("The storage system is smoking.", incident.description);
 	   assertEquals(1, incident.priority);
    }
+   
+   
+   @Test
+   public void closeIncident() {
+	   int testIncidentId = Incident.find.where().eq("owner.username", "jacksmith").eq("subject", "Application error").findUnique().id;
+	    
+	   Result result = callAction(
+			   controllers.routes.ref.Incidents.close(testIncidentId),
+			   fakeRequest().withSession("username", "jacksmith")
+			   );
+	   
+	   Incident closedIncident = Incident.find.byId(testIncidentId);
+	   assertEquals("Closed", closedIncident.status);
+   }
+   
+   @Test
+   public void reopenIncident() {
+	   int testIncidentId = Incident.find.where().eq("owner.username", "jacksmith").eq("subject", "Application error").findUnique().id;
+	   
+	   // request to close the incident
+	   Result result = callAction(
+			   controllers.routes.ref.Incidents.close(testIncidentId),
+			   fakeRequest().withSession("username", "jacksmith")
+			   );
+	   
+	   assertEquals(200, status(result));
+	   
+	   Incident closedIncident = Incident.find.byId(testIncidentId);
+	   assertEquals("Closed", closedIncident.status);
+	   
+	   // request to reopen incident
+	   result = callAction(
+			   controllers.routes.ref.Incidents.reopen(testIncidentId),
+			   fakeRequest().withSession("username", "jacksmith")
+			   );
+
+	   assertEquals(200, status(result));
+	   	
+	   Incident reopenedIncident = Incident.find.byId(testIncidentId);
+	   assertEquals("Open", reopenedIncident.status);
+	   
+   }
     
    @Test
    public void deleteIncident() {

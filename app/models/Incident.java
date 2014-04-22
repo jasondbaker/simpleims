@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import play.data.format.*;
 import play.data.validation.*;
+import play.mvc.Http.Context;
 
 import java.util.*;
 
@@ -59,6 +60,19 @@ public class Incident extends Model {
 		
 	}
 	
+	// close incident by changing the status to closed and setting the enddate
+	public static Incident close(int incidentId) {
+		Incident incident = find.ref(incidentId);
+		incident.status = "Closed";
+		incident.enddate = Calendar.getInstance().getTime();
+		incident.update();
+		Action.create(
+				Context.current().request().username(),
+				"The ticket was closed", 
+				incidentId);
+		return incident;
+	}
+	
 	// creator method
 	public static Incident create(String username, String subject, String description, int priority, int contactId) {
 		Date startdate = Calendar.getInstance().getTime();
@@ -99,6 +113,18 @@ public class Incident extends Model {
 				.eq("owner.username", username)
 				.findRowCount() > 0;
 				
+	}
+	
+	// re-open incident
+	public static Incident reopen(int incidentId) {
+		Incident incident = find.ref(incidentId);
+		incident.status = "Open";
+		incident.update();
+		Action.create(
+				Context.current().request().username(),
+				"The ticket was re-opened.", 
+				incidentId);
+		return incident;
 	}
 	
 	public static Incident update(int incidentId, String username, String subject, String description, int priority, int contactId) {

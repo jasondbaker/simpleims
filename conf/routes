@@ -19,9 +19,12 @@ DELETE	/contacts/:id				controllers.Contacts.delete(id: Integer)
 GET		/incidents					controllers.Incidents.getOwned()
 GET		/incidents/unassigned		controllers.Incidents.getUnassigned()
 GET		/incidents/:id				controllers.Incidents.get(id: Integer)
+POST	/incidents/:id/reopen		controllers.Incidents.reopen(id: Integer)
+POST	/incidents/:id/close		controllers.Incidents.close(id: Integer)
 POST	/incidents					controllers.Incidents.add()
+POST	/incidents/:incident		controllers.Incidents.update(incident: Integer)
 DELETE	/incidents/:incident		controllers.Incidents.delete(incident: Integer)
-PUT		/incidents/:incident		controllers.Incidents.update(incident: Integer)
+
 
 # User authentication
 GET		/login						controllers.Application.login()
