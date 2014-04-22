@@ -6,7 +6,9 @@ import play.db.ebean.*;
 import play.db.ebean.Model.Finder;
 import play.data.format.*;
 import play.data.validation.*;
+
 import com.avaje.ebean.*;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 // An address represents a geographical location
 @Entity
@@ -20,7 +22,8 @@ public class Address extends Model {
 	public String state;
 	public String zipcode;
 	
-	@OneToOne
+	@ManyToOne
+	@JsonBackReference
 	public Company company;
 	
 	// constructor
