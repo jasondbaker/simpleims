@@ -102,6 +102,11 @@ public class Companies extends Controller {
 		return ok();
 	}
 	
+	// get addresses associated with a specific company
+	public static Result getAddresses(Integer id) {
+		return ok(Json.toJson(Address.find.where().eq("company_id", id).findList()));
+	}
+	
 	// update an existing company based on the company id
 	@BodyParser.Of(BodyParser.Json.class)
 	public static Result update(int id) {
