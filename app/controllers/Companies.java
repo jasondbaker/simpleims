@@ -62,15 +62,19 @@ public class Companies extends Controller {
 	}
 	
 	// delete an existing company based on the company id
+	// disable the record, don't delete the data because we need it for reporting
 	public static Result delete(int id) {
 
-			Company.find.byId(id).delete();
-			return ok();
+			if(Company.delete(id)) {
+				return ok();
+			} else {
+				return badRequest();
+			}
 	}
 	
-	// get a list of all companies
+	// get a list of all active companies
 	public static Result list() {
-		return ok(Json.toJson(Company.find.all()));
+		return ok(Json.toJson(Company.find.where().eq("active", true).findList()));
 	}
 	
 	// get information for a specific company
@@ -83,6 +87,12 @@ public class Companies extends Controller {
 	// get contacts for a specific company
 	public static Result getContacts(Integer id) {
 		return ok(Json.toJson(Contact.find.where().eq("company_id", id).findList()));
+	}
+	
+	// get incidents associated with a specific company
+	public static Result getIncidents(Integer id) {
+		//stub this method
+		return ok();
 	}
 	
 	// update an existing company based on the company id

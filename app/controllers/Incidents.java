@@ -10,6 +10,7 @@ import java.util.*;
 import com.fasterxml.jackson.databind.JsonNode;
 
 import models.*;
+import models.Action;
 import views.html.*;
 import play.libs.Json;
 
@@ -63,6 +64,31 @@ public class Incidents extends Controller {
 			return forbidden();
 		}
 	}
+
+	// get a list of all actions associated with an incident
+	public static Result getActions(Integer id) {
+		return ok(Json.toJson(Action.find.where().eq("incident_id",id).findList()));
+	}
+	
+	// get a list of all incidents owned by the user
+	public static Result getOwned() {
+		return ok(Json.toJson(Incident.findByOwner(request().username())));
+	}
+	
+	// get information for a specific incident owned by the user
+	public static Result get(Integer id) {
+		if (Authenticated.isOwnerOf(id)) {
+			
+		return ok(Json.toJson(Incident.find.byId(id)));
+		} else {
+			return forbidden();
+		}
+	}
+	
+	// get all incidents that have no owner
+	public static Result getUnassigned() {
+		return ok(Json.toJson(Incident.findUnassigned()));
+	}
 	
 	// close an incident based on the incident id
 	public static Result reopen(int incidentId) {
@@ -108,23 +134,4 @@ public class Incidents extends Controller {
 		}
 	}
 	
-	// get a list of all incidents owned by the user
-	public static Result getOwned() {
-		return ok(Json.toJson(Incident.findByOwner(request().username())));
-	}
-	
-	// get information for a specific incident owned by the user
-	public static Result get(Integer id) {
-		if (Authenticated.isOwnerOf(id)) {
-			
-		return ok(Json.toJson(Incident.find.byId(id)));
-		} else {
-			return forbidden();
-		}
-	}
-	
-	// get all incidents that have no owner
-	public static Result getUnassigned() {
-		return ok(Json.toJson(Incident.findUnassigned()));
-	}
 }

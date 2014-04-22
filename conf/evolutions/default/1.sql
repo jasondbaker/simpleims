@@ -36,6 +36,7 @@ create table company (
   name                      varchar(255),
   notes                     varchar(255),
   website                   varchar(255),
+  active                    boolean,
   constraint pk_company primary key (id))
 ;
 
@@ -44,6 +45,7 @@ create table contact (
   email                     varchar(255),
   fullname                  varchar(255),
   phone                     varchar(255),
+  active                    boolean,
   company_id                integer,
   constraint pk_contact primary key (id))
 ;

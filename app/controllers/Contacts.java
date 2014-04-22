@@ -20,8 +20,12 @@ public class Contacts extends Controller {
 	// delete an existing contact based on the contact id
 	public static Result delete(int id) {
 
-			Contact.find.byId(id).delete();
-			return ok();
+			if (Contact.delete(id)) {
+				return ok();
+			} else {
+				return badRequest();
+			}
+	
 	}
 		
 	// update an existing contact based on the contact id
@@ -48,9 +52,9 @@ public class Contacts extends Controller {
 			
 	}
 	
-	// get a list of all contacts
+	// get a list of all contacts (active)
 	public static Result list() {
-		return ok(Json.toJson(Contact.find.all()));
+		return ok(Json.toJson(Contact.find.where().eq("active", true).findList()));
 	}
 	
 	// get information for a specific contact
