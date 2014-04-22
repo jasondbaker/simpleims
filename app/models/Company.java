@@ -22,6 +22,7 @@ public class Company extends Model {
 	public String name;
 	public String notes;
 	public String website;
+	public Boolean active;
 	
 	@OneToMany(mappedBy="company", cascade=CascadeType.ALL) 
 	@JsonManagedReference
@@ -32,6 +33,7 @@ public class Company extends Model {
 		this.name = name;
 		this.notes = notes;
 		this.website = website;
+		this.active = true;
 		this.contacts = new ArrayList<Contact>();
 	}
 	
@@ -46,7 +48,15 @@ public class Company extends Model {
 	public static Finder<Integer, Company> find = new Finder<Integer, Company>(
 			Integer.class, Company.class
 			);
-
+	
+	// delete
+	public static Boolean delete(int id) {
+		Company company = find.byId(id);
+		company.active = false;
+		company.update();
+		return true;
+	}
+	
 	//update
 	public static Company update(int id, String name, String notes, String website) {
 		Company company = find.byId(id);

@@ -29,11 +29,19 @@ companies:
     name:       Acme Corporation
     notes:      A great place to work.
     website:    www.acmecorporation.com
+    active:     true
     
   - &company2 !!models.Company
     name:       The Widget Factory
     notes:      We like to build stuff.
     website:    www.thewidgetfactory.com
+    active:     true
+   
+  - &company3 !!models.Company
+    name:       Standard Products Corporation
+    notes:      Product distribution all over the world.
+    website:    www.standardproducts.com
+    active:     true
     
 # Addresses
 

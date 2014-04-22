@@ -168,5 +168,26 @@ public class CompaniesTest extends WithApplication {
 
     }
 
+    @Test
+    public void deleteCompanyTest() {
+    	
+  	   // first step is to find an existing contact and then use that contact id for the update
+  	   Company testCompany = Company.find.where().eq("name", "Standard Products Corporation").findUnique();
+  	   
+  	   // request to delete the company
+ 	   Result result = callAction(
+ 			   controllers.routes.ref.Companies.delete(testCompany.id),
+ 			   fakeRequest().withSession("username", "jacksmith"));
+ 	   
+ 	   assertEquals(200, status(result));
+ 	   
+ 	   // request a list of active companies
+ 	   Result result2 = callAction(
+ 			   controllers.routes.ref.Companies.list(),
+ 			   fakeRequest().withSession("username", "jacksmith"));
+ 	   
+ 	   assertEquals(200, status(result2));
+ 	   assertThat(contentAsString(result2)).doesNotContain("Standard Products Corporation");
+    }
 
 }
