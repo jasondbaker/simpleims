@@ -114,5 +114,28 @@ public class ContactsTest extends WithApplication {
 
     }
 
+    @Test
+    public void deleteContactTest() {
+ 	   
+ 	   // first step is to find an existing contact and then use that contact id for the update
+ 	   Contact testContact = Contact.find.where().eq("fullname", "Bill Richards").findUnique();
+	   
+ 	   // request to delete the contact
+ 	   Result result = callAction(
+ 			   controllers.routes.ref.Contacts.delete(testContact.id),
+ 			   fakeRequest().withSession("username", "jacksmith"));
+ 	   
+ 	   assertEquals(200, status(result));
+ 	  
+ 	   // request the list of all contacts
+ 	   Result result2 = callAction(
+			   controllers.routes.ref.Contacts.list(),
+			   fakeRequest().withSession("username", "jacksmith"));
+	   
+	   // check to see if this contact was removed (de-activated)
+	   assertEquals(200, status(result2));
+	   assertThat(contentAsString(result2)).doesNotContain("Bill Richards");
+ 	   
+    }
 
 }

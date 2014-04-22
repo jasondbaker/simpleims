@@ -45,6 +45,7 @@ create table contact (
   email                     varchar(255),
   fullname                  varchar(255),
   phone                     varchar(255),
+  active                    boolean,
   company_id                integer,
   constraint pk_contact primary key (id))
 ;

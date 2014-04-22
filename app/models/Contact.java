@@ -19,6 +19,8 @@ public class Contact extends Model {
 	public String email;
 	public String fullname;
 	public String phone;
+	public Boolean active;
+	
 	@ManyToOne
 	@JsonBackReference
 	public Company company;
@@ -29,6 +31,7 @@ public class Contact extends Model {
 		this.fullname = fullname;
 		this.phone = phone;
 		this.company = company;
+		this.active = true;
 	}
 	
 	public static Contact create(String email, String fullname, String phone, int companyId) {
@@ -42,6 +45,15 @@ public class Contact extends Model {
 	public static Finder<Integer, Contact> find = new Finder<Integer, Contact>(
 			Integer.class, Contact.class
 			);
+	
+	// delete contact
+	// change the active property to false, don't actually delete the data because we need it
+	public static Boolean delete(int id) {
+		Contact contact = find.byId(id);
+		contact.active = false;
+		contact.update();
+		return true;
+	}
 	
 	//update
 	public static Contact update(int id, String email, String fullname, String phone) {

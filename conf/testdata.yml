@@ -71,18 +71,21 @@ contacts:
       email:      brichards@acme.com
       fullname:   Bill Richards
       phone:      612-584-4888
+      active:     true
       company:    *company1
 
   - &contact2 !!models.Contact
       email:      bgoodwin@acme.com
       fullname:   Beth Goodwin
       phone:      612-584-3342
+      active:     true
       company:    *company1
     
   - &contact3 !!models.Contact
       email:      tanya@widgetfactory.com
       fullname:   Tanya Goldberg
       phone:      443-234-2156
+      active:     true
       company:    *company2
                     
 # Incidents
