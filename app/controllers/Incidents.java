@@ -46,7 +46,7 @@ public class Incidents extends Controller {
 	// close an incident based on the incident id
 	public static Result close(int incidentId) {
 		if (Authenticated.isOwnerOf(incidentId)) {
-			Incident.close(incidentId);
+			Incident.close(incidentId, request().username());
 			return ok();
 		} else {
 			return forbidden();
@@ -67,7 +67,7 @@ public class Incidents extends Controller {
 	// close an incident based on the incident id
 	public static Result reopen(int incidentId) {
 		if (Authenticated.isOwnerOf(incidentId)) {
-			Incident.reopen(incidentId);
+			Incident.reopen(incidentId, request().username());
 			return ok();
 		} else {
 			return forbidden();
