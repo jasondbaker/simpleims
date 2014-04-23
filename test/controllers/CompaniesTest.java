@@ -145,6 +145,11 @@ public class CompaniesTest extends WithApplication {
  	   json.put("name", "Standard Products Corp");
  	   json.put("notes", "We sell lots of different products.");
  	   json.put("website", "www.standardproducts.com");
+	   json.put("address1", "1234 Door Place");
+	   json.put("address2", "");
+	   json.put("city", "Kettle");
+	   json.put("state", "Montana");
+	   json.put("zipcode", "34253");
 	   
  	   Result result = callAction(
  			   controllers.routes.ref.Companies.add(),
@@ -157,7 +162,7 @@ public class CompaniesTest extends WithApplication {
  	   Company testCompany = Company.find.where().eq("name", "Standard Products Corp").findUnique();
  	   assertNotNull(testCompany);
  	   assertEquals(testCompany.name, "Standard Products Corp");
-
+ 	   assertThat(contentAsString(result)).contains("1234 Door Place");
     }
     
     @Test

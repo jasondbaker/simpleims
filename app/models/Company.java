@@ -26,7 +26,7 @@ public class Company extends Model {
 	
 	@OneToMany(mappedBy="company", cascade=CascadeType.ALL) 
 	@JsonManagedReference
-	public List<Address> address;
+	public List<Address> addresses;
 	
 	@OneToMany(mappedBy="company", cascade=CascadeType.ALL) 
 	@JsonManagedReference
@@ -38,7 +38,7 @@ public class Company extends Model {
 		this.notes = notes;
 		this.website = website;
 		this.active = true;
-		this.address = new ArrayList<Address>();
+		this.addresses = new ArrayList<Address>();
 		this.contacts = new ArrayList<Contact>();
 	}
 	

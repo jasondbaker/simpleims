@@ -16,6 +16,8 @@ import play.libs.Json;
 @Security.Authenticated(Authenticated.class)
 public class Companies extends Controller {
 
+	// add a new company
+	// note: a new company request must include one address
 	@BodyParser.Of(BodyParser.Json.class)
 	public static Result add() {
 		// retrieve json from the request body
@@ -25,6 +27,11 @@ public class Companies extends Controller {
 		JsonNode jsonName = json.get("name");
 		JsonNode jsonNotes = json.get("notes");
 		JsonNode jsonWebsite = json.get("website");
+		JsonNode jsonAddress1 = json.get("address1");
+		JsonNode jsonAddress2 = json.get("address2");
+		JsonNode jsonCity = json.get("city");
+		JsonNode jsonState = json.get("state");
+		JsonNode jsonZipcode = json.get("zipcode");
 		
 		// create a new company based on the json values
 		Company newCompany = Company.create(
@@ -33,11 +40,28 @@ public class Companies extends Controller {
 				jsonWebsite.asText()
 				);
 		
+		//create an address associated with the new company
+		Address newAddress = Address.create(
+				jsonAddress1.asText(), 
+				jsonAddress2.asText(), 
+				jsonCity.asText(), 
+				jsonState.asText(), 
+				jsonZipcode.asText(), 
+				newCompany.id);
+		
+		// retrieve the new company record to present both company and address via json
+		Company finalCompany = Company.find.byId(newCompany.id);
+		
 		// return the created incident back to the user in json
-		return ok(Json.toJson(newCompany));
+		if (finalCompany == null) {
+			return badRequest();
+		} else {
+			return ok(Json.toJson(finalCompany));
+		}
 		
 	}
 	
+	// add a contact associated with a company
 	@BodyParser.Of(BodyParser.Json.class)
 	public static Result addContacts(Integer id) {
 		// retrieve json from the request body
