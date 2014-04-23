@@ -47,7 +47,7 @@ public class CompaniesTest extends WithApplication {
     @Test
     public void getCompanyTest() {
  	   
- 	   // first step is to find an existing contact and then use that contact id for the test
+ 	   // first step is to find an existing company and then use that company id for the test
  	   Company testCompany = Company.find.where().eq("name", "Acme Corporation").findUnique();
  	   
  	   Result result = callAction(
@@ -77,7 +77,7 @@ public class CompaniesTest extends WithApplication {
     @Test
     public void getCompanyContactsTest() {
 
-  	   // first step is to find an existing contact and then use that contact id for the test
+  	   // first step is to find an existing company and then use that company id for the test
   	   Company testCompany = Company.find.where().eq("name", "Acme Corporation").findUnique();
   	   
  	   Result result = callAction(
@@ -90,11 +90,28 @@ public class CompaniesTest extends WithApplication {
  	   assertThat(contentAsString(result)).doesNotContain("Tanya Goldberg");
 
     }
- 
+
+    @Test
+    public void getCompanyAddressesTest() {
+
+  	   // first step is to find an existing company and then use that company id for the test
+  	   Company testCompany = Company.find.where().eq("name", "Acme Corporation").findUnique();
+  	   
+ 	   Result result = callAction(
+ 			   controllers.routes.ref.Companies.getAddresses(testCompany.id),
+ 			   fakeRequest().withSession("username", "jacksmith"));
+ 	   
+ 	   
+ 	   assertEquals(200, status(result));
+ 	   assertThat(contentAsString(result)).contains("123 Way Lane");
+ 	   assertThat(contentAsString(result)).doesNotContain("Starry Road");
+
+    }
+    
     @Test
     public void addCompanyContactTest() {
  	   
- 	   // first step is to find an existing contact and then use that contact id for the update
+ 	   // first step is to find an existing company and then use that company id for the update
  	   Company testCompany = Company.find.where().eq("name", "The Widget Factory").findUnique();
  	   
  	   ObjectNode json = Json.newObject();
@@ -146,7 +163,7 @@ public class CompaniesTest extends WithApplication {
     @Test
     public void updateCompanyTest() {
  	   
- 	   // first step is to find an existing contact and then use that contact id for the update
+ 	   // first step is to find an existing company and then use that company id for the update
  	   Company testCompany = Company.find.where().eq("name", "Acme Corporation").findUnique();
  	   
  	   ObjectNode json = Json.newObject();
@@ -171,7 +188,7 @@ public class CompaniesTest extends WithApplication {
     @Test
     public void deleteCompanyTest() {
     	
-  	   // first step is to find an existing contact and then use that contact id for the update
+  	   // first step is to find an existing company and then use that company id for the update
   	   Company testCompany = Company.find.where().eq("name", "Standard Products Corporation").findUnique();
   	   
   	   // request to delete the company
