@@ -7,6 +7,7 @@ import static play.data.Form.*;
 
 import java.util.*;
 
+import com.avaje.ebean.Ebean;
 import com.fasterxml.jackson.databind.JsonNode;
 
 import models.*;
@@ -16,6 +17,8 @@ import play.libs.Json;
 @Security.Authenticated(Authenticated.class)
 public class Companies extends Controller {
 
+	// add a new company
+	// note: a new company request must include one address
 	@BodyParser.Of(BodyParser.Json.class)
 	public static Result add() {
 		// retrieve json from the request body
@@ -25,6 +28,11 @@ public class Companies extends Controller {
 		JsonNode jsonName = json.get("name");
 		JsonNode jsonNotes = json.get("notes");
 		JsonNode jsonWebsite = json.get("website");
+		JsonNode jsonAddress1 = json.get("address1");
+		JsonNode jsonAddress2 = json.get("address2");
+		JsonNode jsonCity = json.get("city");
+		JsonNode jsonState = json.get("state");
+		JsonNode jsonZipcode = json.get("zipcode");
 		
 		// create a new company based on the json values
 		Company newCompany = Company.create(
@@ -33,11 +41,28 @@ public class Companies extends Controller {
 				jsonWebsite.asText()
 				);
 		
+		//create an address associated with the new company
+		Address newAddress = Address.create(
+				jsonAddress1.asText(), 
+				jsonAddress2.asText(), 
+				jsonCity.asText(), 
+				jsonState.asText(), 
+				jsonZipcode.asText(), 
+				newCompany.id);
+		
+		// retrieve the new company record to present both company and address via json
+		Company finalCompany = Company.find.byId(newCompany.id);
+		
 		// return the created incident back to the user in json
-		return ok(Json.toJson(newCompany));
+		if (finalCompany == null) {
+			return badRequest();
+		} else {
+			return ok(Json.toJson(finalCompany));
+		}
 		
 	}
 	
+	// add a contact associated with a company
 	@BodyParser.Of(BodyParser.Json.class)
 	public static Result addContacts(Integer id) {
 		// retrieve json from the request body
@@ -63,8 +88,15 @@ public class Companies extends Controller {
 	
 	// delete an existing company based on the company id
 	// disable the record, don't delete the data because we need it for reporting
+	// also, disable the associated contacts
 	public static Result delete(int id) {
 
+			// get the list of contacts associated with the company and delete (de-active) them
+			List<Contact> contacts = Contact.find.where().eq("company_id", id).findList();
+			for (Contact contact : contacts) {
+				Contact.delete(contact.id);
+			}
+			
 			if(Company.delete(id)) {
 				return ok();
 			} else {
@@ -91,8 +123,22 @@ public class Companies extends Controller {
 	
 	// get incidents associated with a specific company
 	public static Result getIncidents(Integer id) {
-		//stub this method
-		return ok();
+		
+		Company company = Company.find.byId(id);
+		
+		List<Incident> incidents = Ebean.find(Incident.class)
+				.fetch("requester")
+				.where()
+				.eq("company_id", id)
+				.findList();
+				
+		
+		return ok(Json.toJson(incidents));
+	}
+	
+	// get addresses associated with a specific company
+	public static Result getAddresses(Integer id) {
+		return ok(Json.toJson(Address.find.where().eq("company_id", id).findList()));
 	}
 	
 	// update an existing company based on the company id
