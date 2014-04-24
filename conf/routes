@@ -2,7 +2,7 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
-# Home page
+# HTML pages
 GET     /                           controllers.Application.index()
 
 # Agents
