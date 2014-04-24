@@ -28,6 +28,7 @@ create table agent (
   password                  varchar(255),
   fullname                  varchar(255),
   email                     varchar(255),
+  active                    boolean,
   constraint pk_agent primary key (username))
 ;
 

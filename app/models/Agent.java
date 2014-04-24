@@ -20,6 +20,7 @@ public class Agent extends Model {
 	public String password;
 	public String fullname;
 	public String email;
+	public Boolean active;
 	
 	// constructor for new Agent
 	public Agent(String username, String password, String fullname, String email) {
@@ -27,6 +28,7 @@ public class Agent extends Model {
 		this.password = password;
 		this.fullname = fullname;
 		this.email = email;
+		this.active = true;
 	}
 	
 	//create a find method for data queries

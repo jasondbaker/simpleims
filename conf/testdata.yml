@@ -8,18 +8,21 @@ agents:
       password:   $2a$10$g6YPYnUM1XEfsL55.xdH1u2Ug0C6CGMVLNgw5MG0oKCOlBp1ksIde
       fullname:   Jack Smith
       email:      jack@bigsoftware.com
+      active:     true
 
   - !!models.Agent
       username:   benj
       password:   $2a$10$g6YPYnUM1XEfsL55.xdH1u2Ug0C6CGMVLNgw5MG0oKCOlBp1ksIde
       fullname:   Ben Johnson
       email:      benj@bigsoftware.com
+      active:     true
 
   - !!models.Agent
       username:   jwilliams
       password:   $2a$10$g6YPYnUM1XEfsL55.xdH1u2Ug0C6CGMVLNgw5MG0oKCOlBp1ksIde
       fullname:   Jill Williams
       email:      jwilliams@bigsoftware.com
+      active:     true
 
 # Companies
 
