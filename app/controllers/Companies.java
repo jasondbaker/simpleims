@@ -7,6 +7,7 @@ import static play.data.Form.*;
 
 import java.util.*;
 
+import com.avaje.ebean.Ebean;
 import com.fasterxml.jackson.databind.JsonNode;
 
 import models.*;
@@ -122,8 +123,17 @@ public class Companies extends Controller {
 	
 	// get incidents associated with a specific company
 	public static Result getIncidents(Integer id) {
-		//stub this method
-		return ok();
+		
+		Company company = Company.find.byId(id);
+		
+		List<Incident> incidents = Ebean.find(Incident.class)
+				.fetch("requester")
+				.where()
+				.eq("company_id", id)
+				.findList();
+				
+		
+		return ok(Json.toJson(incidents));
 	}
 	
 	// get addresses associated with a specific company

@@ -107,6 +107,23 @@ public class CompaniesTest extends WithApplication {
  	   assertThat(contentAsString(result)).doesNotContain("Starry Road");
 
     }
+
+    @Test
+    public void getCompanyIncidentsTest() {
+
+  	   // first step is to find an existing company and then use that company id for the test
+  	   Company testCompany = Company.find.where().eq("name", "The Widget Factory").findUnique();
+  	   
+ 	   Result result = callAction(
+ 			   controllers.routes.ref.Companies.getIncidents(testCompany.id),
+ 			   fakeRequest().withSession("username", "jacksmith"));
+ 	   
+ 	   
+ 	   assertEquals(200, status(result));
+ 	   assertThat(contentAsString(result)).contains("reporting a database failure");
+ 	   assertThat(contentAsString(result)).doesNotContain("Unexpected application behavior");
+
+    }
     
     @Test
     public void addCompanyContactTest() {
