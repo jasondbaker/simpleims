@@ -63,6 +63,13 @@ public class Contacts extends Controller {
 		return ok(Json.toJson(Contact.find.byId(id)));
 
 	}
+
+	// get companies associated with a specific contact
+	public static Result getCompanies(Integer id) {
+			
+		return ok(Json.toJson(Company.find.where().eq("contacts.id", id).findList()));
+
+	}
 	
 	// get incidents associated with a specific contact
 	public static Result getIncidents(Integer id) {
