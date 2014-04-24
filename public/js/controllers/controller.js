@@ -7,6 +7,16 @@ ims.config(function ($routeProvider) {
 				controller: 'getIncidents',
 				templateUrl: '/assets/js/views/dashboard.html'
 			})
+		.when('/company',
+			{
+				controller: 'getCompanies',
+				templateUrl: '/assets/js/views/company.html'
+			})			
+		.when('/contact',
+			{
+				controller: 'getContacts',
+				templateUrl: '/assets/js/views/contact.html'
+			})
 		.when('/new',
 			{
 				controller: 'newIncident',
@@ -30,9 +40,16 @@ ims.controller('getIncidents', function ($scope, $http) {
     
 });
 
-ims.controller('getUnassignedIncidents', function ($scope, $http) {
-    $http.get('http://localhost:9000/incidents/unassigned').
+ims.controller('getCompanies', function ($scope, $http) {
+    $http.get('http://localhost:9000/companies').
         success(function(data) {
-            $scope.unassignedIncident = data;
+            $scope.company = data;
+        });
+});
+
+ims.controller('getContacts', function ($scope, $http) {
+    $http.get('http://localhost:9000/contacts').
+        success(function(data) {
+            $scope.contact = data;
         });
 });
