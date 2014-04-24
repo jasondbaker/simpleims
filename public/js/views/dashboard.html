@@ -1,0 +1,55 @@
+<div class="page-header">
+	<h2>My Incidents</h2>
+</div>
+
+<div ng-controller="getIncidents">
+	<table class="table table-hover">
+		<tr>
+			<th>ID</th>
+			<th>Priority</th>
+			<th>Date</th>
+			<th>Requester</th>
+			<th>Subject</th>
+		</tr>
+		
+		<tr ng-repeat="incident in incident">
+			<td>{{ incident.id }}</td>
+			<td>{{ incident.priority }}
+				<span ng-show="incident.priority == 1">
+					<i class="fa fa-warning"></i>
+				</span>
+			</td>
+			<td>{{ incident.startdate | date:'short'}}</td>
+			<td>{{ incident.requester.fullname }}</td>
+			<td>{{ incident.subject }}</td>
+		</tr>
+	
+	</table>
+
+	<div class="page-header">
+		<h2>Unassigned Incidents</h2>
+	</div>
+
+	<table class="table table-hover">
+		<tr>
+			<th>ID</th>
+			<th>Priority</th>
+			<th>Date</th>
+			<th>Requester</th>
+			<th>Subject</th>
+		</tr>
+		
+		<tr ng-repeat="unassignedIncident in unassignedIncident">
+			<td>{{ unassignedIncident.id }}</td>
+			<td>{{ unassignedIncident.priority }}
+				<span ng-show="unassignedIncident.priority == 1">
+					<i class="fa fa-warning"></i>
+				</span>
+			</td>
+			<td>{{ unassignedIncident.startdate | date:'MMM dd yyyy hh:mma' }}</td>
+			<td>{{ unassignedIncident.requester.fullname }}</td>
+			<td>{{ unassignedIncident.subject }}</td>
+		</tr>
+	
+	</table>
+</div>		
