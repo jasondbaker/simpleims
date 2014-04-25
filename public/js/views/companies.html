@@ -1,0 +1,21 @@
+<div class="page-header">
+	<h2>Companies</h2>
+</div>
+
+<div ng-controller="getCompanies">
+	<table class="table table-hover">
+		<tr>
+			<th>Name</th>
+			<th>State</th>
+			<th>Website</th>
+		</tr>
+		
+		<tr ng-repeat="company in company">
+			<td>{{ company.name }}</td>
+			<td>{{ company.addresses[0].state }}</td>
+			<td>{{ company.website }}</td>
+		</tr>
+	
+	</table>
+	
+</div>	

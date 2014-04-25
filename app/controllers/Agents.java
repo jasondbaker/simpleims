@@ -14,9 +14,9 @@ import play.libs.Json;
 @Security.Authenticated(Authenticated.class)
 public class Agents extends Controller {
 	
-	// get a list of all agents
+	// get a list of all active agents
 	public static Result list() {
-		return ok(Json.toJson(Agent.find.all()));
+		return ok(Json.toJson(Agent.find.where().eq("active", true).findList()));
 	}
 		
 }

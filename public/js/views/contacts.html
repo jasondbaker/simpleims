@@ -1,0 +1,21 @@
+<div class="page-header">
+	<h2>Contacts</h2>
+</div>
+
+<div ng-controller="getContacts">
+	<table class="table table-hover">
+		<tr>
+			<th>Full Name</th>
+			<th>Email</th>
+			<th>Phone</th>
+		</tr>
+		
+		<tr ng-repeat="contact in contact">
+			<td>{{ contact.fullname }}</td>
+			<td>{{ contact.email }}</td>
+			<td>{{ contact.phone }}</td>
+		</tr>
+	
+	</table>
+	
+</div>		

@@ -65,6 +65,14 @@ addresses:
       state:      Florida
       zipcode:    32801
       company:    *company2
+  
+  - !!models.Address
+      address1:   782 Flowy Point Drive
+      address2:   
+      city:       Novato
+      state:      California
+      zipcode:    90234
+      company:    *company3
                       
 # Contacts
 
