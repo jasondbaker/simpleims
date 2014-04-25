@@ -1,5 +1,24 @@
 var ims = angular.module('ims', ['ngRoute']);
 
+// directive to set bootstrap nav to reflect current route
+angular.module('ims').directive('bsNavbar', ['$location', function ($location) {
+	  return {
+	    restrict: 'A',
+	    link: function postLink(scope, element) {
+	      scope.$watch(function () {
+	        return $location.path();
+	      }, function (path) {
+	        angular.forEach(element.children(), (function (li) {
+	          var $li = angular.element(li),
+	            regex = new RegExp('^' + $li.attr('data-match-route') + '$', 'i'),
+	            isActive = regex.test(path);
+	          $li.toggleClass('active', isActive);
+	        }));
+	      });
+	    }
+	  };
+	}]);
+
 ims.config(function ($routeProvider) {
 	$routeProvider
 		.when('/',
@@ -64,8 +83,31 @@ ims.controller('getContacts', function ($scope, $http) {
 // get all the information associated with a specific incident
 ims.controller('getIncident', function ($scope, $routeParams, $http) {
     
+	// get the incident information
 	$http.get('http://localhost:9000/incidents/'+ $routeParams.incidentId).
         success(function(data) {
             $scope.incident = data;
+            
+        	// get the company associated with the incident
+        	$http.get('http://localhost:9000/contacts/'+ $scope.incident.requester.id + '/companies').
+            success(function(data) {
+                $scope.company = data;
+                
+            	// get the list of agents
+            	$http.get('http://localhost:9000/agents').
+                success(function(data) {
+                    $scope.agents = data;
+                    
+                    // need to figure out which agent owns the incident for the form selector
+                	for (var i = 0; i < $scope.agents.length; i++) {
+                		if ($scope.agents[i].username == $scope.incident.owner.username) {
+                			$scope.selectedAgent = $scope.agents[i].username;
+                		}
+                		
+                	}
+                });
+            	
+            });
         });
+	
 });
