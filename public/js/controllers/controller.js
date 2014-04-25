@@ -98,13 +98,21 @@ ims.controller('getIncident', function ($scope, $routeParams, $http) {
                 success(function(data) {
                     $scope.agents = data;
                     
-                    // need to figure out which agent owns the incident for the form selector
-                	for (var i = 0; i < $scope.agents.length; i++) {
-                		if ($scope.agents[i].username == $scope.incident.owner.username) {
-                			$scope.selectedAgent = $scope.agents[i].username;
-                		}
-                		
-                	}
+                    $scope.selectedAgent = "";
+                    
+                    // need to figure out which agent owns the incident to display a name in the form selector
+                    // but don't try to figure it out if the incident has no owner (unassigned)
+                    if ($scope.incident.owner != null) {
+	                    
+
+	                	for (var i = 0; i < $scope.agents.length; i++) {
+	                		if ($scope.agents[i].username == $scope.incident.owner.username) {
+	                			$scope.selectedAgent = $scope.agents[i].username;
+	                		}
+	                	
+	                	}
+                    }
+                    
                 });
             	
             });

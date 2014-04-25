@@ -40,7 +40,7 @@
 		</tr>
 		
 		<tr ng-repeat="unassignedIncident in unassignedIncident">
-			<td>{{ unassignedIncident.id }}</td>
+			<td><a href="#/incident/{{incident.id}}">{{ unassignedIncident.id }}</td>
 			<td>{{ unassignedIncident.priority }}
 				<span ng-show="unassignedIncident.priority == 1">
 					<i class="fa fa-warning"></i>
