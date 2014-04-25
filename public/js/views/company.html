@@ -94,6 +94,34 @@
 			
 			</table>
 		
+			<div ng-hide="companyIncidents.length">No incidents found.<br/></div>
+		</div>
+	</div>	
+	
+		<div class="row">
+		
+		<div class="col-sm-10 col-sm-offset-1">
+		
+			<h4>Contacts</h4>
+			
+			<table class="table table-hover">
+				<tr>
+					<th>Fullname</th>
+					<th>Email</th>
+					<th>Phone</th>
+
+				</tr>
+				
+				<tr ng-repeat="contact in company.contacts | orderBy : 'fullname'">
+					<td><a href="#/contacts/{{contact.id}}">{{ contact.fullname }}</a></td>
+
+					<td>{{contact.email}}</td>
+					<td>{{contact.phone}}</td>
+				</tr>
+			
+			</table>
+		
+			<div ng-hide="company.contacts.length">No contacts found.</div>
 		</div>
 	</div>	
 	

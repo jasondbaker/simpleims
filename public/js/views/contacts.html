@@ -12,7 +12,7 @@
 			<th>Phone</th>
 		</tr>
 		
-		<tr ng-repeat="contact in contacts">
+		<tr ng-repeat="contact in contacts | orderBy : 'fullname'">
 			<td><a href="#/contacts/{{contact.id}}">{{ contact.fullname }}</a></td>
 			<td>{{ contact.email }}</td>
 			<td>{{ contact.phone }}</td>

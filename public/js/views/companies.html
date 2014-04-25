@@ -10,7 +10,7 @@
 			<th>Website</th>
 		</tr>
 		
-		<tr ng-repeat="company in company">
+		<tr ng-repeat="company in company | orderBy : 'name'">
 			<td><a href="#/companies/{{company.id}}">{{ company.name }}</a></td>
 			<td>{{ company.addresses[0].state }}</td>
 			<td>{{ company.website }}</td>

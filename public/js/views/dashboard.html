@@ -20,12 +20,14 @@
 				</span>
 			</td>
 			<td>{{ incident.startdate | date:'short'}}</td>
-			<td>{{ incident.requester.fullname }}</td>
+			<td><a href="#/contacts/{{incident.requester.id}}">{{ incident.requester.fullname }}</a></td>
 			<td>{{ incident.subject }}</td>
 		</tr>
 	
 	</table>
-
+	
+	<div ng-hide="incident.length">No incidents found.<br/></div>
+	
 	<div class="page-header">
 		<h2>Unassigned Incidents</h2>
 	</div>
@@ -47,9 +49,11 @@
 				</span>
 			</td>
 			<td>{{ unassignedIncident.startdate | date:'MMM dd yyyy hh:mma' }}</td>
-			<td>{{ unassignedIncident.requester.fullname }}</td>
+			<td><a href="#/contacts/{{unassignedIncident.requester.id}}">{{ unassignedIncident.requester.fullname }}</a></td>
 			<td>{{ unassignedIncident.subject }}</td>
 		</tr>
 	
 	</table>
+	
+	<div ng-hide="unassignedIncident.length">No unassigned incidents found.</div>
 </div>		
