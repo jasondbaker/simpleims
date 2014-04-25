@@ -31,6 +31,11 @@ ims.config(function ($routeProvider) {
 				controller: 'getIncident',
 				templateUrl: '/assets/js/views/incident.html'
 			})
+		.when('/companies/:companyId',
+			{
+				controller: 'getCompany',
+				templateUrl: '/assets/js/views/company.html'
+			})				
 		.when('/companies',
 			{
 				controller: 'getCompanies',
@@ -40,6 +45,11 @@ ims.config(function ($routeProvider) {
 			{
 				controller: 'getContacts',
 				templateUrl: '/assets/js/views/contacts.html'
+			})
+		.when('/contacts/:contactId',
+			{
+				controller: 'getContact',
+				templateUrl: '/assets/js/views/contact.html'
 			})
 		.when('/new',
 			{
@@ -64,6 +74,22 @@ ims.controller('getDashboard', function ($scope, $http) {
     
 });
 
+//get the data for the company view
+ims.controller('getCompany', function ($scope, $routeParams, $http) {
+	// get the contact information
+    $http.get('http://localhost:9000/companies/' + $routeParams.companyId).
+        success(function(data) {
+            $scope.company = data;
+        });
+    
+    // get all the incidents associated with the company
+    $http.get('http://localhost:9000/companies/' + $routeParams.companyId + '/incidents').
+    success(function(data) {
+        $scope.companyIncidents = data;
+    });
+    
+});
+
 // get a list of all the companies in the system
 ims.controller('getCompanies', function ($scope, $http) {
     $http.get('http://localhost:9000/companies').
@@ -72,11 +98,33 @@ ims.controller('getCompanies', function ($scope, $http) {
         });
 });
 
+// get the data for the contact view
+ims.controller('getContact', function ($scope, $routeParams, $http) {
+	// get the contact information
+    $http.get('http://localhost:9000/contacts/' + $routeParams.contactId).
+        success(function(data) {
+            $scope.contact = data;
+        });
+    
+    // get all the incidents associated with the contact
+    $http.get('http://localhost:9000/contacts/' + $routeParams.contactId + '/incidents').
+    success(function(data) {
+        $scope.contactIncidents = data;
+    });
+    
+    // get all the companies associated with the contact
+    $http.get('http://localhost:9000/contacts/' + $routeParams.contactId + '/companies').
+    success(function(data) {
+        $scope.contactCompanies = data;
+    });
+    
+});
+
 // get a list of all the contacts in the system
 ims.controller('getContacts', function ($scope, $http) {
     $http.get('http://localhost:9000/contacts').
         success(function(data) {
-            $scope.contact = data;
+            $scope.contacts = data;
         });
 });
 
@@ -98,13 +146,21 @@ ims.controller('getIncident', function ($scope, $routeParams, $http) {
                 success(function(data) {
                     $scope.agents = data;
                     
-                    // need to figure out which agent owns the incident for the form selector
-                	for (var i = 0; i < $scope.agents.length; i++) {
-                		if ($scope.agents[i].username == $scope.incident.owner.username) {
-                			$scope.selectedAgent = $scope.agents[i].username;
-                		}
-                		
-                	}
+                    $scope.selectedAgent = "";
+                    
+                    // need to figure out which agent owns the incident to display a name in the form selector
+                    // but don't try to figure it out if the incident has no owner (unassigned)
+                    if ($scope.incident.owner != null) {
+	                    
+
+	                	for (var i = 0; i < $scope.agents.length; i++) {
+	                		if ($scope.agents[i].username == $scope.incident.owner.username) {
+	                			$scope.selectedAgent = $scope.agents[i].username;
+	                		}
+	                	
+	                	}
+                    }
+                    
                 });
             	
             });

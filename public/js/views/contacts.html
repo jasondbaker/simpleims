@@ -1,8 +1,10 @@
-<div class="page-header">
-	<h2>Contacts</h2>
-</div>
-
 <div ng-controller="getContacts">
+
+	<div class="page-header">
+		<h2>Contacts</h2>
+	</div>
+	
+
 	<table class="table table-hover">
 		<tr>
 			<th>Full Name</th>
@@ -10,8 +12,8 @@
 			<th>Phone</th>
 		</tr>
 		
-		<tr ng-repeat="contact in contact">
-			<td>{{ contact.fullname }}</td>
+		<tr ng-repeat="contact in contacts | orderBy : 'fullname'">
+			<td><a href="#/contacts/{{contact.id}}">{{ contact.fullname }}</a></td>
 			<td>{{ contact.email }}</td>
 			<td>{{ contact.phone }}</td>
 		</tr>
