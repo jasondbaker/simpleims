@@ -1,4 +1,4 @@
-var ims = angular.module('ims', ['ngRoute']);
+var ims = angular.module('ims', ['ngRoute', 'ngAnimate']);
 
 // directive to set bootstrap nav to reflect current route
 angular.module('ims').directive('bsNavbar', ['$location', function ($location) {
@@ -60,6 +60,7 @@ ims.config(function ($routeProvider) {
 });
 
 ims.controller('getDashboard', function ($scope, $http) {
+	
 	// get the incidents for the current agent
     $http.get('http://localhost:9000/incidents').
         success(function(data) {
@@ -92,6 +93,7 @@ ims.controller('getCompany', function ($scope, $routeParams, $http) {
 
 // get a list of all the companies in the system
 ims.controller('getCompanies', function ($scope, $http) {
+	
     $http.get('http://localhost:9000/companies').
         success(function(data) {
             $scope.company = data;
@@ -122,6 +124,7 @@ ims.controller('getContact', function ($scope, $routeParams, $http) {
 
 // get a list of all the contacts in the system
 ims.controller('getContacts', function ($scope, $http) {
+	
     $http.get('http://localhost:9000/contacts').
         success(function(data) {
             $scope.contacts = data;
