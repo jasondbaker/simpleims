@@ -6,7 +6,10 @@
 GET     /                           controllers.Application.index()
 
 # Agents
+GET		/agent						controllers.Agents.current()
 GET		/agents						controllers.Agents.list()
+GET		/agents/:username			controllers.Agents.get(username: String)
+GET		/agents/:username/incidents	controllers.Agents.getIncidents(username: String)
 GET		/login						controllers.Application.login()
 GET		/logout						controllers.Application.logout()
 POST	/login						controllers.Application.authenticate()
