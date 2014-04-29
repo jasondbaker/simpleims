@@ -25,6 +25,10 @@
 			<label for="inputPhone" class="col-sm-2 control-label">Phone</label>
 			<div class="col-sm-10">
 				<input type="text" ng-model="contact.phone" class="form-control" id="inputPhone">
+				<br/>
+				
+				<div><button ng-click="update()">Update</button></div>	
+			
 			</div>
 		</div>		
 
@@ -48,7 +52,7 @@
 				{{contactCompanies[0].notes}}
 			</div>
 		</div>							
-						
+				
 	</form>
 
 	<div class="row">
