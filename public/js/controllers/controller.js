@@ -61,14 +61,14 @@ ims.config(function ($routeProvider) {
 
 ims.controller('getDashboard', function ($scope, $http) {
 	
-	// get the incidents for the current agent
-    $http.get('http://localhost:9000/incidents').
+	// get the open incidents for the current agent
+    $http.get('http://localhost:9000/incidents?status=open').
         success(function(data) {
             $scope.incident = data;
         });
     
     // get the unassigned incidents in the system
-    $http.get('http://localhost:9000/incidents/unassigned').
+    $http.get('http://localhost:9000/incidents?status=unassigned').
     success(function(data) {
         $scope.unassignedIncident = data;
     });
@@ -88,6 +88,87 @@ ims.controller('getCompany', function ($scope, $routeParams, $http) {
     success(function(data) {
         $scope.companyIncidents = data;
     });
+    
+    // update the system using the company form values
+    $scope.update = function() {
+     	
+ 	   console.log("update company");
+ 	   
+ 	    // create objects to hold the form values 
+     	var companyObj = { "name" : $scope.company.name,
+     					"notes" : $scope.company.notes,
+     					"website" : $scope.company.website};
+     	
+     	var addrObj = { "address1" : $scope.company.addresses[0].address1,
+					"address2" : $scope.company.addresses[0].address2,
+					"city" : $scope.company.addresses[0].city,
+					"state" : $scope.company.addresses[0].state,
+					"zipcode" : $scope.company.addresses[0].zipcode
+					};
+     	
+     	console.log(companyObj);
+     	
+     	// post the json object to the restful api
+     	$http.post( 'http://localhost:9000/companies/' + $scope.company.id, companyObj)
+     		.success(function(data) {
+     			console.log(data);
+     			
+     			// show notification
+     			$(function(){
+     				new PNotify({
+     					title: 'Success',
+     					text: 'Company successfully updated.',
+     					type: 'success',
+     					styling: 'bootstrap3',
+     					delay: 3000
+     				});
+     			});
+     		}).
+     		error(function(data,status,headers,config) {
+     			console.log(status);
+     			$(function(){
+     				new PNotify({
+ 					    title: 'Error',
+ 					    text: 'Unable to update company.',
+ 					    type: 'error',
+ 					    styling: 'bootstrap3',
+ 					    delay:3000
+ 					});
+     			})
+     		});
+     	
+     	console.log(companyObj);
+     	
+     	// post the json object to the restful api
+     	$http.post( 'http://localhost:9000/companies/' + $scope.company.id + '/addresses/' + $scope.company.addresses[0].id, addrObj)
+     		.success(function(data) {
+     			console.log(data);
+     			
+     			// show notification
+     			$(function(){
+     				new PNotify({
+     					title: 'Success',
+     					text: 'Address successfully updated.',
+     					type: 'success',
+     					styling: 'bootstrap3',
+     					delay: 3000
+     				});
+     			});
+     		}).
+     		error(function(data,status,headers,config) {
+     			console.log(status);
+     			$(function(){
+     				new PNotify({
+ 					    title: 'Error',
+ 					    text: 'Unable to update address.',
+ 					    type: 'error',
+ 					    styling: 'bootstrap3',
+ 					    delay:3000
+ 					});
+     			})
+     		});
+     
+    };
     
 });
 
@@ -175,7 +256,7 @@ ims.controller('getContacts', function ($scope, $http) {
 });
 
 // get all the information associated with a specific incident
-ims.controller('getIncident', function ($scope, $routeParams, $http) {
+ims.controller('getIncident', function ($scope, $routeParams, $http, $location) {
     
 	// get the incident information
 	$http.get('http://localhost:9000/incidents/'+ $routeParams.incidentId).
@@ -212,4 +293,92 @@ ims.controller('getIncident', function ($scope, $routeParams, $http) {
             });
         });
 	
+	   // update the system using the incident form values
+	   $scope.close = function() {
+	    	
+		   console.log("close incident");
+		   
+		    // create an object to hold the form values 
+	    	var dataObj = { };
+	    	
+	    	console.log(dataObj);
+	    	
+	    	// post the json object to the restful api
+	    	$http.post( 'http://localhost:9000/incidents/' + $scope.incident.id + '/close', dataObj)
+	    		.success(function(data) {
+	    			console.log(data);
+	    			
+	    			// show notification
+	    			$(function(){
+	    				new PNotify({
+	    					title: 'Success',
+	    					text: 'Incident closed.',
+	    					type: 'success',
+	    					styling: 'bootstrap3',
+	    					delay: 3000
+	    				});
+	    			});
+	    			$location.path('/');
+	    			
+	    		}).
+	    		error(function(data,status,headers,config) {
+	    			console.log(status);
+	    			$(function(){
+	    				new PNotify({
+						    title: 'Error',
+						    text: 'Unable to close incident.',
+						    type: 'error',
+						    styling: 'bootstrap3',
+						    delay:3000
+						});
+	    			})
+	    		});
+	    
+	   };
+	   
+	   // update the system using the incident form values
+	   $scope.update = function() {
+	    	
+		   console.log("update incident");
+		   
+		    // create an object to hold the form values 
+	    	var dataObj = { "username" : $scope.selectedAgent,
+	    					"subject" : $scope.incident.subject,
+	    					"description" : $scope.incident.description,
+	    					"priority" : $scope.incident.priority,
+	    					"contactId" : $scope.incident.requester.id};
+	    	
+	    	console.log(dataObj);
+	    	
+	    	// post the json object to the restful api
+	    	$http.post( 'http://localhost:9000/incidents/' + $scope.incident.id, dataObj)
+	    		.success(function(data) {
+	    			console.log(data);
+	    			
+	    			// show notification
+	    			$(function(){
+	    				new PNotify({
+	    					title: 'Success',
+	    					text: 'Incident successfully updated.',
+	    					type: 'success',
+	    					styling: 'bootstrap3',
+	    					delay: 3000
+	    				});
+	    			});
+	    		}).
+	    		error(function(data,status,headers,config) {
+	    			console.log(status);
+	    			$(function(){
+	    				new PNotify({
+						    title: 'Error',
+						    text: 'Unable to update incident.',
+						    type: 'error',
+						    styling: 'bootstrap3',
+						    delay:3000
+						});
+	    			})
+	    		});
+	    
+	   };
+	   
 });

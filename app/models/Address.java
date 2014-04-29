@@ -47,4 +47,16 @@ public class Address extends Model {
 			Integer.class, Address.class
 			);
 	
+	// update
+	public static Address update(int id, String address1, String address2, String city, String state, String zipcode) {
+		Address address = Address.find.byId(id);
+		address.address1 = address1;
+		address.address2 = address2;
+		address.city = city;
+		address.state = state;
+		address.zipcode = zipcode;
+		address.update();
+		return address;
+	}
+	
 }

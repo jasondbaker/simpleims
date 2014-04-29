@@ -22,7 +22,8 @@ GET		/companies/:id/contacts		controllers.Companies.getContacts(id: Integer)
 GET		/companies/:id/addresses	controllers.Companies.getAddresses(id: Integer)
 POST	/companies					controllers.Companies.add()
 POST	/companies/:id				controllers.Companies.update(id: Integer)
-POST	/companies/:id/contacts		controllers.Companies.addContacts(id: Integer)		
+POST	/companies/:id/contacts		controllers.Companies.addContacts(id: Integer)
+POST	/companies/:id/addresses/:id2	controllers.Companies.updateAddress(id: Integer, id2: Integer)		
 DELETE	/companies/:id				controllers.Companies.delete(id: Integer)
 
 # Contacts
@@ -34,8 +35,7 @@ POST	/contacts/:id				controllers.Contacts.update(id: Integer)
 DELETE	/contacts/:id				controllers.Contacts.delete(id: Integer)
 
 # Incidents 
-GET		/incidents					controllers.Incidents.getOwned()
-GET		/incidents/unassigned		controllers.Incidents.getUnassigned()
+GET		/incidents					controllers.Incidents.getOwned(status: String ?= "all")
 GET		/incidents/:id				controllers.Incidents.get(id: Integer)
 GET		/incidents/:id/actions		controllers.Incidents.getActions(id: Integer)
 POST	/incidents/:id/reopen		controllers.Incidents.reopen(id: Integer)

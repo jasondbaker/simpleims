@@ -164,4 +164,32 @@ public class Companies extends Controller {
 		return ok(Json.toJson(updateCompany));
 			
 	}
+	
+	// update an existing company address based on the company id & address id
+	@BodyParser.Of(BodyParser.Json.class)
+	public static Result updateAddress(int id, int id2) {
+
+		// retrieve json from the request body
+		JsonNode json = request().body().asJson();
+	
+		// slice up the json and store values in individual variables
+		JsonNode jsonAddress1 = json.get("address1");
+		JsonNode jsonAddress2 = json.get("address2");
+		JsonNode jsonCity = json.get("city");
+		JsonNode jsonState = json.get("state");
+		JsonNode jsonZipcode = json.get("zipcode");
+		
+		// update company based on the json values
+		Address updateAddress = Address.update(
+				id2,
+				jsonAddress1.asText(),
+				jsonAddress2.asText(),
+				jsonCity.asText(),
+				jsonState.asText(),
+				jsonZipcode.asText()
+				);
+		
+		return ok(Json.toJson(updateAddress));
+			
+	}
 }
