@@ -118,8 +118,51 @@ ims.controller('getContact', function ($scope, $routeParams, $http) {
     $http.get('http://localhost:9000/contacts/' + $routeParams.contactId + '/companies').
     success(function(data) {
         $scope.contactCompanies = data;
-    });
+    });  
+
+   // update the system using the contact form values
+   $scope.update = function() {
+    	
+	   console.log("update contact");
+	   
+	    // create an object to hold the form values 
+    	var dataObj = { "email" : $scope.contact.email,
+    					"fullname" : $scope.contact.fullname,
+    					"phone" : $scope.contact.phone };
+    	
+    	console.log(dataObj);
+    	
+    	// post the json object to the restful api
+    	$http.post( 'http://localhost:9000/contacts/' + $scope.contact.id, dataObj)
+    		.success(function(data) {
+    			console.log(data);
+    			
+    			// show notification
+    			$(function(){
+    				new PNotify({
+    					title: 'Success',
+    					text: 'Contact successfully updated.',
+    					type: 'success',
+    					styling: 'bootstrap3',
+    					delay: 3000
+    				});
+    			});
+    		}).
+    		error(function(data,status,headers,config) {
+    			console.log(status);
+    			$(function(){
+    				new PNotify({
+					    title: 'Error',
+					    text: 'Unable to update contact.',
+					    type: 'error',
+					    styling: 'bootstrap3',
+					    delay:3000
+					});
+    			})
+    		});
     
+   };
+   
 });
 
 // get a list of all the contacts in the system
