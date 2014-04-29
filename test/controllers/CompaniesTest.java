@@ -208,6 +208,34 @@ public class CompaniesTest extends WithApplication {
     }
 
     @Test
+    public void updateCompanyAddressTest() {
+ 	   
+ 	   // first step is to find an existing address and then use that address id for the update
+ 	   Address testAddress = Address.find.byId(1);
+ 	   
+ 	   ObjectNode json = Json.newObject();
+ 	   
+ 	   json.put("id", testAddress.id);
+ 	   json.put("address1", "200 Frobel Avenue");
+ 	   json.put("address2", testAddress.address2);
+ 	   json.put("city", testAddress.city);
+ 	   json.put("state", testAddress.state);
+ 	   json.put("zipcode", testAddress.zipcode);
+ 	   
+ 	   Result result = callAction(
+ 			   controllers.routes.ref.Companies.updateAddress(1, testAddress.id),
+ 			   fakeRequest().withSession("username", "jacksmith")
+ 			   	.withJsonBody(json));
+ 	   
+ 	   
+ 	   assertEquals(200, status(result));
+ 	   Address address = Address.find.byId(1);
+ 	   assertNotNull(address);
+ 	   assertEquals("200 Frobel Avenue", address.address1);
+
+    }
+    
+    @Test
     public void deleteCompanyTest() {
     	
   	   // first step is to find an existing company and then use that company id for the update
