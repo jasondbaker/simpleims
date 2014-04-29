@@ -71,19 +71,30 @@ public class Incidents extends Controller {
 	}
 	
 	// get a list of all incidents owned by the user
-	public static Result getOwned() {
-		return ok(Json.toJson(Incident.findByOwner(request().username())));
+	public static Result getOwned(String status) {
+		
+		// modify the incident list query based on the status request parameter
+		if (status.equals("all")) {
+			return ok(Json.toJson(Incident.findByOwner(request().username())));
+			
+		} else if (status.equals("open")) {
+		
+			return ok(Json.toJson(Incident.find.where().eq("owner.username", request().username()).eq("status", "Open").findList()));
+		} else if (status.equals("closed")) {
+			return ok(Json.toJson(Incident.find.where().eq("owner.username", request().username()).eq("status", "Closed").findList()));		
+		} else if (status.equals("unassigned")) {
+			return ok(Json.toJson(Incident.findUnassigned()));
+		}
+			else {
+			return badRequest();
+		}
+		
 	}
 	
 	// get information for a specific incident owned by the user
 	public static Result get(Integer id) {
 			
 		return ok(Json.toJson(Incident.find.byId(id)));
-	}
-	
-	// get all incidents that have no owner
-	public static Result getUnassigned() {
-		return ok(Json.toJson(Incident.findUnassigned()));
 	}
 	
 	// close an incident based on the incident id

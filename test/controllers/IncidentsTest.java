@@ -62,7 +62,7 @@ public class IncidentsTest extends WithApplication {
     public void getAllIncidentsTest() {
  	   
  	   Result result = callAction(
- 			   controllers.routes.ref.Incidents.getOwned(),
+ 			   controllers.routes.ref.Incidents.getOwned("all"),
  			   fakeRequest().withSession("username", "jacksmith")); 
  	   
  	   assertEquals(200, status(result));
@@ -75,7 +75,7 @@ public class IncidentsTest extends WithApplication {
     public void getUnassignedIncidentsTest() {
  	   
  	   Result result = callAction(
- 			   controllers.routes.ref.Incidents.getUnassigned(),
+ 			   controllers.routes.ref.Incidents.getOwned("unassigned"),
  			   fakeRequest().withSession("username", "jacksmith")); 
  	   
  	   assertEquals(200, status(result));

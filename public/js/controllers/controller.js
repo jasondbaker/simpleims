@@ -61,14 +61,14 @@ ims.config(function ($routeProvider) {
 
 ims.controller('getDashboard', function ($scope, $http) {
 	
-	// get the incidents for the current agent
-    $http.get('http://localhost:9000/incidents').
+	// get the open incidents for the current agent
+    $http.get('http://localhost:9000/incidents?status=open').
         success(function(data) {
             $scope.incident = data;
         });
     
     // get the unassigned incidents in the system
-    $http.get('http://localhost:9000/incidents/unassigned').
+    $http.get('http://localhost:9000/incidents?status=unassigned').
     success(function(data) {
         $scope.unassignedIncident = data;
     });
@@ -256,7 +256,7 @@ ims.controller('getContacts', function ($scope, $http) {
 });
 
 // get all the information associated with a specific incident
-ims.controller('getIncident', function ($scope, $routeParams, $http) {
+ims.controller('getIncident', function ($scope, $routeParams, $http, $location) {
     
 	// get the incident information
 	$http.get('http://localhost:9000/incidents/'+ $routeParams.incidentId).
@@ -293,6 +293,49 @@ ims.controller('getIncident', function ($scope, $routeParams, $http) {
             });
         });
 	
+	   // update the system using the incident form values
+	   $scope.close = function() {
+	    	
+		   console.log("close incident");
+		   
+		    // create an object to hold the form values 
+	    	var dataObj = { };
+	    	
+	    	console.log(dataObj);
+	    	
+	    	// post the json object to the restful api
+	    	$http.post( 'http://localhost:9000/incidents/' + $scope.incident.id + '/close', dataObj)
+	    		.success(function(data) {
+	    			console.log(data);
+	    			
+	    			// show notification
+	    			$(function(){
+	    				new PNotify({
+	    					title: 'Success',
+	    					text: 'Incident closed.',
+	    					type: 'success',
+	    					styling: 'bootstrap3',
+	    					delay: 3000
+	    				});
+	    			});
+	    			$location.path('/');
+	    			
+	    		}).
+	    		error(function(data,status,headers,config) {
+	    			console.log(status);
+	    			$(function(){
+	    				new PNotify({
+						    title: 'Error',
+						    text: 'Unable to close incident.',
+						    type: 'error',
+						    styling: 'bootstrap3',
+						    delay:3000
+						});
+	    			})
+	    		});
+	    
+	   };
+	   
 	   // update the system using the incident form values
 	   $scope.update = function() {
 	    	
