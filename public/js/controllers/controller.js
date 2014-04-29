@@ -293,4 +293,49 @@ ims.controller('getIncident', function ($scope, $routeParams, $http) {
             });
         });
 	
+	   // update the system using the incident form values
+	   $scope.update = function() {
+	    	
+		   console.log("update incident");
+		   
+		    // create an object to hold the form values 
+	    	var dataObj = { "username" : $scope.selectedAgent,
+	    					"subject" : $scope.incident.subject,
+	    					"description" : $scope.incident.description,
+	    					"priority" : $scope.incident.priority,
+	    					"contactId" : $scope.incident.requester.id};
+	    	
+	    	console.log(dataObj);
+	    	
+	    	// post the json object to the restful api
+	    	$http.post( 'http://localhost:9000/incidents/' + $scope.incident.id, dataObj)
+	    		.success(function(data) {
+	    			console.log(data);
+	    			
+	    			// show notification
+	    			$(function(){
+	    				new PNotify({
+	    					title: 'Success',
+	    					text: 'Incident successfully updated.',
+	    					type: 'success',
+	    					styling: 'bootstrap3',
+	    					delay: 3000
+	    				});
+	    			});
+	    		}).
+	    		error(function(data,status,headers,config) {
+	    			console.log(status);
+	    			$(function(){
+	    				new PNotify({
+						    title: 'Error',
+						    text: 'Unable to update incident.',
+						    type: 'error',
+						    styling: 'bootstrap3',
+						    delay:3000
+						});
+	    			})
+	    		});
+	    
+	   };
+	   
 });
