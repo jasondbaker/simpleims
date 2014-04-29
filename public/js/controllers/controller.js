@@ -106,7 +106,7 @@ ims.controller('getCompany', function ($scope, $routeParams, $http) {
 					"zipcode" : $scope.company.addresses[0].zipcode
 					};
      	
-     	console.log(dataObj);
+     	console.log(companyObj);
      	
      	// post the json object to the restful api
      	$http.post( 'http://localhost:9000/companies/' + $scope.company.id, companyObj)
@@ -117,7 +117,7 @@ ims.controller('getCompany', function ($scope, $routeParams, $http) {
      			$(function(){
      				new PNotify({
      					title: 'Success',
-     					text: 'Contact successfully updated.',
+     					text: 'Company successfully updated.',
      					type: 'success',
      					styling: 'bootstrap3',
      					delay: 3000
@@ -129,7 +129,38 @@ ims.controller('getCompany', function ($scope, $routeParams, $http) {
      			$(function(){
      				new PNotify({
  					    title: 'Error',
- 					    text: 'Unable to update contact.',
+ 					    text: 'Unable to update company.',
+ 					    type: 'error',
+ 					    styling: 'bootstrap3',
+ 					    delay:3000
+ 					});
+     			})
+     		});
+     	
+     	console.log(companyObj);
+     	
+     	// post the json object to the restful api
+     	$http.post( 'http://localhost:9000/companies/' + $scope.company.id + '/addresses/' + $scope.company.addresses[0].id, addrObj)
+     		.success(function(data) {
+     			console.log(data);
+     			
+     			// show notification
+     			$(function(){
+     				new PNotify({
+     					title: 'Success',
+     					text: 'Address successfully updated.',
+     					type: 'success',
+     					styling: 'bootstrap3',
+     					delay: 3000
+     				});
+     			});
+     		}).
+     		error(function(data,status,headers,config) {
+     			console.log(status);
+     			$(function(){
+     				new PNotify({
+ 					    title: 'Error',
+ 					    text: 'Unable to update address.',
  					    type: 'error',
  					    styling: 'bootstrap3',
  					    delay:3000
