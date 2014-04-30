@@ -110,7 +110,12 @@ public class Incidents extends Controller {
 	// update an existing incident based on the incident id
 	@BodyParser.Of(BodyParser.Json.class)
 	public static Result update(int incident) {
-		if (Authenticated.isOwnerOf(incident)) {
+		// determine the owner of the incident
+		Agent agent = Incident.find.byId(incident).owner;
+		
+		//user is allowed to update the incident if the user is the owner (agent)
+		//or the incident is unassigned
+		if (Authenticated.isOwnerOf(incident) || agent == null) {
 			
 			// retrieve json from the request body
 			JsonNode json = request().body().asJson();
