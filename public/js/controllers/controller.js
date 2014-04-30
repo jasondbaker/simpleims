@@ -286,6 +286,8 @@ ims.controller('getIncident', function ($scope, $routeParams, $http, $location) 
 	                		}
 	                	
 	                	}
+                    } else {
+                    	$scope.unassigned = true;
                     }
                     
                 });
