@@ -97,7 +97,35 @@ public class IncidentsTest extends WithApplication {
  	   assertThat(contentAsString(result)).contains("process to reproduce the application failure");
  	   assertThat(contentAsString(result)).contains("now seeing a different error");
     }
-    
+   
+   @Test
+   public void addIncidentActionTest() {
+
+  	   // first step is to find an existing incident and then use that incident id for the update
+  	   Incident testIncident = Incident.find.where().eq("owner_username", "jacksmith").eq("subject", "Application error").findUnique();
+  
+  	   // add the new action
+  	   
+  	 ObjectNode json = Json.newObject();
+	   
+	   json.put("description", "I will reboot the system shortly.");
+	   
+	   Result result = callAction(
+			   controllers.routes.ref.Incidents.addAction(testIncident.id),
+			   fakeRequest().withSession("username", "jacksmith")
+			   	.withJsonBody(json));
+	   
+ 	   assertEquals(200, status(result));
+ 	   
+ 	   // retrieve the list of actions for the test incident
+ 	   Result result2 = callAction(
+ 			   controllers.routes.ref.Incidents.getActions(testIncident.id),
+ 			   fakeRequest().withSession("username", "jacksmith")); 
+ 	   
+ 	  assertThat(contentAsString(result2)).contains("reboot the system");
+ 	   
+   }
+   
    @Test
    public void newIncidentTest() {
 	   
