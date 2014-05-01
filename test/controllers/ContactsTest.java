@@ -64,12 +64,26 @@ public class ContactsTest extends WithApplication {
     public void getAllContactsTest() {
  	   
  	   Result result = callAction(
- 			   controllers.routes.ref.Contacts.list(),
+ 			   controllers.routes.ref.Contacts.list("_all"),
  			   fakeRequest().withSession("username", "jacksmith"));
  	   
  	   
  	   assertEquals(200, status(result));
  	   assertThat(contentAsString(result)).contains("Bill Richards");
+ 	  assertThat(contentAsString(result)).contains("Beth Goodwin");
+
+    }
+    
+    @Test
+    public void getSearchContactsTest() {
+ 	   
+ 	   Result result = callAction(
+ 			   controllers.routes.ref.Contacts.list("beth"),
+ 			   fakeRequest().withSession("username", "jacksmith"));
+ 	   
+ 	   
+ 	   assertEquals(200, status(result));
+ 	   assertThat(contentAsString(result)).doesNotContain("Bill Richards");
  	  assertThat(contentAsString(result)).contains("Beth Goodwin");
 
     }
@@ -145,7 +159,7 @@ public class ContactsTest extends WithApplication {
  	  
  	   // request the list of all contacts
  	   Result result2 = callAction(
-			   controllers.routes.ref.Contacts.list(),
+			   controllers.routes.ref.Contacts.list("_all"),
 			   fakeRequest().withSession("username", "jacksmith"));
 	   
 	   // check to see if this contact was removed (de-activated)
