@@ -18,4 +18,68 @@
 	
 	</table>
 	
+	<div ng-int="isHidden=true">
+		<button class="btn btn-success btn-sm" ng-click="isHidden=!isHidden"><i class="fa fa-plus"></i></button> 
+	</div>
+			
+	<!--  Create new company  --------------------------------------->
+	
+	<div ng-show="isHidden" class="container incident-box my-show-hide-animation">
+	<h4>Create new company</h4>
+	<form name="companyForm" class="form-horizontal" role="form">
+		
+		<div class="form-group">
+			<div class="col-sm-10">
+				<input type="text" ng-model="newcompany.name" ng-required="true" class="form-control" placeholder="Company name">
+			</div>
+		</div>
+		
+		<div class="form-group">
+			<div class="col-sm-10">
+				<input type="text" ng-model="newcompany.address1" ng-required="true" class="form-control" placeholder="Address1">
+			</div>
+		</div>	
+
+		<div class="form-group">
+			<div class="col-sm-10">
+				<input type="text" ng-model="newcompany.address2" class="form-control" placeholder="Address2">
+			</div>
+		</div>
+
+		<div class="form-group">
+			<div class="col-sm-10">
+				<input type="text" ng-model="newcompany.city" ng-required="true" class="form-control" placeholder="City">
+			</div>
+		</div>				
+
+		<div class="form-group">
+			<div class="col-sm-10">
+				<input type="text" ng-model="newcompany.state" ng-required="true" class="form-control" placeholder="State">
+			</div>
+		</div>
+
+		<div class="form-group">
+			<div class="col-sm-10">
+				<input type="text" ng-model="newcompany.zipcode" ng-required="true" class="form-control" placeholder="Zipcode">
+			</div>
+		</div>
+
+		<div class="form-group">
+			<div class="col-sm-10">
+				<input type="text" ng-model="newcompany.website" class="form-control" placeholder="Website address">
+			</div>
+		</div>
+									
+		<div class="form-group">
+			<div class="col-sm-10">
+				<textarea class="form-control" ng-model="newcompany.notes" rows="4" placeholder="Description"></textarea>
+				<br/>
+				<div><button class="btn btn-default" ng-disabled="companyForm.$invalid" ng-click="create()">Create</button> </div>	
+			</div>
+		</div>
+				
+	</form>
+	
+	</div>
+	
 </div>	
