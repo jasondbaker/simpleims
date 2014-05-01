@@ -27,7 +27,7 @@ POST	/companies/:id/addresses/:id2	controllers.Companies.updateAddress(id: Integ
 DELETE	/companies/:id				controllers.Companies.delete(id: Integer)
 
 # Contacts
-GET		/contacts					controllers.Contacts.list()
+GET		/contacts					controllers.Contacts.list(search: String ?= "_all")
 GET		/contacts/:id				controllers.Contacts.get(id: Integer)
 GET		/contacts/:id/incidents		controllers.Contacts.getIncidents(id: Integer)
 GET		/contacts/:id/companies		controllers.Contacts.getCompanies(id: Integer)

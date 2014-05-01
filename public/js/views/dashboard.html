@@ -1,4 +1,4 @@
-<div class="page-header">
+<div>
 	<h2>My Incidents</h2>
 </div>
 
@@ -28,7 +28,58 @@
 	
 	<div ng-hide="incident.length">No incidents found.<br/></div>
 	
-	<div class="page-header">
+	<div ng-int="isHidden=true">
+		<button class="btn btn-default btn-sm" ng-click="isHidden=!isHidden"><i class="fa fa-plus"></i></button> 
+	</div>
+	
+	<!--  Create new incident  --------------------------------------->
+	
+	<div ng-show="isHidden" class="container incident-box my-show-hide-animation">
+	<h4>Create new incident</h4>
+	<form class="form-horizontal" role="form">
+				
+		<div class="form-group">
+			<div class="col-sm-10">
+				<input type="text" ng-model="selContactId" placeholder="Requester" 
+				typeahead="contact as contact.fullname for contact in getContacts($viewValue) | filter:{fullname:$viewValue}" 
+				typeahead-min-length="2" 
+				typeahead-editable="false" class="form-control">
+			</div>
+		</div>
+		
+		<div class="form-group">
+			<div class="col-sm-10 form-control-static">
+				Priority: <select ng-model="newincident.priority" required="true">
+					<option>1</option>
+					<option>2</option>
+					<option>3</option>
+				</select> &nbsp;&nbsp;
+				
+				Agent: <select ng-model="selectedAgent"
+						ng-options="agent.username as agent.fullname for agent in agents">
+				</select>
+			</div>
+		</div>		
+		
+		<div class="form-group">
+			<div class="col-sm-10">
+				<input type="text" ng-model="newincident.subject" class="form-control" id="inputsubject" placeholder="Subject">
+			</div>
+		</div>
+			
+		<div class="form-group">
+			<div class="col-sm-10">
+				<textarea class="form-control" ng-model="newincident.description" rows="4" placeholder="Description"></textarea>
+				<br/>
+				<div><button ng-click="create()">Create</button> </div>	
+			</div>
+		</div>
+				
+	</form>
+	
+	</div>
+	
+	<div>
 		<h2>Unassigned Incidents</h2>
 	</div>
 
