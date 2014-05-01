@@ -1,4 +1,4 @@
-<div class="page-header">
+<div>
 	<h2>My Incidents</h2>
 </div>
 
@@ -28,7 +28,13 @@
 	
 	<div ng-hide="incident.length">No incidents found.<br/></div>
 	
-	<div class="container">
+	<div ng-int="isHidden=true">
+		<button class="btn btn-default btn-sm" ng-click="isHidden=!isHidden"><i class="fa fa-plus"></i></button> 
+	</div>
+	
+	<!--  Create new incident  --------------------------------------->
+	
+	<div ng-show="isHidden" class="container incident-box my-show-hide-animation">
 	<h4>Create new incident</h4>
 	<form class="form-horizontal" role="form">
 				
@@ -65,7 +71,7 @@
 			<div class="col-sm-10">
 				<textarea class="form-control" ng-model="newincident.description" rows="4" placeholder="Description"></textarea>
 				<br/>
-				<div><button ng-click="create()">Create</button> 	
+				<div><button ng-click="create()">Create</button> </div>	
 			</div>
 		</div>
 				
@@ -73,7 +79,7 @@
 	
 	</div>
 	
-	<div class="page-header">
+	<div>
 		<h2>Unassigned Incidents</h2>
 	</div>
 

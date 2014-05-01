@@ -105,7 +105,8 @@ ims.controller('getDashboard', function ($scope, $http) {
 	      return contacts;
 	    });
 	  };
-	
+	  
+	  
 	   // create a new incident in the system
 	   $scope.create = function() {
 	    	
