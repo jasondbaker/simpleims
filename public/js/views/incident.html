@@ -88,13 +88,13 @@
 			
 			<div ng-show="isHidden" class="container incident-box my-show-hide-animation">
 			<h4>Add new action</h4>
-			<form class="form-horizontal" role="form">
+			<form name="actionForm" class="form-horizontal" role="form">
 					
 				<div class="form-group">
 					<div class="col-sm-10">
-						<textarea class="form-control" ng-model="newaction.description" rows="4" placeholder="Description"></textarea>
+						<textarea class="form-control" ng-required="true" ng-model="newaction.description" rows="4" placeholder="Description"></textarea>
 						<br/>
-						<div><button ng-click="create()">Add</button> </div>	
+						<div><button class="btn btn-default" ng-disabled="actionForm.$invalid" ng-click="create()">Add</button> </div>	
 					</div>
 				</div>
 						
