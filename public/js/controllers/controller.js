@@ -390,6 +390,59 @@ ims.controller('getIncident', function ($scope, $routeParams, $http, $location) 
             });
         });
 	
+		
+	   // create a new action associated with the incident
+	   $scope.create = function() {
+	    	
+		   console.log("create action");
+		   
+		    // create an object to hold the form values 
+	    	var dataObj = { "description" : $scope.newaction.description }
+	    	
+	    	console.log(dataObj);
+	    	
+	    	// post the json object to the restful api
+	    	$http.post( 'http://localhost:9000/incidents/'+ $scope.incident.id + '/actions', dataObj)
+	    		.success(function(data) {
+	    			console.log(data);
+	    			
+	    			// show notification
+	    			$(function(){
+	    				new PNotify({
+	    					title: 'Success',
+	    					text: 'Action successfully added.',
+	    					type: 'success',
+	    					styling: 'bootstrap3',
+	    					delay: 3000
+	    				});
+	    				
+	    				// repopulate the data in the view
+	    				$http.get('http://localhost:9000/incidents/'+ $routeParams.incidentId).
+	    		        success(function(data) {
+	    		            $scope.incident = data;
+	    			        });
+	    			    
+	    			    // clear the form elements
+	    			 
+	    			    $scope.newaction.description = '';
+	    			    
+	    			});
+	    		}).
+	    		error(function(data,status,headers,config) {
+	    			console.log(status);
+	    			$(function(){
+	    				new PNotify({
+						    title: 'Error',
+						    text: 'Unable to add action.',
+						    type: 'error',
+						    styling: 'bootstrap3',
+						    delay:3000
+						});
+	    			})
+	    		});
+	    
+	   };
+	   
 	   // update the system using the incident form values
 	   $scope.close = function() {
 	    	

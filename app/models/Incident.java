@@ -52,14 +52,6 @@ public class Incident extends Model {
 			this.actions = new ArrayList<Action>();
 	}
 	
-	public Incident addAction(String username, String description) {
-		Action newAction = Action.create(username, description, this.id);
-		this.actions.add(newAction);
-		this.save();
-		return this;
-		
-	}
-	
 	// close incident by changing the status to closed and setting the enddate
 	public static Incident close(int incidentId, String username) {
 		Incident incident = find.ref(incidentId);

@@ -5,7 +5,9 @@ body {
 
 .btn:focus {
   outline: none;
+  
 }
+
 
 .incident-box {
 	background-color: #d8d8d8;	
@@ -62,34 +64,4 @@ body {
     -webkit-transform: translateY(-10%);
     transform: translateY(-10%);
   }
-}
-
-/* ANIMATION DEFINITIONS
-============================================================================= */
-
-
-
-/* slide in from the bottom */
-@keyframes slideInUp {
-	from 	{ transform:translateY(100%); }
-	to 		{ transform: translateY(0); }
-}
-@-moz-keyframes slideInUp {
-	from 	{ -moz-transform:translateY(100%); }
-	to 		{ -moz-transform: translateY(0); }
-}
-@-webkit-keyframes slideInUp {
-	from 	{ -webkit-transform:translateY(100%); }
-	to 		{ -webkit-transform: translateY(0); }
-}
-
-/* slide in from the bottom */
-@keyframes slideOutLeft {
-	to 		{ transform: translateX(-100%); }
-}
-@-moz-keyframes slideOutLeft {	
-	to 		{ -moz-transform: translateX(-100%); }
-}
-@-webkit-keyframes slideOutLeft {
-	to 		{ -webkit-transform: translateX(-100%); }
 }

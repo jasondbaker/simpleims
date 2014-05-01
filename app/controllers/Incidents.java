@@ -43,7 +43,20 @@ public class Incidents extends Controller {
 		return ok(Json.toJson(newIncident));
 		
 	}
-
+	
+	// add an action to an incident
+	@BodyParser.Of(BodyParser.Json.class)
+	public static Result addAction(int incidentId) {
+		JsonNode json = request().body().asJson();
+		
+		// slice up the json and store values in individual variables
+		JsonNode jsonDescription = json.get("description");
+				
+		Action newAction = Action.create(request().username(), jsonDescription.asText(), incidentId);
+		return ok(Json.toJson(newAction));
+	}
+	
+	
 	// close an incident based on the incident id
 	public static Result close(int incidentId) {
 		if (Authenticated.isOwnerOf(incidentId)) {
