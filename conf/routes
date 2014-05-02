@@ -29,7 +29,7 @@ DELETE	/companies/:id				controllers.Companies.delete(id: Integer)
 # Contacts
 GET		/contacts					controllers.Contacts.list(search: String ?= "_all")
 GET		/contacts/:id				controllers.Contacts.get(id: Integer)
-GET		/contacts/:id/incidents		controllers.Contacts.getIncidents(id: Integer)
+GET		/contacts/:id/incidents		controllers.Contacts.getIncidents(id: Integer, status: String ?= "any")
 GET		/contacts/:id/companies		controllers.Contacts.getCompanies(id: Integer)
 POST	/contacts/:id				controllers.Contacts.update(id: Integer)
 DELETE	/contacts/:id				controllers.Contacts.delete(id: Integer)
