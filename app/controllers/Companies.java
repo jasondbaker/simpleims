@@ -105,8 +105,15 @@ public class Companies extends Controller {
 	}
 	
 	// get a list of all active companies
-	public static Result list() {
-		return ok(Json.toJson(Company.find.where().eq("active", true).findList()));
+	public static Result list(String search) {
+		
+		// modify the query based on the search string
+		if (search.equals("_all")) {
+			return ok(Json.toJson(Company.find.where().eq("active", true).orderBy("name").findList()));
+		} else {
+			return ok(Json.toJson(Company.find.where().eq("active", true).icontains("name", search).findList()));
+		}
+				
 	}
 	
 	// get information for a specific company

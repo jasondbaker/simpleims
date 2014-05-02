@@ -59,7 +59,7 @@ public class Contacts extends Controller {
 		if (search.equals("_all")) {
 			return ok(Json.toJson(Contact.find.where().eq("active", true).orderBy("fullname").findList()));
 		} else {
-			return ok(Json.toJson(Contact.find.where().icontains("fullname", search).findList()));
+			return ok(Json.toJson(Contact.find.where().eq("active", true).icontains("fullname", search).findList()));
 		}
 		
 	}

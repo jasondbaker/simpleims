@@ -80,6 +80,7 @@
 					<th>ID</th>
 					<th>Priority</th>
 					<th>Date</th>
+					<th>Status</th>
 					<th>Requester</th>
 					<th>Subject</th>
 				</tr>
@@ -92,6 +93,7 @@
 						</span>
 					</td>
 					<td>{{ incident.startdate | date:'short'}}</td>
+					<td>{{incident.status}}</td>
 					<td><a href="#/contacts/{{incident.requester.id}}">{{ incident.requester.fullname }}</a></td>
 					<td>{{ incident.subject }}</td>
 				</tr>
