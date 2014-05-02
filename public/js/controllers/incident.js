@@ -97,41 +97,61 @@ ims.controller('getIncident', function ($scope, $routeParams, $http, $location) 
 	    	
 		   console.log("close incident");
 		   
-		    // create an object to hold the form values 
-	    	var dataObj = { };
-	    	
-	    	console.log(dataObj);
-	    	
-	    	// post the json object to the restful api
-	    	$http.post( 'http://localhost:9000/incidents/' + $scope.incident.id + '/close', dataObj)
-	    		.success(function(data) {
-	    			console.log(data);
-	    			
-	    			// show notification
-	    			$(function(){
+		// get the current agent
+       	$http.get('http://localhost:9000/agent').
+           success(function(data) {
+               var agent = data;
+               	
+               	if (agent.username == $scope.selectedAgent) {
+				    // create an object to hold the form values 
+			    	var dataObj = { };
+			    	
+			    	console.log(dataObj);
+			    	
+			    	// post the json object to the restful api
+			    	$http.post( 'http://localhost:9000/incidents/' + $scope.incident.id + '/close', dataObj)
+			    		.success(function(data) {
+			    			console.log(data);
+			    			
+			    			// show notification
+			    			$(function(){
+			    				new PNotify({
+			    					title: 'Success',
+			    					text: 'Incident closed.',
+			    					type: 'success',
+			    					styling: 'bootstrap3',
+			    					delay: 3000
+			    				});
+			    			});
+			    			$location.path('/');
+			    			
+			    		}).
+			    		error(function(data,status,headers,config) {
+			    			console.log(status);
+			    			$(function(){
+			    				new PNotify({
+								    title: 'Error',
+								    text: 'Unable to close incident.',
+								    type: 'error',
+								    styling: 'bootstrap3',
+								    delay:3000
+								});
+			    			})
+			    		});
+               	} else {
+               		
+               		// report that the current agent does not own the incident
+               		$(function(){
 	    				new PNotify({
-	    					title: 'Success',
-	    					text: 'Incident closed.',
-	    					type: 'success',
-	    					styling: 'bootstrap3',
-	    					delay: 3000
-	    				});
-	    			});
-	    			$location.path('/');
-	    			
-	    		}).
-	    		error(function(data,status,headers,config) {
-	    			console.log(status);
-	    			$(function(){
-	    				new PNotify({
-						    title: 'Error',
-						    text: 'Unable to close incident.',
+						    title: 'Warning',
+						    text: 'Unable to close incident because the agent is not the owner.',
 						    type: 'error',
 						    styling: 'bootstrap3',
-						    delay:3000
+						    delay:5000
 						});
-	    			})
-	    		});
+	    			})	
+               	};
+           });
 	    
 	   };
 	   
