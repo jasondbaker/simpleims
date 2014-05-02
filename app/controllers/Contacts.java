@@ -78,10 +78,15 @@ public class Contacts extends Controller {
 
 	}
 	
-	// get incidents associated with a specific contact
-	public static Result getIncidents(Integer id) {
+	// get incidents associated with a specific contact based on status
+	public static Result getIncidents(Integer id, String status) {
+		
+		if (status.equals("any")) {
 			
-		return ok(Json.toJson(Incident.find.where().eq("requester_id", id).findList()));
+			return ok(Json.toJson(Incident.find.where().eq("requester_id", id).findList()));
+		} else {
+			return ok(Json.toJson(Incident.find.where().eq("requester_id", id).eq("status", status).findList()));
+		}
 
 	}
 }

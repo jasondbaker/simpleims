@@ -95,7 +95,7 @@ public class ContactsTest extends WithApplication {
  	   Contact testContact = Contact.find.where().eq("fullname", "Beth Goodwin").findUnique();
  	   
  	   Result result = callAction(
- 			   controllers.routes.ref.Contacts.getIncidents(testContact.id),
+ 			   controllers.routes.ref.Contacts.getIncidents(testContact.id, "any"),
  			   fakeRequest().withSession("username", "jacksmith"));
  	   
  	   
