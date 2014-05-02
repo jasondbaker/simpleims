@@ -64,7 +64,7 @@ public class CompaniesTest extends WithApplication {
     public void getAllCompaniesTest() {
  	   
  	   Result result = callAction(
- 			   controllers.routes.ref.Companies.list(),
+ 			   controllers.routes.ref.Companies.list("_all"),
  			   fakeRequest().withSession("username", "jacksmith"));
  	   
  	   
@@ -250,7 +250,7 @@ public class CompaniesTest extends WithApplication {
  	   
  	   // request a list of active companies
  	   Result result2 = callAction(
- 			   controllers.routes.ref.Companies.list(),
+ 			   controllers.routes.ref.Companies.list("_all"),
  			   fakeRequest().withSession("username", "jacksmith"));
  	   
  	   assertEquals(200, status(result2));

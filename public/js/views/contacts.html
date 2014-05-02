@@ -1,9 +1,7 @@
 <div ng-controller="getContacts">
 
-	<div class="page-header">
-		<h2>Contacts</h2>
-	</div>
-	
+
+	<h2>Contacts</h2>
 
 	<table class="table table-hover">
 		<tr>
@@ -19,5 +17,48 @@
 		</tr>
 	
 	</table>
+	
+	<div ng-int="isHidden=true">
+		<button class="btn btn-success btn-sm" ng-click="isHidden=!isHidden"><i class="fa fa-plus"></i></button> 
+	</div>
+	
+	<!--  Create new contact  --------------------------------------->
+	
+	<div ng-show="isHidden" class="container incident-box my-show-hide-animation">
+	<h4>Create new contact</h4>
+	<form name="contactForm" class="form-horizontal" role="form">
+
+		<div class="form-group">
+			<div class="col-sm-10">
+				<input type="text" ng-required="true" ng-required="true" ng-model="newcontact.fullname" class="form-control" placeholder="Fullname">
+			</div>
+		</div>
+						
+		<div class="form-group">
+			<div class="col-sm-10">
+				<input type="text" ng-required="true" ng-model="selCompanyId" placeholder="Company" 
+				typeahead="company as company.name for company in getCompanies($viewValue) | filter:{name:$viewValue}" 
+				typeahead-min-length="2" 
+				typeahead-editable="false" class="form-control">
+			</div>
+		</div>
+		
+		<div class="form-group">
+			<div class="col-sm-10">
+				<input type="text" ng-required="true" ng-required="true" ng-model="newcontact.email" class="form-control" placeholder="Email">
+			</div>
+		</div>
+			
+		<div class="form-group">
+			<div class="col-sm-10">
+				<input type="text" ng-model="newcontact.phone" class="form-control" placeholder="Phone">
+				<div><button class="btn btn-default" ng-disabled="contactForm.$invalid" ng-click="create()">Create</button> </div>	
+			
+			</div>
+		</div>
+				
+	</form>
+	
+	</div>
 	
 </div>		

@@ -15,7 +15,7 @@ GET		/logout						controllers.Application.logout()
 POST	/login						controllers.Application.authenticate()
 
 # Companies
-GET		/companies					controllers.Companies.list()
+GET		/companies					controllers.Companies.list(search: String ?= "_all")
 GET		/companies/:id				controllers.Companies.get(id: Integer)
 GET		/companies/:id/incidents	controllers.Companies.getIncidents(id: Integer)
 GET		/companies/:id/contacts		controllers.Companies.getContacts(id: Integer)
