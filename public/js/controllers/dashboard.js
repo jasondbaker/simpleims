@@ -50,9 +50,13 @@ ims.controller('getDashboard', function ($scope, $http) {
 	   $scope.create = function() {
 	    	
 		   console.log("create incident");
+		   var agent = "";
+		   
+		   // check to see if the agent was unassigned
+		   agent = ($scope.unassigned) ? "unassigned" : $scope.selectedAgent;
 		   
 		    // create an object to hold the form values 
-	    	var dataObj = { "username" : $scope.selectedAgent,
+	    	var dataObj = { "username" : agent,
 	    					"subject" : $scope.newincident.subject,
 	    					"description" : $scope.newincident.description,
 	    					"priority" : $scope.newincident.priority,
@@ -75,16 +79,27 @@ ims.controller('getDashboard', function ($scope, $http) {
 	    					delay: 3000
 	    				});
 	    				
-	    				// repopulate the data in the view
-	    			    $http.get('http://localhost:9000/incidents?status=open').
-	    			        success(function(data) {
-	    			            $scope.incident = data;
-	    			        });
+	    				if (agent == "unassigned") {
+	    					
+	    				    // repopulate the unassigned incidents in the system
+	    				    $http.get('http://localhost:9000/incidents?status=unassigned').
+	    				    success(function(data) {
+	    				        $scope.unassignedIncident = data;
+	    				    });
+	    				} else {
+		    				// repopulate the data in the view
+		    			    $http.get('http://localhost:9000/incidents?status=open').
+		    			        success(function(data) {
+		    			            $scope.incident = data;
+		    			        });
 	    			    
+	    				};
+	    				
 	    			    // clear the form elements
 	    			    $scope.selContactId = '';
 	    			    $scope.newincident.subject = '';
 	    			    $scope.newincident.description = '';
+	    			    $scope.unassignedIncident= false;
 	    			    
 	    			});
 	    		}).

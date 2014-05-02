@@ -128,7 +128,7 @@ public class Incidents extends Controller {
 		
 		//user is allowed to update the incident if the user is the owner (agent)
 		//or the incident is unassigned
-		if (Authenticated.isOwnerOf(incident) || agent == null) {
+		if (Authenticated.isOwnerOf(incident) || agent.username.equals("unassigned")) {
 			
 			// retrieve json from the request body
 			JsonNode json = request().body().asJson();

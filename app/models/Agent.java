@@ -37,7 +37,7 @@ public class Agent extends Model {
 			);
 	
 	public static Agent authenticate(String username, String password) {
-		Agent agent = find.where().eq("username", username).findUnique();
+		Agent agent = find.where().eq("username", username).eq("active",  "true").findUnique();
 		if (agent != null && BCrypt.checkpw(password, agent.password)){
 			return agent;
 		} else {
