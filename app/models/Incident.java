@@ -94,7 +94,7 @@ public class Incident extends Model {
 	
 	public static List<Incident> findUnassigned() {
 		return find.where()
-				.eq("owner", null)
+				.eq("owner.username", "unassigned")
 				.orderBy("priority asc, startdate asc")
 				.findList();
 	}

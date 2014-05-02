@@ -4,6 +4,13 @@
 agents:
 
   - !!models.Agent
+      username:   unassigned
+      password:   $2a$10$g6YPYnUM1XEfsL55.xdH1u2Ug0C6CGMVLNgw5MG0oKCOlBp1ksIde
+      fullname:   Unassigned
+      email:      
+      active:     false
+  
+  - !!models.Agent
       username:   jacksmith
       password:   $2a$10$g6YPYnUM1XEfsL55.xdH1u2Ug0C6CGMVLNgw5MG0oKCOlBp1ksIde
       fullname:   Jack Smith
@@ -148,7 +155,8 @@ incidents:
       requester:  *contact1
                                
   - &incident5 !!models.Incident
-      owner:      
+      owner:      !!models.Agent
+                      username: unassigned
       subject:    Application database queries are responding slowly
       description: I am running a large set of queries on the corporate database and the query results are taking too long.
       startdate:  "2014-04-11 07:41:25"

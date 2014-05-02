@@ -45,6 +45,8 @@
 				<select ng-model="selectedAgent"
 						ng-options="agent.username as agent.fullname for agent in agents">
 				</select>
+				&nbsp;&nbsp;
+				<span class="agent-alert" ng-show="!selectedAgent"><i class="fa fa-chain-broken"></i> Please assign an Agent.</span>
 			</div>
 		</div>
 		

@@ -55,9 +55,11 @@
 					<option>3</option>
 				</select> &nbsp;&nbsp;
 				
-				Agent: <select ng-model="selectedAgent"
+				Agent: <select ng-disabled="unassigned" ng-model="selectedAgent"
 						ng-options="agent.username as agent.fullname for agent in agents">
-				</select>
+				</select> &nbsp;&nbsp;
+				
+				Unassigned? <input type="checkbox" ng-model="unassigned">
 			</div>
 		</div>		
 		

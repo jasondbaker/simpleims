@@ -20,7 +20,7 @@ ims.controller('getIncident', function ($scope, $routeParams, $http, $location) 
                     
                     // need to figure out which agent owns the incident to display a name in the form selector
                     // but don't try to figure it out if the incident has no owner (unassigned)
-                    if ($scope.incident.owner != null) {
+                    if ($scope.incident.owner.username != 'unassigned') {
 	                    
 
 	                	for (var i = 0; i < $scope.agents.length; i++) {
@@ -184,6 +184,13 @@ ims.controller('getIncident', function ($scope, $routeParams, $http, $location) 
 	    					delay: 3000
 	    				});
 	    			});
+	    			
+	    			// repopulate the data in the view
+    				$http.get('http://localhost:9000/incidents/'+ $routeParams.incidentId).
+    		        success(function(data) {
+    		            $scope.incident = data;
+    			        });
+    				
 	    		}).
 	    		error(function(data,status,headers,config) {
 	    			console.log(status);

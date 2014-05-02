@@ -8,6 +8,12 @@ body {
   
 }
 
+.agent-alert {
+	color: white;
+	background-color: red;
+	border-radius: 10px;
+	padding: 5px;	
+}
 
 .incident-box {
 	background-color: #d8d8d8;	
