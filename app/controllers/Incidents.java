@@ -92,9 +92,9 @@ public class Incidents extends Controller {
 			
 		} else if (status.equals("open")) {
 		
-			return ok(Json.toJson(Incident.find.where().eq("owner.username", request().username()).eq("status", "Open").findList()));
+			return ok(Json.toJson(Incident.find.where().eq("owner.username", request().username()).eq("status", "Open").orderBy("priority asc, startdate asc").findList()));
 		} else if (status.equals("closed")) {
-			return ok(Json.toJson(Incident.find.where().eq("owner.username", request().username()).eq("status", "Closed").findList()));		
+			return ok(Json.toJson(Incident.find.where().eq("owner.username", request().username()).eq("status", "Closed").orderBy("startdate asc").findList()));		
 		} else if (status.equals("unassigned")) {
 			return ok(Json.toJson(Incident.findUnassigned()));
 		}

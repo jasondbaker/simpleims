@@ -16,7 +16,7 @@
 			<td><a href="#/incident/{{incident.id}}">{{ incident.id }}</a></td>
 			<td>{{ incident.priority }}
 				<span ng-show="incident.priority == 1">
-					<i class="fa fa-warning"></i>
+					<i class="fa fa-warning" style="color:red"></i>
 				</span>
 			</td>
 			<td>{{ incident.startdate | date:'short'}}</td>
@@ -98,7 +98,7 @@
 			<td><a href="#/incident/{{unassignedIncident.id}}">{{ unassignedIncident.id }}</td>
 			<td>{{ unassignedIncident.priority }}
 				<span ng-show="unassignedIncident.priority == 1">
-					<i class="fa fa-warning"></i>
+					<i class="fa fa-warning" style="color:red"></i>
 				</span>
 			</td>
 			<td>{{ unassignedIncident.startdate | date:'MMM dd yyyy hh:mma' }}</td>

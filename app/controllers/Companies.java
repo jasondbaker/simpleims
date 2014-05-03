@@ -137,6 +137,7 @@ public class Companies extends Controller {
 				.fetch("requester")
 				.where()
 				.eq("company_id", id)
+				.orderBy("status desc, priority asc, startdate asc")
 				.findList();
 				
 		
