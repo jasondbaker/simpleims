@@ -6,6 +6,21 @@ ims.controller('getContact', function ($scope, $routeParams, $http, $location) {
             $scope.contact = data;
         });
     
+    // get the current agent info
+    $http.get('http://localhost:9000/agent').
+    success(function(data) {
+    
+    	$scope.currentAgent = data;
+    	$scope.selectedAgent = data.username;
+    });
+    
+    // get the list of agents
+	$http.get('http://localhost:9000/agents').
+    success(function(data) {
+        $scope.agents = data;
+         
+    });
+	
     // get all the incidents associated with the contact
     $http.get('http://localhost:9000/contacts/' + $routeParams.contactId + '/incidents').
     success(function(data) {
@@ -124,5 +139,73 @@ ims.controller('getContact', function ($scope, $routeParams, $http, $location) {
     
    };
    
+   // create a new incident in the system
+   $scope.create = function() {
+    	
+	   console.log("create incident");
+	   var agent = "";
+	   
+	   // check to see if the agent was unassigned
+	   agent = ($scope.unassigned) ? "unassigned" : $scope.selectedAgent;
+	   
+	    // create an object to hold the form values 
+    	var dataObj = { "username" : agent,
+    					"subject" : $scope.newincident.subject,
+    					"description" : $scope.newincident.description,
+    					"priority" : $scope.newincident.priority,
+    					"contactId" : $scope.contact.id};
+    	
+    	console.log(dataObj);
+    	
+    	// post the json object to the restful api
+    	$http.post( 'http://localhost:9000/incidents', dataObj)
+    		.success(function(data) {
+    			console.log(data);
+    			
+    			// show notification
+    			$(function(){
+    				new PNotify({
+    					title: 'Success',
+    					text: 'Incident successfully updated.',
+    					type: 'success',
+    					styling: 'bootstrap3',
+    					delay: 3000
+    				});
+    				
+    				
+    			    // repopulate all the incidents associated with the contact
+    			    $http.get('http://localhost:9000/contacts/' + $routeParams.contactId + '/incidents').
+    			    success(function(data) {
+    			        $scope.contactIncidents = data;
+    			    });
+			    
+    				
+    			    // clear the form elements
+    			    $scope.newincident.subject = '';
+    			    $scope.newincident.description = '';
+    			    $scope.unassignedIncident= false;
+    			    
+    			});
+    		}).
+    		error(function(data,status,headers,config) {
+    			console.log(status);
+    			$(function(){
+    				new PNotify({
+					    title: 'Error',
+					    text: 'Unable to create incident.',
+					    type: 'error',
+					    styling: 'bootstrap3',
+					    delay:3000
+					});
+    			})
+    		});
+    
+   };
+   
+	// create an object to hold new incident requests
+	$scope.newincident = {};
+	
+	// set default priority level for new incidents
+	$scope.newincident.priority = 2;
    
 });

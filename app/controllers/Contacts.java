@@ -83,9 +83,9 @@ public class Contacts extends Controller {
 		
 		if (status.equals("any")) {
 			
-			return ok(Json.toJson(Incident.find.where().eq("requester_id", id).findList()));
+			return ok(Json.toJson(Incident.find.where().eq("requester_id", id).orderBy("status desc, priority asc, startdate asc").findList()));
 		} else {
-			return ok(Json.toJson(Incident.find.where().eq("requester_id", id).eq("status", status).findList()));
+			return ok(Json.toJson(Incident.find.where().eq("requester_id", id).eq("status", status).orderBy("priority asc, startdate asc").findList()));
 		}
 
 	}

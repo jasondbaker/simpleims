@@ -1,6 +1,13 @@
+* {
+  margin: 0;
+}
+html, body {
+  height: 100%;
+  padding-bottom: 0px;
+}
+
 body {
   padding-top: 70px;
-  padding-bottom: 30px;
 }
 
 .btn:focus {
@@ -13,6 +20,51 @@ body {
 	background-color: red;
 	border-radius: 10px;
 	padding: 5px;	
+}
+
+/* footer section  === === === === === === === === === === === */
+
+.page-wrap {
+  min-height: 100%;
+  /* equal to footer height */
+  margin-bottom: -100px; 
+}
+.page-wrap:after {
+  content: "";
+  display: block;
+}
+.site-footer, .page-wrap:after {
+  /* .push must be the same height as footer */
+  height: 100px; 
+}
+.site-footer {
+  background: #101010;
+}
+
+#footer-content {
+		margin-top: 20px;
+		margin-bottom: 20px;
+		color: #afafaf;
+		font-size: 12px;
+		text-decoration: none;
+}
+
+#footer-content a {
+		color: #afafaf;
+		text-decoration: none;
+
+}
+
+#footer-content a:hover {
+	color: #afafaf;
+}
+
+.footer-icons {
+	font-size: 28px;
+}
+
+.footer-logo {
+		margin-bottom: 25px;
 }
 
 .incident-box {

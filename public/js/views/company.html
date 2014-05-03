@@ -85,7 +85,7 @@
 					<th>Subject</th>
 				</tr>
 				
-				<tr ng-repeat="incident in companyIncidents | orderBy : 'startdate'">
+				<tr ng-repeat="incident in companyIncidents">
 					<td><a href="#/incident/{{incident.id}}">{{ incident.id }}</a></td>
 					<td>{{ incident.priority }}
 						<span ng-show="incident.priority == 1">

@@ -108,7 +108,7 @@ ims.controller('getDashboard', function ($scope, $http) {
 	    			$(function(){
 	    				new PNotify({
 						    title: 'Error',
-						    text: 'Unable to update incident.',
+						    text: 'Unable to create incident.',
 						    type: 'error',
 						    styling: 'bootstrap3',
 						    delay:3000

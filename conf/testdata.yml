@@ -31,6 +31,13 @@ agents:
       email:      jwilliams@bigsoftware.com
       active:     true
 
+  - !!models.Agent
+      username:   sgoresh
+      password:   $2a$10$g6YPYnUM1XEfsL55.xdH1u2Ug0C6CGMVLNgw5MG0oKCOlBp1ksIde
+      fullname:   Saron Goresh
+      email:      saron.goresh@bigsoftware.com
+      active:     true      
+
 # Companies
 
 companies: 
@@ -52,7 +59,19 @@ companies:
     notes:      Product distribution all over the world.
     website:    www.standardproducts.com
     active:     true
-    
+
+  - &company4 !!models.Company
+    name:       Aeroplat Industries
+    notes:      Diversified conglomerate of distributed entities.
+    website:    www.aeroplat.se
+    active:     true
+ 
+  - &company5 !!models.Company
+    name:       Big World Players Ltd.
+    notes:      
+    website:    www.bigworldplayers.io
+    active:     true
+           
 # Addresses
 
 addresses:
@@ -80,7 +99,23 @@ addresses:
       state:      California
       zipcode:    90234
       company:    *company3
-                      
+
+  - !!models.Address
+      address1:   781N 43rd Street 
+      address2:   1st Floor
+      city:       New York
+      state:      New York
+      zipcode:    10243
+      company:    *company4
+            
+  - !!models.Address
+      address1:   19029 Oak River Circle
+      address2:   
+      city:       Wabakanaba 
+      state:      Washington
+      zipcode:    32454
+      company:    *company5  
+                          
 # Contacts
 
 contacts:
@@ -105,7 +140,42 @@ contacts:
       phone:      443-234-2156
       active:     true
       company:    *company2
-                    
+
+  - &contact4 !!models.Contact
+      email:      steven@aeroplat.se
+      fullname:   Steven Schultz
+      phone:      425-444-2156
+      active:     true
+      company:    *company4
+
+  - &contact5 !!models.Contact
+      email:      lilly@aeroplat.se
+      fullname:   Lilly Fields
+      phone:      425-434-0934
+      active:     true
+      company:    *company4
+
+  - &contact6 !!models.Contact
+      email:      tomb@bigworldplayers.io
+      fullname:   Tom Brandberg
+      phone:      888-324-4536
+      active:     true
+      company:    *company5
+
+  - &contact7 !!models.Contact
+      email:      julaz@bigworldplayers.io
+      fullname:   Jula Zabrini
+      phone:      888-377-3453
+      active:     true
+      company:    *company5
+
+  - &contact8 !!models.Contact
+      email:      chil@bigworldplayers.io
+      fullname:   Chi Lai
+      phone:      888-345-4909
+      active:     true
+      company:    *company5
+                                                  
 # Incidents
 
 incidents:
@@ -134,6 +204,28 @@ incidents:
 
   - &incident3 !!models.Incident
       owner:      !!models.Agent
+                      username: jacksmith
+      subject:    Database corruption problem
+      description: The storage system is corrupted and the database can no longer be accessed. 
+      startdate:  "2014-04-22 08:11:24"
+      enddate:    "2014-04-22 08:11:24"
+      priority:   1
+      status:     "Open"
+      requester:  *contact7
+
+  - &incident4 !!models.Incident
+      owner:      !!models.Agent
+                      username: jacksmith
+      subject:    Apply new software update
+      description: Our software vendor just released a new update and we need to apply it within the next week. 
+      startdate:  "2014-04-27 08:34:11"
+      enddate:    "2014-04-27 08:34:11"
+      priority:   3
+      status:     "Open"
+      requester:  *contact6      
+      
+  - &incident5 !!models.Incident
+      owner:      !!models.Agent
                       username: benj
       subject:    System is down
       description: The system is reporting a database failure when the customer tries to access the application.
@@ -143,18 +235,73 @@ incidents:
       status:     "Open"
       requester:  *contact3 
 
-  - &incident4 !!models.Incident
+  - &incident6 !!models.Incident
+      owner:      !!models.Agent
+                      username: benj
+      subject:    Website performing slowly
+      description: The homepage of the website is responding slowly when the customer tries to access it.
+      startdate:  "2014-04-15 11:12:36"
+      enddate:    "2014-04-15 11:12:36"
+      priority:   1
+      status:     "Open"
+      requester:  *contact5 
+
+  - &incident7 !!models.Incident
+      owner:      !!models.Agent
+                      username: benj
+      subject:    Unable to download file
+      description: The customer sees a file download error message when trying to download a file using the Chrome browser.
+      startdate:  "2014-04-17 07:11:23"
+      enddate:    "2014-04-17 07:12:23"
+      priority:   2
+      status:     "Open"
+      requester:  *contact8 
+
+  - &incident8 !!models.Incident
+      owner:      !!models.Agent
+                      username: benj
+      subject:    Search does not yield results
+      description: Customer is attempting to search for an item in the system and no results are displayed.
+      startdate:  "2014-04-19 12:11:42"
+      enddate:    "2014-04-19 12:12:42"
+      priority:   2
+      status:     "Open"
+      requester:  *contact7 
+ 
+  - &incident9 !!models.Incident
+      owner:      !!models.Agent
+                      username: benj
+      subject:    Javascript library error
+      description: The customer sees a javascript library error message when trying to access the website.
+      startdate:  "2014-04-23 15:33:10"
+      enddate:    "2014-04-24 11:35:54"
+      priority:   3
+      status:     "Closed"
+      requester:  *contact5 
+                       
+  - &incident10 !!models.Incident
       owner:      !!models.Agent
                       username: jwilliams
       subject:    Unexpected application behavior
       description: The application does not display the proper report when the report is selected.
       startdate:  "2014-04-06 13:01:15"
-      enddate:    "2014-04-06 13:01:15"
+      enddate:    "2014-04-20 11:43:24"
+      priority:   3
+      status:     "Closed"
+      requester:  *contact1
+
+  - &incident11 !!models.Incident
+      owner:      !!models.Agent
+                      username: jwilliams
+      subject:    Information request
+      description: The customer is looking for documentation on the newly added website search feature.
+      startdate:  "2014-04-08 11:01:51"
+      enddate:    "2014-04-08 11:01:51"
       priority:   3
       status:     "Open"
-      requester:  *contact1
-                               
-  - &incident5 !!models.Incident
+      requester:  *contact2
+                                     
+  - &incident12 !!models.Incident
       owner:      !!models.Agent
                       username: unassigned
       subject:    Application database queries are responding slowly
@@ -164,7 +311,29 @@ incidents:
       priority:   2
       status:     "Open"
       requester:  *contact1 
-                                        
+ 
+  - &incident13 !!models.Incident
+      owner:      !!models.Agent
+                      username: unassigned
+      subject:    File upload stops unexpectedly
+      description: When the customer tries to upload a large file it stops unexpectedly in the middle of the upload.
+      startdate:  "2014-04-11 07:41:25"
+      enddate:    "2014-04-11 07:41:25"
+      priority:   3
+      status:     "Open"
+      requester:  *contact6 
+ 
+  - &incident14 !!models.Incident
+      owner:      !!models.Agent
+                      username: unassigned
+      subject:    Need copy of the database
+      description: The customer is trying to perform some analysis on their data and they need a copy of their database.
+      startdate:  "2014-04-27 14:41:11"
+      enddate:    "2014-04-27 14:41:11"
+      priority:   2
+      status:     "Open"
+      requester:  *contact7 
+                                                  
 # Actions
 
 actions:
@@ -188,12 +357,27 @@ actions:
       agent:      !!models.Agent
                       username: benj
       description: I reset the application database. I asked our DBAs to review the system error logs.
-      incident:   *incident3
+      incident:   *incident5
 
   - !!models.Action
       startdate:  "2014-04-09 12:53:33"
       agent:      !!models.Agent
                       username: jacksmith
       description: The customer is now seeing a different error while trying to use the application.
-      incident:   *incident4                    
+      incident:   *incident3  
+
+  - !!models.Action
+      startdate:  "2014-04-19 11:53:22"
+      agent:      !!models.Agent
+                      username: benj
+      description: I asked the customer to clear the cache on their browser. They were able to successfully load the site.
+      incident:   *incident9  
+      
+  - !!models.Action
+      startdate:  "2014-04-19 11:53:22"
+      agent:      !!models.Agent
+                      username: jwilliams
+      description: I was able to reload the application data for the customer.
+      incident:   *incident10    
+                              
                      
