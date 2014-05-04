@@ -88,7 +88,10 @@ public class Incidents extends Controller {
 		
 		// modify the incident list query based on the status request parameter
 		if (status.equals("all")) {
-			return ok(Json.toJson(Incident.findByOwner(request().username())));
+			return ok(Json.toJson(Incident.find.where()
+	                .eq("owner.username", request().username())
+	                .orderBy("priority asc, startdate asc")
+	                .findList()));
 			
 		} else if (status.equals("open")) {
 		
@@ -96,7 +99,10 @@ public class Incidents extends Controller {
 		} else if (status.equals("closed")) {
 			return ok(Json.toJson(Incident.find.where().eq("owner.username", request().username()).eq("status", "Closed").orderBy("startdate asc").findList()));		
 		} else if (status.equals("unassigned")) {
-			return ok(Json.toJson(Incident.findUnassigned()));
+			return ok(Json.toJson(Incident.find.where()
+					.eq("owner.username", "unassigned")
+					.orderBy("priority asc, startdate asc")
+					.findList()));
 		}
 			else {
 			return badRequest();
