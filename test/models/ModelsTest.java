@@ -168,12 +168,12 @@ public class ModelsTest extends WithApplication {
     	Ebean.save(all.get("actions"));
     	
     	// Count number of rows
-        assertEquals(4, Agent.find.findRowCount());
-        assertEquals(3, Company.find.findRowCount());
-        assertEquals(3, Address.find.findRowCount());
-        assertEquals(3, Contact.find.findRowCount());
-        assertEquals(5, Incident.find.findRowCount());    
-        assertEquals(4, Action.find.findRowCount());    
+        assertEquals(5, Agent.find.findRowCount());
+        assertEquals(5, Company.find.findRowCount());
+        assertEquals(5, Address.find.findRowCount());
+        assertEquals(8, Contact.find.findRowCount());
+        assertEquals(14, Incident.find.findRowCount());    
+        assertEquals(6, Action.find.findRowCount());    
     }
     	
     	
