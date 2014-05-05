@@ -175,7 +175,32 @@ contacts:
       phone:      888-345-4909
       active:     true
       company:    *company5
-                                                  
+
+# Categories
+
+categories:
+
+  - &category1 !!models.Category
+      type: Application performance issue
+      
+  - &category2 !!models.Category
+      type:   Service unavailable
+      
+  - &category3 !!models.Category
+      type:   Account problem
+      
+  - &category4 !!models.Category
+      type:   Information request
+      
+  - &category5 !!models.Category
+      type:   Bug report
+      
+  - &category6 !!models.Category
+      type:   Billing issue
+      
+  - &category7 !!models.Category
+      type:   Feature request
+                                                    
 # Incidents
 
 incidents:
@@ -183,6 +208,8 @@ incidents:
   - &incident1 !!models.Incident
       owner:      !!models.Agent
                       username: jacksmith
+      category: !!models.Category
+                      id: 5
       subject:    Application error
       description: The application produces an error when the user initially runs it.
       startdate:  "2014-04-07 11:02:05"
@@ -191,9 +218,13 @@ incidents:
       status:     "Open"
       requester:  *contact1
 
+                
+
   - &incident2 !!models.Incident
       owner:      !!models.Agent
                       username: jacksmith
+      category: !!models.Category
+                      id: 3
       subject:    Forgot password
       description: Customer is requesting that we reset her password because she cannot access the system.
       startdate:  "2014-04-08 17:22:11"
@@ -205,6 +236,8 @@ incidents:
   - &incident3 !!models.Incident
       owner:      !!models.Agent
                       username: jacksmith
+      category: !!models.Category
+                      id: 2
       subject:    Database corruption problem
       description: The storage system is corrupted and the database can no longer be accessed. 
       startdate:  "2014-04-22 08:11:24"
@@ -216,6 +249,8 @@ incidents:
   - &incident4 !!models.Incident
       owner:      !!models.Agent
                       username: jacksmith
+      category: !!models.Category
+                      id: 4
       subject:    Apply new software update
       description: Our software vendor just released a new update and we need to apply it within the next week. 
       startdate:  "2014-04-27 08:34:11"
@@ -227,6 +262,8 @@ incidents:
   - &incident5 !!models.Incident
       owner:      !!models.Agent
                       username: benj
+      category: !!models.Category
+                      id: 2
       subject:    System is down
       description: The system is reporting a database failure when the customer tries to access the application.
       startdate:  "2014-04-09 09:13:33"
@@ -238,6 +275,8 @@ incidents:
   - &incident6 !!models.Incident
       owner:      !!models.Agent
                       username: benj
+      category: !!models.Category
+                      id: 1
       subject:    Website performing slowly
       description: The homepage of the website is responding slowly when the customer tries to access it.
       startdate:  "2014-04-15 11:12:36"
@@ -249,6 +288,8 @@ incidents:
   - &incident7 !!models.Incident
       owner:      !!models.Agent
                       username: benj
+      category: !!models.Category
+                      id: 5
       subject:    Unable to download file
       description: The customer sees a file download error message when trying to download a file using the Chrome browser.
       startdate:  "2014-04-17 07:11:23"
@@ -260,6 +301,8 @@ incidents:
   - &incident8 !!models.Incident
       owner:      !!models.Agent
                       username: benj
+      category: !!models.Category
+                      id: 5
       subject:    Search does not yield results
       description: Customer is attempting to search for an item in the system and no results are displayed.
       startdate:  "2014-04-19 12:11:42"
@@ -271,6 +314,8 @@ incidents:
   - &incident9 !!models.Incident
       owner:      !!models.Agent
                       username: benj
+      category: !!models.Category
+                      id: 5
       subject:    Javascript library error
       description: The customer sees a javascript library error message when trying to access the website.
       startdate:  "2014-04-23 15:33:10"
@@ -282,6 +327,8 @@ incidents:
   - &incident10 !!models.Incident
       owner:      !!models.Agent
                       username: jwilliams
+      category: !!models.Category
+                      id: 5
       subject:    Unexpected application behavior
       description: The application does not display the proper report when the report is selected.
       startdate:  "2014-04-06 13:01:15"
@@ -293,6 +340,8 @@ incidents:
   - &incident11 !!models.Incident
       owner:      !!models.Agent
                       username: jwilliams
+      category: !!models.Category
+                      id: 4
       subject:    Information request
       description: The customer is looking for documentation on the newly added website search feature.
       startdate:  "2014-04-08 11:01:51"
@@ -304,6 +353,8 @@ incidents:
   - &incident12 !!models.Incident
       owner:      !!models.Agent
                       username: unassigned
+      category: !!models.Category
+                      id: 1
       subject:    Application database queries are responding slowly
       description: I am running a large set of queries on the corporate database and the query results are taking too long.
       startdate:  "2014-04-11 07:41:25"
@@ -315,6 +366,8 @@ incidents:
   - &incident13 !!models.Incident
       owner:      !!models.Agent
                       username: unassigned
+      category: !!models.Category
+                      id: 5
       subject:    File upload stops unexpectedly
       description: When the customer tries to upload a large file it stops unexpectedly in the middle of the upload.
       startdate:  "2014-04-11 07:41:25"
@@ -326,6 +379,8 @@ incidents:
   - &incident14 !!models.Incident
       owner:      !!models.Agent
                       username: unassigned
+      category: !!models.Category
+                      id: 4
       subject:    Need copy of the database
       description: The customer is trying to perform some analysis on their data and they need a copy of their database.
       startdate:  "2014-04-27 14:41:11"

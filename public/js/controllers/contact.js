@@ -21,6 +21,13 @@ ims.controller('getContact', function ($scope, $routeParams, $http, $location) {
          
     });
 	
+    // get the list of categories
+	$http.get('http://localhost:9000/categories').
+    success(function(data) {
+        $scope.categories = data;
+         
+    });
+	
     // get all the incidents associated with the contact
     $http.get('http://localhost:9000/contacts/' + $routeParams.contactId + '/incidents').
     success(function(data) {
@@ -150,6 +157,7 @@ ims.controller('getContact', function ($scope, $routeParams, $http, $location) {
 	   
 	    // create an object to hold the form values 
     	var dataObj = { "username" : agent,
+    					"categoryId" : $scope.newincident.categoryId,
     					"subject" : $scope.newincident.subject,
     					"description" : $scope.newincident.description,
     					"priority" : $scope.newincident.priority,
@@ -207,5 +215,6 @@ ims.controller('getContact', function ($scope, $routeParams, $http, $location) {
 	
 	// set default priority level for new incidents
 	$scope.newincident.priority = 2;
+	$scope.newincident.categoryId = 1;
    
 });

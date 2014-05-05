@@ -30,6 +30,13 @@ ims.controller('getDashboard', function ($scope, $http) {
          
     });
 	
+    // get the list of categories
+	$http.get('http://localhost:9000/categories').
+    success(function(data) {
+        $scope.categories = data;
+         
+    });
+	
 	// retrieve contact list asynch
 	  $scope.getContacts = function(val) {
 	    return $http.get('http://localhost:9000/contacts'+'?search='+val).
@@ -57,6 +64,7 @@ ims.controller('getDashboard', function ($scope, $http) {
 		   
 		    // create an object to hold the form values 
 	    	var dataObj = { "username" : agent,
+	    					"categoryId" : $scope.newincident.categoryId,
 	    					"subject" : $scope.newincident.subject,
 	    					"description" : $scope.newincident.description,
 	    					"priority" : $scope.newincident.priority,
@@ -120,5 +128,6 @@ ims.controller('getDashboard', function ($scope, $http) {
 	   
 	// set default priority level for new incidents
 	$scope.newincident.priority = 2;
+	$scope.newincident.categoryId = 1;
     
 });

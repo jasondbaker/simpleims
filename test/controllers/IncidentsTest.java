@@ -36,6 +36,9 @@ public class IncidentsTest extends WithApplication {
     	// Insert contacts 
     	Ebean.save(all.get("contacts"));
 
+    	// Insert categories 
+    	Ebean.save(all.get("categories"));
+    	
     	// Insert incidents 
     	Ebean.save(all.get("incidents"));
     	
@@ -57,7 +60,7 @@ public class IncidentsTest extends WithApplication {
  	   assertThat(contentAsString(result)).contains("Forgot password");
 
     }
-
+  
     @Test
     public void getAllIncidentsTest() {
  	   
@@ -131,6 +134,7 @@ public class IncidentsTest extends WithApplication {
 	   
 	   ObjectNode json = Json.newObject();
 	   json.put("username", "jacksmith");
+	   json.put("categoryId", "1");
 	   json.put("subject","Storage system alert");
 	   json.put("description", "The storage system is emitting an alert sound.");
 	   json.put("priority", "2");
@@ -159,6 +163,7 @@ public class IncidentsTest extends WithApplication {
 	   ObjectNode json = Json.newObject();
 	   
 	   json.put("username", testIncident.owner.username);
+	   json.put("categoryId", "1");
 	   json.put("subject", testIncident.subject);
 	   json.put("description", "The storage system is smoking.");
 	   json.put("priority", "1");

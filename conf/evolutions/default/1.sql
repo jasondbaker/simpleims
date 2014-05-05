@@ -32,6 +32,12 @@ create table agent (
   constraint pk_agent primary key (username))
 ;
 
+create table category (
+  id                        integer not null,
+  type                      varchar(255),
+  constraint pk_category primary key (id))
+;
+
 create table company (
   id                        integer not null,
   name                      varchar(255),
@@ -54,6 +60,7 @@ create table contact (
 create table incident (
   id                        integer not null,
   owner_username            varchar(255),
+  category_id               integer,
   subject                   varchar(255),
   description               varchar(255),
   startdate                 timestamp,
@@ -69,6 +76,8 @@ create sequence action_seq;
 create sequence address_seq;
 
 create sequence agent_seq;
+
+create sequence category_seq;
 
 create sequence company_seq;
 
@@ -86,8 +95,10 @@ alter table contact add constraint fk_contact_company_4 foreign key (company_id)
 create index ix_contact_company_4 on contact (company_id);
 alter table incident add constraint fk_incident_owner_5 foreign key (owner_username) references agent (username) on delete restrict on update restrict;
 create index ix_incident_owner_5 on incident (owner_username);
-alter table incident add constraint fk_incident_requester_6 foreign key (requester_id) references contact (id) on delete restrict on update restrict;
-create index ix_incident_requester_6 on incident (requester_id);
+alter table incident add constraint fk_incident_category_6 foreign key (category_id) references category (id) on delete restrict on update restrict;
+create index ix_incident_category_6 on incident (category_id);
+alter table incident add constraint fk_incident_requester_7 foreign key (requester_id) references contact (id) on delete restrict on update restrict;
+create index ix_incident_requester_7 on incident (requester_id);
 
 
 
@@ -100,6 +111,8 @@ drop table if exists action;
 drop table if exists address;
 
 drop table if exists agent;
+
+drop table if exists category;
 
 drop table if exists company;
 
@@ -114,6 +127,8 @@ drop sequence if exists action_seq;
 drop sequence if exists address_seq;
 
 drop sequence if exists agent_seq;
+
+drop sequence if exists category_seq;
 
 drop sequence if exists company_seq;
 

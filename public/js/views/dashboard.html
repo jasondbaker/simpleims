@@ -8,6 +8,7 @@
 			<th>ID</th>
 			<th>Priority</th>
 			<th>Date</th>
+			<th>Category</th>
 			<th>Requester</th>
 			<th>Subject</th>
 		</tr>
@@ -20,6 +21,7 @@
 				</span>
 			</td>
 			<td>{{ incident.startdate | date:'short'}}</td>
+			<td>{{incident.category.type}}</td>
 			<td><a href="#/contacts/{{incident.requester.id}}">{{ incident.requester.fullname }}</a></td>
 			<td>{{ incident.subject }}</td>
 		</tr>
@@ -48,11 +50,15 @@
 		</div>
 		
 		<div class="form-group">
-			<div class="col-sm-10 form-control-static">
+			<div class="col-sm-12 form-control-static">
 				Priority: <select ng-model="newincident.priority" required="true">
 					<option>1</option>
 					<option>2</option>
 					<option>3</option>
+				</select> &nbsp;&nbsp;
+				
+				Category: <select ng-model="newincident.categoryId" 
+				ng-options="category.id as category.type for category in categories">
 				</select> &nbsp;&nbsp;
 				
 				Agent: <select ng-disabled="unassigned" ng-model="selectedAgent"
@@ -62,7 +68,7 @@
 				Unassigned? <input type="checkbox" ng-model="unassigned">
 			</div>
 		</div>		
-		
+				
 		<div class="form-group">
 			<div class="col-sm-10">
 				<input type="text" ng-required="true" ng-model="newincident.subject" class="form-control" id="inputsubject" placeholder="Subject">
@@ -90,6 +96,7 @@
 			<th>ID</th>
 			<th>Priority</th>
 			<th>Date</th>
+			<th>Category</th>
 			<th>Requester</th>
 			<th>Subject</th>
 		</tr>
@@ -102,6 +109,7 @@
 				</span>
 			</td>
 			<td>{{ unassignedIncident.startdate | date:'MMM dd yyyy hh:mma' }}</td>
+			<td>{{unassignedIncident.category.type}}</td>
 			<td><a href="#/contacts/{{unassignedIncident.requester.id}}">{{ unassignedIncident.requester.fullname }}</a></td>
 			<td>{{ unassignedIncident.subject }}</td>
 		</tr>

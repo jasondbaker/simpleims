@@ -56,6 +56,7 @@
 					<th>Priority</th>
 					<th>Date</th>
 					<th>Status</th>
+					<th>Category</th>
 					<th>Subject</th>
 				</tr>
 				
@@ -68,6 +69,7 @@
 					</td>
 					<td>{{ incident.startdate | date:'short'}}</td>
 					<td>{{incident.status}}</td>
+					<td>{{incident.category.type}}</td>
 					<td>{{ incident.subject }}</td>
 				</tr>
 			
@@ -99,6 +101,10 @@
 								<option>3</option>
 							</select> &nbsp;&nbsp;
 							
+							Category: <select ng-model="newincident.categoryId" 
+							ng-options="category.id as category.type for category in categories">
+							</select> &nbsp;&nbsp;
+				
 							Agent: <select ng-disabled="unassigned" ng-model="selectedAgent"
 									ng-options="agent.username as agent.fullname for agent in agents">
 							</select> &nbsp;&nbsp;

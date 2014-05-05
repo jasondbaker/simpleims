@@ -71,7 +71,7 @@
 
 	<div class="row">
 		
-		<div class="col-sm-10 col-sm-offset-1">
+		<div class="col-sm-11 col-sm-offset-1">
 		
 			<h4>Incidents</h4>
 			
@@ -81,6 +81,7 @@
 					<th>Priority</th>
 					<th>Date</th>
 					<th>Status</th>
+					<th>Category</th>
 					<th>Requester</th>
 					<th>Subject</th>
 				</tr>
@@ -94,6 +95,7 @@
 					</td>
 					<td>{{ incident.startdate | date:'short'}}</td>
 					<td>{{incident.status}}</td>
+					<td>{{incident.category.type}}</td>
 					<td><a href="#/contacts/{{incident.requester.id}}">{{ incident.requester.fullname }}</a></td>
 					<td>{{ incident.subject }}</td>
 				</tr>
