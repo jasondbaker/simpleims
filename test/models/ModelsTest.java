@@ -75,7 +75,10 @@ public class ModelsTest extends WithApplication {
         Contact contact = new Contact("bob@jones.com", "Bob Jones", "612-222-3333", company);
         contact.save();
         
-        Incident incident = Incident.create(agent.username, "Reported problem with software", "Cannot start software", 2, contact.id);
+    	Category category = new Category("Test category");
+    	category.save();
+    	
+        Incident incident = Incident.create(agent.username, category.id, "Reported problem with software", "Cannot start software", 2, contact.id);
         incident.save();
     	
         Incident test = Incident.find.where().eq("owner_username", agent.username).eq("description", incident.description).findUnique();
@@ -97,7 +100,10 @@ public class ModelsTest extends WithApplication {
         Contact contact = new Contact("bob@jones.com", "Bob Jones", "612-222-3333", company);
         contact.save();
         
-        Incident incident = Incident.create(agent.username, "Datacenter alarm", "Alarm siren is going off in the datacenter.", 2, contact.id);
+    	Category category = new Category("Test category");
+    	category.save();
+    	
+        Incident incident = Incident.create(agent.username, category.id, "Datacenter alarm", "Alarm siren is going off in the datacenter.", 2, contact.id);
         incident.save();
     	
         Incident test = Incident.find.where().eq("owner_username", agent.username).eq("description", incident.description).findUnique();
@@ -135,7 +141,10 @@ public class ModelsTest extends WithApplication {
         Contact contact = new Contact("bob@jones.com", "Bob Jones", "612-222-3333", company);
         contact.save();
         
-        Incident incident = Incident.create(agent.username, "Reported problem with software", "Cannot start software", 2, contact.id);
+    	Category category = new Category("Test category");
+    	category.save();
+    	
+        Incident incident = Incident.create(agent.username, category.id, "Reported problem with software", "Cannot start software", 2, contact.id);
     	
         Action.create(agent.username, "Contacted customer for more information", incident.id);
         
@@ -144,6 +153,18 @@ public class ModelsTest extends WithApplication {
         assertNotNull(test);
         assertEquals("Contacted customer for more information", test.description);
         
+    }
+
+    @Test
+    public void createAndVerifyCategory() {
+    
+    	Category category = new Category("Test category");
+    	category.save();
+    	
+    	Category test = Category.find.where().eq("type", "Test category").findUnique();
+    	assertNotNull(test);
+    	assertEquals("Test category", test.type);
+    	
     }
     
     @Test
@@ -160,7 +181,10 @@ public class ModelsTest extends WithApplication {
     	
     	// Insert contacts 
     	Ebean.save(all.get("contacts"));
-
+    	
+    	// Insert categories 
+    	Ebean.save(all.get("categories"));
+    	
     	// Insert incidents 
     	Ebean.save(all.get("incidents"));
     	
@@ -172,6 +196,7 @@ public class ModelsTest extends WithApplication {
         assertEquals(5, Company.find.findRowCount());
         assertEquals(5, Address.find.findRowCount());
         assertEquals(8, Contact.find.findRowCount());
+        assertEquals(7, Category.find.findRowCount());
         assertEquals(14, Incident.find.findRowCount());    
         assertEquals(6, Action.find.findRowCount());    
     }

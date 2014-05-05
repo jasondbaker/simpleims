@@ -37,6 +37,9 @@ public class CompaniesTest extends WithApplication {
     	// Insert contacts 
     	Ebean.save(all.get("contacts"));
 
+    	// Insert categories 
+    	Ebean.save(all.get("categories"));
+    	
     	// Insert incidents 
     	Ebean.save(all.get("incidents"));
     	

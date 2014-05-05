@@ -36,6 +36,15 @@ ims.controller('getIncident', function ($scope, $routeParams, $http, $location) 
                     
                 });
             	
+                // get the list of categories
+            	$http.get('http://localhost:9000/categories').
+                success(function(data) {
+                    $scope.categories = data;
+                    
+                    $scope.selectedCategory = $scope.incident.category.id;
+                });
+            	
+            	
             });
         });
 	
@@ -162,6 +171,7 @@ ims.controller('getIncident', function ($scope, $routeParams, $http, $location) 
 		   
 		    // create an object to hold the form values 
 	    	var dataObj = { "username" : $scope.selectedAgent,
+	    					"categoryId" : $scope.selectedCategory,
 	    					"subject" : $scope.incident.subject,
 	    					"description" : $scope.incident.description,
 	    					"priority" : $scope.incident.priority,

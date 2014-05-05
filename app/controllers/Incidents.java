@@ -25,6 +25,7 @@ public class Incidents extends Controller {
 	
 		// slice up the json and store values in individual variables
 		JsonNode jsonUsername = json.get("username");
+		JsonNode jsonCategory = json.get("categoryId");
 		JsonNode jsonSubject = json.get("subject");
 		JsonNode jsonDescription = json.get("description");
 		JsonNode jsonPriority = json.get("priority");
@@ -33,6 +34,7 @@ public class Incidents extends Controller {
 		// create a new incident based on the json values
 		Incident newIncident = Incident.create(
 				jsonUsername.asText(),
+				jsonCategory.asInt(),
 				jsonSubject.asText(),
 				jsonDescription.asText(),
 				jsonPriority.asInt(),
@@ -141,6 +143,7 @@ public class Incidents extends Controller {
 		
 			// slice up the json and store values in individual variables
 			JsonNode jsonUsername = json.get("username");
+			JsonNode jsonCategory = json.get("categoryId");
 			JsonNode jsonSubject = json.get("subject");
 			JsonNode jsonDescription = json.get("description");
 			JsonNode jsonPriority = json.get("priority");
@@ -150,6 +153,7 @@ public class Incidents extends Controller {
 			Incident updateIncident = Incident.update(
 					incident,
 					jsonUsername.asText(),
+					jsonCategory.asInt(),
 					jsonSubject.asText(),
 					jsonDescription.asText(),
 					jsonPriority.asInt(),

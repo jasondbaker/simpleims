@@ -8,6 +8,7 @@ html, body {
 
 body {
   padding-top: 70px;
+  font-size: 12px;
 }
 
 .btn:focus {

@@ -19,7 +19,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.google.common.collect.ImmutableMap;
 
-public class AgentsTest extends WithApplication {
+public class CategoriesTest extends WithApplication {
     @Before
     public void setUp() {
         start(fakeApplication(inMemoryDatabase(), fakeGlobal()));
@@ -48,52 +48,31 @@ public class AgentsTest extends WithApplication {
     }
     
     @Test
-    public void getAgentTest() {
+    public void getCategoryTest() {
  	   
  	   // request information on a specific agent	   
  	   Result result = callAction(
- 			   controllers.routes.ref.Agents.get("jacksmith"),
+ 			   controllers.routes.ref.Categories.get(2),
  			   fakeRequest().withSession("username", "jacksmith"));
  	   
  	   
  	   assertEquals(200, status(result));
- 	   assertThat(contentAsString(result)).contains("Jack Smith");
+ 	   assertThat(contentAsString(result)).contains("Service unavailable");
 
     }
     
     @Test
-    public void getAllAgentsTest() {
+    public void getAllCategoriesTest() {
  	   
  	   Result result = callAction(
- 			   controllers.routes.ref.Agents.list(),
+ 			   controllers.routes.ref.Categories.list(),
  			   fakeRequest().withSession("username", "jacksmith"));
  	   
  	   
  	   assertEquals(200, status(result));
- 	   assertThat(contentAsString(result)).contains("jacksmith");
- 	   assertThat(contentAsString(result)).contains("benj");
+ 	   assertThat(contentAsString(result)).contains("Bug report");
+ 	   assertThat(contentAsString(result)).contains("Feature request");
 
-    }
-    
-    @Test
-    public void getCurrentAgentTest() {
-  	   Result result = callAction(
- 			   controllers.routes.ref.Agents.current(),
- 			   fakeRequest().withSession("username", "jacksmith"));
-  	   
- 	   assertEquals(200, status(result));
- 	   assertThat(contentAsString(result)).contains("Jack Smith");
-    }
-    
-    @Test
-    public void getAgentIncidentsTest() {
-  	   Result result = callAction(
- 			   controllers.routes.ref.Agents.getIncidents("jacksmith"),
- 			   fakeRequest().withSession("username", "jacksmith"));
-  	   
- 	   assertEquals(200, status(result));
- 	   assertThat(contentAsString(result)).contains("Application error");
- 	   assertThat(contentAsString(result)).contains("Forgot password");
     }
 
 }
