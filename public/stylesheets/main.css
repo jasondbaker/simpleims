@@ -11,6 +11,10 @@ body {
   font-size: 12px;
 }
 
+.table-list {
+	margin-bottom: 0px;
+}
+
 .btn:focus {
   outline: none;
   
