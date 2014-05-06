@@ -1,13 +1,13 @@
 // get the data for the contact view
 ims.controller('getContact', function ($scope, $routeParams, $http, $location) {
 	// get the contact information
-    $http.get('http://localhost:9000/contacts/' + $routeParams.contactId).
+    $http.get(remoteServer+'/contacts/' + $routeParams.contactId).
         success(function(data) {
             $scope.contact = data;
         });
     
     // get the current agent info
-    $http.get('http://localhost:9000/agent').
+    $http.get(remoteServer+'/agent').
     success(function(data) {
     
     	$scope.currentAgent = data;
@@ -15,27 +15,27 @@ ims.controller('getContact', function ($scope, $routeParams, $http, $location) {
     });
     
     // get the list of agents
-	$http.get('http://localhost:9000/agents').
+	$http.get(remoteServer+'/agents').
     success(function(data) {
         $scope.agents = data;
          
     });
 	
     // get the list of categories
-	$http.get('http://localhost:9000/categories').
+	$http.get(remoteServer+'/categories').
     success(function(data) {
         $scope.categories = data;
          
     });
 	
     // get all the incidents associated with the contact
-    $http.get('http://localhost:9000/contacts/' + $routeParams.contactId + '/incidents').
+    $http.get(remoteServer+'/contacts/' + $routeParams.contactId + '/incidents').
     success(function(data) {
         $scope.contactIncidents = data;
     });
     
     // get all the companies associated with the contact
-    $http.get('http://localhost:9000/contacts/' + $routeParams.contactId + '/companies').
+    $http.get(remoteServer+'/contacts/' + $routeParams.contactId + '/companies').
     success(function(data) {
         $scope.contactCompanies = data;
     });  
@@ -45,7 +45,7 @@ ims.controller('getContact', function ($scope, $routeParams, $http, $location) {
     	console.log("remove contact");
     	
     	 // get all the open incidents associated with the contact
-        $http.get('http://localhost:9000/contacts/' + $routeParams.contactId + '/incidents?status=Open').
+        $http.get(remoteServer+'/contacts/' + $routeParams.contactId + '/incidents?status=Open').
         success(function(data) {
             var openIncidents = data;
             
@@ -54,7 +54,7 @@ ims.controller('getContact', function ($scope, $routeParams, $http, $location) {
             
 	            // post the json object to the restful api
 	            
-	        	$http.delete( 'http://localhost:9000/contacts/' + $scope.contact.id)
+	        	$http.delete( remoteServer+'/contacts/' + $scope.contact.id)
 	        		.success(function(data) {
 	        			console.log(data);
 	        			
@@ -116,7 +116,7 @@ ims.controller('getContact', function ($scope, $routeParams, $http, $location) {
     	console.log(dataObj);
     	
     	// post the json object to the restful api
-    	$http.post( 'http://localhost:9000/contacts/' + $scope.contact.id, dataObj)
+    	$http.post( remoteServer+'/contacts/' + $scope.contact.id, dataObj)
     		.success(function(data) {
     			console.log(data);
     			
@@ -166,7 +166,7 @@ ims.controller('getContact', function ($scope, $routeParams, $http, $location) {
     	console.log(dataObj);
     	
     	// post the json object to the restful api
-    	$http.post( 'http://localhost:9000/incidents', dataObj)
+    	$http.post( remoteServer+'/incidents', dataObj)
     		.success(function(data) {
     			console.log(data);
     			
@@ -182,7 +182,7 @@ ims.controller('getContact', function ($scope, $routeParams, $http, $location) {
     				
     				
     			    // repopulate all the incidents associated with the contact
-    			    $http.get('http://localhost:9000/contacts/' + $routeParams.contactId + '/incidents').
+    			    $http.get(remoteServer+'/contacts/' + $routeParams.contactId + '/incidents').
     			    success(function(data) {
     			        $scope.contactIncidents = data;
     			    });

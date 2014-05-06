@@ -2,17 +2,17 @@
 ims.controller('getIncident', function ($scope, $routeParams, $http, $location) {
     
 	// get the incident information
-	$http.get('http://localhost:9000/incidents/'+ $routeParams.incidentId).
+	$http.get(remoteServer+'/incidents/'+ $routeParams.incidentId).
         success(function(data) {
             $scope.incident = data;
             
         	// get the company associated with the incident
-        	$http.get('http://localhost:9000/contacts/'+ $scope.incident.requester.id + '/companies').
+        	$http.get(remoteServer+'/contacts/'+ $scope.incident.requester.id + '/companies').
             success(function(data) {
                 $scope.company = data;
                 
             	// get the list of agents
-            	$http.get('http://localhost:9000/agents').
+            	$http.get(remoteServer+'/agents').
                 success(function(data) {
                     $scope.agents = data;
                     
@@ -37,7 +37,7 @@ ims.controller('getIncident', function ($scope, $routeParams, $http, $location) 
                 });
             	
                 // get the list of categories
-            	$http.get('http://localhost:9000/categories').
+            	$http.get(remoteServer+'/categories').
                 success(function(data) {
                     $scope.categories = data;
                     
@@ -60,7 +60,7 @@ ims.controller('getIncident', function ($scope, $routeParams, $http, $location) 
 	    	console.log(dataObj);
 	    	
 	    	// post the json object to the restful api
-	    	$http.post( 'http://localhost:9000/incidents/'+ $scope.incident.id + '/actions', dataObj)
+	    	$http.post( remoteServer+'/incidents/'+ $scope.incident.id + '/actions', dataObj)
 	    		.success(function(data) {
 	    			console.log(data);
 	    			
@@ -75,7 +75,7 @@ ims.controller('getIncident', function ($scope, $routeParams, $http, $location) 
 	    				});
 	    				
 	    				// repopulate the data in the view
-	    				$http.get('http://localhost:9000/incidents/'+ $routeParams.incidentId).
+	    				$http.get(remoteServer+'/incidents/'+ $routeParams.incidentId).
 	    		        success(function(data) {
 	    		            $scope.incident = data;
 	    			        });
@@ -107,7 +107,7 @@ ims.controller('getIncident', function ($scope, $routeParams, $http, $location) 
 		   console.log("close incident");
 		   
 		// get the current agent
-       	$http.get('http://localhost:9000/agent').
+       	$http.get(remoteServer+'/agent').
            success(function(data) {
                var agent = data;
                	
@@ -118,7 +118,7 @@ ims.controller('getIncident', function ($scope, $routeParams, $http, $location) 
 			    	console.log(dataObj);
 			    	
 			    	// post the json object to the restful api
-			    	$http.post( 'http://localhost:9000/incidents/' + $scope.incident.id + '/close', dataObj)
+			    	$http.post( remoteServer+'/incidents/' + $scope.incident.id + '/close', dataObj)
 			    		.success(function(data) {
 			    			console.log(data);
 			    			
@@ -180,7 +180,7 @@ ims.controller('getIncident', function ($scope, $routeParams, $http, $location) 
 	    	console.log(dataObj);
 	    	
 	    	// post the json object to the restful api
-	    	$http.post( 'http://localhost:9000/incidents/' + $scope.incident.id, dataObj)
+	    	$http.post( remoteServer+'/incidents/' + $scope.incident.id, dataObj)
 	    		.success(function(data) {
 	    			console.log(data);
 	    			
@@ -196,7 +196,7 @@ ims.controller('getIncident', function ($scope, $routeParams, $http, $location) 
 	    			});
 	    			
 	    			// repopulate the data in the view
-    				$http.get('http://localhost:9000/incidents/'+ $routeParams.incidentId).
+    				$http.get(remoteServer+'/incidents/'+ $routeParams.incidentId).
     		        success(function(data) {
     		            $scope.incident = data;
     			        });

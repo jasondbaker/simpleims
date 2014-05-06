@@ -3,20 +3,26 @@ ims.controller('getDashboard', function ($scope, $http) {
 	// create an object to hold new incident requests
 	$scope.newincident = {};
 	
-	// get the open incidents for the current agent
-    $http.get('http://localhost:9000/incidents?status=open').
-        success(function(data) {
-            $scope.incident = data;
-        });
-    
-    // get the unassigned incidents in the system
-    $http.get('http://localhost:9000/incidents?status=unassigned').
-    success(function(data) {
-        $scope.unassignedIncident = data;
-    });
-    
+	function loadIncidentData(){
+		
+	
+		// get the open incidents for the current agent
+	    $http.get(remoteServer+'/incidents?status=open').
+	        success(function(data) {
+	            $scope.incident = data;
+	        });
+	};
+	
+	function loadUnassignedData() {
+	    // get the unassigned incidents in the system
+	    $http.get(remoteServer+'/incidents?status=unassigned').
+	    success(function(data) {
+	        $scope.unassignedIncident = data;
+	    });
+	};
+	
     // get the current agent info
-    $http.get('http://localhost:9000/agent').
+    $http.get(remoteServer+'/agent').
     success(function(data) {
     
     	$scope.currentAgent = data;
@@ -24,14 +30,14 @@ ims.controller('getDashboard', function ($scope, $http) {
     });
     
     // get the list of agents
-	$http.get('http://localhost:9000/agents').
+	$http.get(remoteServer+'/agents').
     success(function(data) {
         $scope.agents = data;
          
     });
 	
     // get the list of categories
-	$http.get('http://localhost:9000/categories').
+	$http.get(remoteServer+'/categories').
     success(function(data) {
         $scope.categories = data;
          
@@ -39,7 +45,7 @@ ims.controller('getDashboard', function ($scope, $http) {
 	
 	// retrieve contact list asynch
 	  $scope.getContacts = function(val) {
-	    return $http.get('http://localhost:9000/contacts'+'?search='+val).
+	    return $http.get(remoteServer+'/contacts'+'?search='+val).
 	    then(function(res){
 	      var contacts = [];
 	      var obj = {};
@@ -73,7 +79,7 @@ ims.controller('getDashboard', function ($scope, $http) {
 	    	console.log(dataObj);
 	    	
 	    	// post the json object to the restful api
-	    	$http.post( 'http://localhost:9000/incidents', dataObj)
+	    	$http.post( remoteServer+'/incidents', dataObj)
 	    		.success(function(data) {
 	    			console.log(data);
 	    			
@@ -89,17 +95,11 @@ ims.controller('getDashboard', function ($scope, $http) {
 	    				
 	    				if (agent == "unassigned") {
 	    					
-	    				    // repopulate the unassigned incidents in the system
-	    				    $http.get('http://localhost:9000/incidents?status=unassigned').
-	    				    success(function(data) {
-	    				        $scope.unassignedIncident = data;
-	    				    });
+	    				    loadUnassignedData();
+	    				    
 	    				} else {
-		    				// repopulate the data in the view
-		    			    $http.get('http://localhost:9000/incidents?status=open').
-		    			        success(function(data) {
-		    			            $scope.incident = data;
-		    			        });
+		    				
+	    					loadIncidentData();
 	    			    
 	    				};
 	    				
@@ -125,7 +125,10 @@ ims.controller('getDashboard', function ($scope, $http) {
 	    		});
 	    
 	   };
-	   
+	 
+	loadIncidentData();
+	loadUnassignedData();
+	
 	// set default priority level for new incidents
 	$scope.newincident.priority = 2;
 	$scope.newincident.categoryId = 1;
