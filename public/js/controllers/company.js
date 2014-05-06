@@ -1,13 +1,13 @@
 //get the data for the company view
 ims.controller('getCompany', function ($scope, $routeParams, $http) {
 	// get the contact information
-    $http.get('http://localhost:9000/companies/' + $routeParams.companyId).
+    $http.get(remoteServer+'/companies/' + $routeParams.companyId).
         success(function(data) {
             $scope.company = data;
         });
     
     // get all the incidents associated with the company
-    $http.get('http://localhost:9000/companies/' + $routeParams.companyId + '/incidents').
+    $http.get(remoteServer+'/companies/' + $routeParams.companyId + '/incidents').
     success(function(data) {
         $scope.companyIncidents = data;
     });
@@ -32,7 +32,7 @@ ims.controller('getCompany', function ($scope, $routeParams, $http) {
      	console.log(companyObj);
      	
      	// post the json object to the restful api
-     	$http.post( 'http://localhost:9000/companies/' + $scope.company.id, companyObj)
+     	$http.post( remoteServer+'/companies/' + $scope.company.id, companyObj)
      		.success(function(data) {
      			console.log(data);
      			
@@ -63,7 +63,7 @@ ims.controller('getCompany', function ($scope, $routeParams, $http) {
      	console.log(companyObj);
      	
      	// post the json object to the restful api
-     	$http.post( 'http://localhost:9000/companies/' + $scope.company.id + '/addresses/' + $scope.company.addresses[0].id, addrObj)
+     	$http.post( remoteServer+'/companies/' + $scope.company.id + '/addresses/' + $scope.company.addresses[0].id, addrObj)
      		.success(function(data) {
      			console.log(data);
      			

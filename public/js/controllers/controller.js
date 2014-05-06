@@ -1,5 +1,7 @@
 var ims = angular.module('ims', ['ngRoute', 'ngAnimate', 'ui.bootstrap']);
 
+var remoteServer = 'http://localhost:9000';
+
 // directive to set bootstrap nav to reflect current route
 angular.module('ims').directive('bsNavbar', ['$location', function ($location) {
 	  return {

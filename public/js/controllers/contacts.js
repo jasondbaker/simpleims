@@ -1,14 +1,14 @@
 // get a list of all the contacts in the system
 ims.controller('getContacts', function ($scope, $http) {
 	
-    $http.get('http://localhost:9000/contacts').
+    $http.get(remoteServer+'/contacts').
         success(function(data) {
             $scope.contacts = data;
         });
     
 	// retrieve company list asynchronously
 	  $scope.getCompanies = function(val) {
-	    return $http.get('http://localhost:9000/companies?search='+val).
+	    return $http.get(remoteServer+'/companies?search='+val).
 	    then(function(res){
 	    
 	      var companies = [];
@@ -36,7 +36,7 @@ ims.controller('getContacts', function ($scope, $http) {
      	console.log(dataObj);
      	
      	// post the json object to the restful api
-     	$http.post( 'http://localhost:9000/companies/'+ $scope.selCompanyId.id + '/contacts', dataObj)
+     	$http.post( remoteServer+'/companies/'+ $scope.selCompanyId.id + '/contacts', dataObj)
      		.success(function(data) {
      			console.log(data);
      			
@@ -51,7 +51,7 @@ ims.controller('getContacts', function ($scope, $http) {
      				});
      				
      				// repopulate the data in the view
-     			    $http.get('http://localhost:9000/contacts').
+     			    $http.get(remoteServer+'/contacts').
      			        success(function(data) {
      			            $scope.contacts = data;
      			        });

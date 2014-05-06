@@ -1,7 +1,7 @@
 // get a list of all the companies in the system
 ims.controller('getCompanies', function ($scope, $http) {
 	
-    $http.get('http://localhost:9000/companies').
+    $http.get(remoteServer+'/companies').
         success(function(data) {
             $scope.company = data;
         });
@@ -30,7 +30,7 @@ ims.controller('getCompanies', function ($scope, $http) {
 	    	console.log(dataObj);
 	    	
 	    	// post the json object to the restful api
-	    	$http.post( 'http://localhost:9000/companies', dataObj)
+	    	$http.post( remoteServer+'/companies', dataObj)
 	    		.success(function(data) {
 	    			console.log(data);
 	    			
@@ -45,7 +45,7 @@ ims.controller('getCompanies', function ($scope, $http) {
 	    				});
 	    				
 	    				// repopulate the data in the view
-	    				$http.get('http://localhost:9000/companies').
+	    				$http.get(remoteServer+'/companies').
 	    		        success(function(data) {
 	    		            $scope.company = data;
 	    		        });
