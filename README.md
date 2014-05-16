@@ -60,6 +60,9 @@ that's a good idea for a future project.
 
 **AGENTS**
 
+Agents represent the representatives of the company providing products or services to the customers. An
+agent can create, update, and own incidents.
+
 METHOD | ENDPOINT | ACTION
 ------- | ---------------- | -------------------------
 GET	| /agent | Get currently logged in agent	
@@ -70,6 +73,8 @@ GET	| /logout | Logout agent
 POST | /login | Login agent	
 			
 **COMPANIES**
+
+Contacts (customers) buying a product or service work for a company. A company may have many contacts.
 
 METHOD | ENDPOINT | ACTION
 ------- | ---------------- | -------------------------
@@ -86,6 +91,9 @@ DELETE	| /companies/{id} | Delete an existing company
 			
 **CONTACTS**
 
+A contact represents the customer reporting an incident to an agent. A contact may report several incidents
+to different agents over time. A contact can currently only be related to one company.
+
 METHOD | ENDPOINT | ACTION
 ------- | ---------------- | -------------------------
 GET	| /contacts[?search=<fullname>]	| Get complete list of active contacts	
@@ -96,6 +104,10 @@ POST | /contacts/{id} | Update an existing contact
 DELETE | /contacts/{id} | Delete an existing contact	
 			
 **INCIDENTS**
+
+An incident represents a service or product issue that is having an impact on a contact. Each incident has
+a start date, priority, category, status, and description. Agents take ownership of incidents and perform
+actions to resolve the incidents.
 
 METHOD | ENDPOINT | ACTION
 ------- | ---------------- | -------------------------
@@ -110,6 +122,8 @@ POST | /incidents/{id}	| Update an existing incident
 DELETE | /incidents/{id} | Delete an existing incident	
 			
 **CATEGORIES**
+
+Each incident is categorized for reporting or future service routing. 
 
 METHOD | ENDPOINT | ACTION
 ------- | ---------------- | -------------------------
