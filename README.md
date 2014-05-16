@@ -58,7 +58,9 @@ that's a good idea for a future project.
 
 ## API
 
-AGENTS	
+**AGENTS**
+
+METHOD | ENDPOINT | ACTION
 ------- | ---------------- | -------------------------
 GET	| /agent | Get currently logged in agent	
 GET	| /agents | Get complete list of active agents	
@@ -67,40 +69,52 @@ GET	| /agents/{username}/incidents | Get incidents associated with agent
 GET	| /logout | Logout agent	
 POST | /login | Login agent	
 			
-COMPANIES			
-GET	/companies[?search=<name>]	Get complete list of active companies	
-GET	/companies/{id}	Get information for specific company	
-GET	/companies/{id}/incidents	Get list of incidents associated with a company	
-GET	/companies/{id}/contacts	Get list of contacts associated with a company	
-GET	/companies/{id}/addresses	Get list of addresses associated with a company	
-POST	/companies	Create a new company	
-POST	/companies/{id}	Update an existing company	
-POST	/companies/{id}/contacts	Add a contact to an existing company	
-POST	/companies/{id}/addresses/{id2}	Add an address to an existing company	
-DELETE	/companies/{id}	Delete an existing company	
+**COMPANIES**
+
+METHOD | ENDPOINT | ACTION
+------- | ---------------- | -------------------------
+GET	| /companies[?search=<name>] | Get complete list of active companies	
+GET	| /companies/{id} | Get information for specific company	
+GET	| /companies/{id}/incidents	| Get list of incidents associated with a company	
+GET	| /companies/{id}/contacts | Get list of contacts associated with a company	
+GET	| /companies/{id}/addresses | Get list of addresses associated with a company	
+POST | /companies | Create a new company	
+POST | /companies/{id} | Update an existing company	
+POST | /companies/{id}/contacts	| Add a contact to an existing company	
+POST | /companies/{id}/addresses/{id2} | Add an address to an existing company	
+DELETE	| /companies/{id} | Delete an existing company	
 			
-CONTACTS			
-GET	/contacts[?search=<fullname>]	Get complete list of active contacts	
-GET	/contacts/{id}	Get information for a specific contact	
-GET	/contacts/{id}/incidents	Get list of incidents associated with a contact	
-GET	/contacts/{id}/companies	Get company associated with a contact	
-POST	/contacts/{id}	Update an existing contact	
-DELETE	/contacts/{id}	Delete an existing contact	
+**CONTACTS**
+
+METHOD | ENDPOINT | ACTION
+------- | ---------------- | -------------------------
+GET	| /contacts[?search=<fullname>]	| Get complete list of active contacts	
+GET	| /contacts/{id} | Get information for a specific contact	
+GET	| /contacts/{id}/incidents | Get list of incidents associated with a contact	
+GET	| /contacts/{id}/companies | Get company associated with a contact	
+POST | /contacts/{id} | Update an existing contact	
+DELETE | /contacts/{id} | Delete an existing contact	
 			
-INCIDENTS			
-GET	/incidents[?status=<status>]	Get a list of incidents associated with current Agent	
-GET	/incidents/{id}	Get information for a specific incident	
-GET	/incidents/{id}/actions	Get list of actions associated with a specific incident	
-POST	/incidents/{id}/actions	Add an action to an existing incident	
-POST	/incidents/{id}/reopen	Reopen a closed incident	
-POST	/incidents/{id}/close	Close an existing incident	
-POST	/incidents	Create a new incident	
-POST	/incidents/{id}	Update an existing incident	
-DELETE	/incidents/{id}	Delete an existing incident	
+**INCIDENTS**
+
+METHOD | ENDPOINT | ACTION
+------- | ---------------- | -------------------------
+GET | /incidents[?status=<status>] | Get a list of incidents associated with current Agent	
+GET	| /incidents/{id} | Get information for a specific incident	
+GET	| /incidents/{id}/actions | Get list of actions associated with a specific incident	
+POST | /incidents/{id}/actions | Add an action to an existing incident	
+POST | /incidents/{id}/reopen | Reopen a closed incident	
+POST | /incidents/{id}/close | Close an existing incident	
+POST | /incidents | Create a new incident	
+POST | /incidents/{id}	| Update an existing incident	
+DELETE | /incidents/{id} | Delete an existing incident	
 			
-CATEGORIES			
-GET	/categories	Get complete list of categories	
-GET	/categories/{id}	Get information for a specific category	
+**CATEGORIES**
+
+METHOD | ENDPOINT | ACTION
+------- | ---------------- | -------------------------
+GET	| /categories | Get complete list of categories	
+GET	| /categories/{id} | Get information for a specific category	
 
 ## HISTORY
 
