@@ -78,7 +78,7 @@ Contacts (customers) buying a product or service work for a company. A company m
 
 METHOD | ENDPOINT | ACTION
 ------- | ---------------- | -------------------------
-GET	| /companies[?search=&#60;name&#62;&#124;all] | Get complete list of active companies	
+GET	| /companies[?search=&#60;name&#62; &#124; all] | Get complete list of active companies	
 GET	| /companies/{id} | Get information for specific company	
 GET	| /companies/{id}/incidents	| Get list of incidents associated with a company	
 GET	| /companies/{id}/contacts | Get list of contacts associated with a company	
@@ -96,7 +96,7 @@ to different agents over time. A contact can currently only be related to one co
 
 METHOD | ENDPOINT | ACTION
 ------- | ---------------- | -------------------------
-GET	| /contacts[?search=&#60;fullname&#62;&#124;all]	| Get complete list of active contacts	
+GET	| /contacts[?search=&#60;fullname&#62; &#124; all]	| Get complete list of active contacts	
 GET	| /contacts/{id} | Get information for a specific contact	
 GET	| /contacts/{id}/incidents | Get list of incidents associated with a contact	
 GET	| /contacts/{id}/companies | Get company associated with a contact	
@@ -133,7 +133,7 @@ GET	| /categories/{id} | Get information for a specific category
 ## HISTORY
 
 SimpleIMS was started by Jason Baker in the spring of 2014 as part of a software engineering graduate class
-(SEIS 626 Software Analysis and Design) offered at the University of St. Thomas. Baker used his prior experience
+(SEIS 626 Software Analysis and Design) offered at the [University of St. Thomas](http://www.stthomas.edu). Baker used his prior experience
 within the telcom and webhosting industries to design the basic models and architecture for the application.
 
 ## TODO

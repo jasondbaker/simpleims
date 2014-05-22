@@ -14,6 +14,10 @@ GET		/login						controllers.Application.login()
 GET		/logout						controllers.Application.logout()
 POST	/login						controllers.Application.authenticate()
 
+# Categories
+GET		/categories					controllers.Categories.list()
+GET		/categories/:id				controllers.Categories.get(id: Integer)
+
 # Companies
 GET		/companies					controllers.Companies.list(search: String ?= "_all")
 GET		/companies/:id				controllers.Companies.get(id: Integer)
@@ -45,9 +49,9 @@ POST	/incidents					controllers.Incidents.add()
 POST	/incidents/:incident		controllers.Incidents.update(incident: Integer)
 DELETE	/incidents/:incident		controllers.Incidents.delete(incident: Integer)
 
-# Categories
-GET		/categories					controllers.Categories.list()
-GET		/categories/:id				controllers.Categories.get(id: Integer)
+# Reports
+GET		/reports/incidents			controllers.Reports.getIncidents(days: Integer ?= 1)
+GET		/reports/stats				controllers.Reports.getStats()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

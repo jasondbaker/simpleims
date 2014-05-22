@@ -1,4 +1,4 @@
-var ims = angular.module('ims', ['ngRoute', 'ngAnimate', 'ui.bootstrap']);
+var ims = angular.module('ims', ['ngRoute', 'ngAnimate', 'ui.bootstrap', 'googlechart']);
 
 var remoteServer = 'http://localhost:9000';
 
@@ -58,5 +58,10 @@ ims.config(function ($routeProvider) {
 				controller: 'newIncident',
 				templateUrl: '/assets/js/views/newincident.html'
 			})
+		.when('/reports',
+			{
+				controller: 'showReports',
+				templateUrl: '/assets/js/views/reports.html'
+			})			
 		.otherwise({ redirectTo: '/' });	
 });
