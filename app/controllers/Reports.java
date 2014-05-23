@@ -5,8 +5,11 @@ import play.mvc.*;
 import play.data.*;
 import static play.data.Form.*;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 
+import com.avaje.ebean.Ebean;
+import com.avaje.ebean.SqlRow;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
@@ -33,6 +36,28 @@ public class Reports extends Controller {
                 
 				));
 			
+		
+	}
+	
+	// get a daily incident count (default = 90 days)
+	public static Result getIncidentCount(int days) {
+	
+		Calendar reportdate = Calendar.getInstance();
+		reportdate.add(Calendar.DATE, -days);
+		
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		System.out.println("date="+format.format(reportdate.getTime()));
+		
+		String sql = "select CAST(startdate AS DATE) AS date, count(id) AS incidents from incident"
+					+" where startdate > :thedate "
+					+" group by CAST(startdate AS DATE)";
+		
+		List<SqlRow> sqlRows =
+				Ebean.createSqlQuery(sql)
+				.setParameter("thedate", format.format(reportdate.getTime()))
+				.findList();
+		
+		return ok(Json.toJson(sqlRows));
 		
 	}
 	

@@ -11,6 +11,34 @@ body {
   font-size: 12px;
 }
 
+.report-calendar {
+	padding-top: 30px;	
+}
+
+.statboard {
+	text-align: center;	
+}
+
+.statboard h5 {
+	font-size: 24px;
+	font-weight: 800;
+}
+
+.statboard table td{
+	padding: 8px;
+	vertical-align: top;
+	border-collapse: collapse;
+}
+
+.statsnum {
+	font-size: 40px;
+	font-weight: 800;
+}
+
+.statsnum-sm {
+	padding-top: 10px;
+}
+
 .table-list {
 	margin-bottom: 0px;
 }

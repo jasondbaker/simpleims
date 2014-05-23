@@ -1,8 +1,84 @@
-<div ng-controller="showReports">
+<div>
 
 
-	<h2>Reports</h2>
-
-	<div google-chart chart="openPriority"></div>
+	<div class="row">
+		<div class="col-md-6">
+			<div class="statboard">
+				<h5>Current Incidents</h5>
+			
+				<table>
+				<tr>
+					<td>
+						<table>
+							<tr>
+								<td style="background-color: green; color: white">
+									<h6>Open Incidents</h6>
+									<div class="statsnum">{{stats.openTotal}}</div>
+								</td>
+							
+							
+								<td style="background-color: red; color: white">
+									<div class="statsnum-sm">
+										<h6>P1</h6>
+										<div>{{stats.priority1}}</div>
+									</div>
+								</td>
+					
+								<td style="background-color: orange; color: white">
+									<div class="statsnum-sm">
+										<h6>P2</h6>
+										<div>{{stats.priority2}}</div>
+									</div>
+								</td>
+						
+								<td style="background-color: blue; color: white">
+									<div class="statsnum-sm">
+										<h6>P3</h6>
+										<div>{{stats.priority3}}</div>
+									</div>
+								</td>
+							
+							</tr>
+						</table>
+					</td>
+					
+					<td>
+						<table>
+						<tr>
+						
+							<td style="background-color: grey; color: white">
+								<h6>Opened in 24-hours</h6>
+								<div class="statsnum">{{stats.openNew}}</div>
+							</td>
+						</tr>
+						</table>
+					</td>
+					
+					<td>
+						<table>
+						<tr>
+							<td style="background-color: grey; color: white">
+								<h6>Closed in 24-hours</h6>
+								<div class="statsnum">{{stats.closedNew}}</div>
+							</td>
+						</tr>
+						</table>
+					</td>
+							
+				</tr>
+				</table>
+			</div>
+		</div>
+		
+		<div class="col-md-6">
+			<div google-chart chart="openPriority"></div>
+		</div>
+	</div>
 	
+	<div class="row">
+		<div class="col-md-12 report-calendar">
+			<div google-chart chart="calendarIncidents"></div>
+		</div>
+	
+	</div>
 </div>		

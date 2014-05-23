@@ -51,6 +51,7 @@ DELETE	/incidents/:incident		controllers.Incidents.delete(incident: Integer)
 
 # Reports
 GET		/reports/incidents			controllers.Reports.getIncidents(days: Integer ?= 1)
+GET		/reports/incidentcount		controllers.Reports.getIncidentCount(days: Integer ?= 90)
 GET		/reports/stats				controllers.Reports.getStats()
 
 # Map static resources from the /public folder to the /assets URL path
