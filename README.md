@@ -71,6 +71,15 @@ GET	| /agents/{username} | Get information for specific agent
 GET	| /agents/{username}/incidents | Get incidents associated with agent	
 GET	| /logout | Logout agent	
 POST | /login | Login agent	
+
+**CATEGORIES**
+
+Each incident is categorized for reporting or future service routing. 
+
+METHOD | ENDPOINT | ACTION
+------- | ---------------- | -------------------------
+GET	| /categories | Get complete list of categories	
+GET	| /categories/{id} | Get information for a specific category	
 			
 **COMPANIES**
 
@@ -111,7 +120,7 @@ actions to resolve the incidents.
 
 METHOD | ENDPOINT | ACTION
 ------- | ---------------- | -------------------------
-GET | /incidents[?status=<status>] | Get a list of incidents associated with current Agent	
+GET | /incidents[?status=&#60;status&#62;] | Get a list of incidents associated with current Agent	
 GET	| /incidents/{id} | Get information for a specific incident	
 GET	| /incidents/{id}/actions | Get list of actions associated with a specific incident	
 POST | /incidents/{id}/actions | Add an action to an existing incident	
@@ -120,16 +129,18 @@ POST | /incidents/{id}/close | Close an existing incident
 POST | /incidents | Create a new incident	
 POST | /incidents/{id}	| Update an existing incident	
 DELETE | /incidents/{id} | Delete an existing incident	
-			
-**CATEGORIES**
 
-Each incident is categorized for reporting or future service routing. 
+**REPORTS**
+
+A report is a set of data that represents a meaningful metric related to the system. For example, a report
+include data on the number of incidents opened each day for the past three months.
 
 METHOD | ENDPOINT | ACTION
 ------- | ---------------- | -------------------------
-GET	| /categories | Get complete list of categories	
-GET	| /categories/{id} | Get information for a specific category	
-
+GET | /reports/incidents[?days=&#60;num&#62;] | Get all the incidents created within the past number of days
+GET	| /reports/incidentcount[?days=&#60;num&#62;] | Get the number of incidents opened each day within the past number of days
+GET	| /reports/stats | Get statistics on the number of currently open incidents
+			
 ## HISTORY
 
 SimpleIMS was started by Jason Baker in the spring of 2014 as part of a software engineering graduate class
