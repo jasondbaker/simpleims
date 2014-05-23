@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="SimpleIMS : A simple Incident Management System for Java Play 2 and Angular.js" />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>SimpleIMS</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/jasondbaker/simpleims">View on GitHub</a>
+
+          <h1 id="project_title">SimpleIMS</h1>
+          <h2 id="project_tagline">A simple Incident Management System for Java Play 2 and Angular.js</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/jasondbaker/simpleims/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/jasondbaker/simpleims/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>
+<a name="simpleims" class="anchor" href="#simpleims"><span class="octicon octicon-link"></span></a>SimpleIMS</h1>
+
+<p><strong>An Open Source Incident Management System built on the Java Play framework.</strong></p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/4176562/3062454/54952a32-e21f-11e3-8493-988cf1e3293a.png" width="300"> 
+<img src="https://cloud.githubusercontent.com/assets/4176562/3062421/55495eea-e21e-11e3-8bec-4c197f7e4f6f.png" width="300"></p>
+
+<h2>
+<a name="overview" class="anchor" href="#overview"><span class="octicon octicon-link"></span></a>OVERVIEW</h2>
+
+<p>SimpleIMS is a Business to Business (B2B) solution for documenting and managing service 
+requests. IMS’s are used in many businesses to handle requests by customers and to improve the efficiency of 
+customer service organizations. </p>
+
+<p>A company representative uses an IMS to document, prioritize, and assign a customer service issue to a staff 
+member who can manage the customer request. For example, a customer might call a software company to report that 
+the software application running on her desktop computer is displaying an error message. A customer service 
+representative from the software company would use the IMS to document and prioritize the problem. Additionally, 
+other company support staff members would perform actions to resolve the customer support issue. </p>
+
+<p>An IMS also typically provides reports showing the number of incidents handled each month, customer representative
+performance, and general incident trends. Companies can use these metrics to improve customer satisfaction and better understand their resource 
+needs.</p>
+
+<h2>
+<a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>INSTALLATION</h2>
+
+<p>Requirements:</p>
+
+<ul>
+<li>Play 2 framework: <a href="http://www.playframework.com">http://www.playframework.com</a>
+</li>
+<li>Java IDE (Eclipse, etc)</li>
+</ul><p>Installation steps:
+1. Create new Play IMS project: <em>play new ims</em>
+2. If using Eclipse, install the project files using: <em>play eclipse</em>
+3. Install git in the ims directory: <em>git init</em>
+4. Issue a pull request from the project repository to update the files.</p>
+
+<h2>
+<a name="architecture" class="anchor" href="#architecture"><span class="octicon octicon-link"></span></a>ARCHITECTURE</h2>
+
+<p>The SimpleIMS system includes both a RESTful API and a Javascript-based client application. The API and the client
+application both used separate model-view-controller (MVC) frameworks. The API is built around the <a href="http://www.playframework.com">Java Play 2
+framework</a> and the client application is built around the <a href="http://www.angularjs.org">AngularJS framework</a>. The API currently uses the Java
+<a href="http://www.h2database.com">H2 database engine</a> for data persistence -- although this database could easily be switched out for any relational database
+supported by the <a href="http://www.avaje.org/">EBean ORM</a>. </p>
+
+<p>A RESTful API was developed to facilitate data transfer, in JSON format, between the client application and the 
+core IMS system.  JSON was chosen because it is a lightweight object serialization format, and it works well with both 
+Java and Javascript-based application frameworks. REST represents a modern approach to designing pragmatic web 
+API’s where application endpoints are defined by objects acting as nouns and called by HTTP methods acting as 
+verbs. By supporting dozens of useful API endpoints, the system provides an API vocabulary that allows a wide 
+variety of client applications to communicate with the system. </p>
+
+<p>Interestingly, both the presentation and domain logic application tiers utilize separate MVC frameworks. In the 
+case of the domain logic tier (API), the system is primarily using the Model and Controller portions of the framework. 
+The View capabilities of the Play 2 framework are only used to bootstrap the AngularJS application into the 
+user’s web browser. This architecture reinforces a clear separation of concerns. The Play 2 framework is 
+focused on supporting the API, whereas the AngularJS framework supports the client web interface. </p>
+
+<p>SimpleIMS can support any kind of client interface as long as it can communicate with the RESTful API and
+understand <a href="http://www.json.org">JSON</a>. The existing AngularJS-based client interface represents a prototype of what a client
+interface could look like. A client interface could just as easily have been built on a mobile platform. In fact,
+that's a good idea for a future project.</p>
+
+<h2>
+<a name="api" class="anchor" href="#api"><span class="octicon octicon-link"></span></a>API</h2>
+
+<p><strong>AGENTS</strong></p>
+
+<p>Agents represent the representatives of the company providing products or services to the customers. An
+agent can create, update, and own incidents.</p>
+
+<table>
+<thead><tr>
+<th>METHOD</th>
+<th>ENDPOINT</th>
+<th>ACTION</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>GET</td>
+<td>/agent</td>
+<td>Get currently logged in agent</td>
+</tr>
+<tr>
+<td>GET</td>
+<td>/agents</td>
+<td>Get complete list of active agents</td>
+</tr>
+<tr>
+<td>GET</td>
+<td>/agents/{username}</td>
+<td>Get information for specific agent</td>
+</tr>
+<tr>
+<td>GET</td>
+<td>/agents/{username}/incidents</td>
+<td>Get incidents associated with agent</td>
+</tr>
+<tr>
+<td>GET</td>
+<td>/logout</td>
+<td>Logout agent</td>
+</tr>
+<tr>
+<td>POST</td>
+<td>/login</td>
+<td>Login agent</td>
+</tr>
+</tbody>
+</table><p><strong>CATEGORIES</strong></p>
+
+<p>Each incident is categorized for reporting or future service routing. </p>
+
+<table>
+<thead><tr>
+<th>METHOD</th>
+<th>ENDPOINT</th>
+<th>ACTION</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>GET</td>
+<td>/categories</td>
+<td>Get complete list of categories</td>
+</tr>
+<tr>
+<td>GET</td>
+<td>/categories/{id}</td>
+<td>Get information for a specific category</td>
+</tr>
+</tbody>
+</table><p><strong>COMPANIES</strong></p>
+
+<p>Contacts (customers) buying a product or service work for a company. A company may have many contacts.</p>
+
+<table>
+<thead><tr>
+<th>METHOD</th>
+<th>ENDPOINT</th>
+<th>ACTION</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>GET</td>
+<td>/companies[?search=&lt;name&gt; | all]</td>
+<td>Get complete list of active companies</td>
+</tr>
+<tr>
+<td>GET</td>
+<td>/companies/{id}</td>
+<td>Get information for specific company</td>
+</tr>
+<tr>
+<td>GET</td>
+<td>/companies/{id}/incidents</td>
+<td>Get list of incidents associated with a company</td>
+</tr>
+<tr>
+<td>GET</td>
+<td>/companies/{id}/contacts</td>
+<td>Get list of contacts associated with a company</td>
+</tr>
+<tr>
+<td>GET</td>
+<td>/companies/{id}/addresses</td>
+<td>Get list of addresses associated with a company</td>
+</tr>
+<tr>
+<td>POST</td>
+<td>/companies</td>
+<td>Create a new company</td>
+</tr>
+<tr>
+<td>POST</td>
+<td>/companies/{id}</td>
+<td>Update an existing company</td>
+</tr>
+<tr>
+<td>POST</td>
+<td>/companies/{id}/contacts</td>
+<td>Add a contact to an existing company</td>
+</tr>
+<tr>
+<td>POST</td>
+<td>/companies/{id}/addresses/{id2}</td>
+<td>Add an address to an existing company</td>
+</tr>
+<tr>
+<td>DELETE</td>
+<td>/companies/{id}</td>
+<td>Delete an existing company</td>
+</tr>
+</tbody>
+</table><p><strong>CONTACTS</strong></p>
+
+<p>A contact represents the customer reporting an incident to an agent. A contact may report several incidents
+to different agents over time. A contact can currently only be related to one company.</p>
+
+<table>
+<thead><tr>
+<th>METHOD</th>
+<th>ENDPOINT</th>
+<th>ACTION</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>GET</td>
+<td>/contacts[?search=&lt;fullname&gt; | all]</td>
+<td>Get complete list of active contacts</td>
+</tr>
+<tr>
+<td>GET</td>
+<td>/contacts/{id}</td>
+<td>Get information for a specific contact</td>
+</tr>
+<tr>
+<td>GET</td>
+<td>/contacts/{id}/incidents</td>
+<td>Get list of incidents associated with a contact</td>
+</tr>
+<tr>
+<td>GET</td>
+<td>/contacts/{id}/companies</td>
+<td>Get company associated with a contact</td>
+</tr>
+<tr>
+<td>POST</td>
+<td>/contacts/{id}</td>
+<td>Update an existing contact</td>
+</tr>
+<tr>
+<td>DELETE</td>
+<td>/contacts/{id}</td>
+<td>Delete an existing contact</td>
+</tr>
+</tbody>
+</table><p><strong>INCIDENTS</strong></p>
+
+<p>An incident represents a service or product issue that is having an impact on a contact. Each incident has
+a start date, priority, category, status, and description. Agents take ownership of incidents and perform
+actions to resolve the incidents.</p>
+
+<table>
+<thead><tr>
+<th>METHOD</th>
+<th>ENDPOINT</th>
+<th>ACTION</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>GET</td>
+<td>/incidents[?status=&lt;status&gt;]</td>
+<td>Get a list of incidents associated with current Agent</td>
+</tr>
+<tr>
+<td>GET</td>
+<td>/incidents/{id}</td>
+<td>Get information for a specific incident</td>
+</tr>
+<tr>
+<td>GET</td>
+<td>/incidents/{id}/actions</td>
+<td>Get list of actions associated with a specific incident</td>
+</tr>
+<tr>
+<td>POST</td>
+<td>/incidents/{id}/actions</td>
+<td>Add an action to an existing incident</td>
+</tr>
+<tr>
+<td>POST</td>
+<td>/incidents/{id}/reopen</td>
+<td>Reopen a closed incident</td>
+</tr>
+<tr>
+<td>POST</td>
+<td>/incidents/{id}/close</td>
+<td>Close an existing incident</td>
+</tr>
+<tr>
+<td>POST</td>
+<td>/incidents</td>
+<td>Create a new incident</td>
+</tr>
+<tr>
+<td>POST</td>
+<td>/incidents/{id}</td>
+<td>Update an existing incident</td>
+</tr>
+<tr>
+<td>DELETE</td>
+<td>/incidents/{id}</td>
+<td>Delete an existing incident</td>
+</tr>
+</tbody>
+</table><p><strong>REPORTS</strong></p>
+
+<p>A report is a set of data that represents a meaningful metric related to the system. For example, a report
+include data on the number of incidents opened each day for the past three months.</p>
+
+<table>
+<thead><tr>
+<th>METHOD</th>
+<th>ENDPOINT</th>
+<th>ACTION</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>GET</td>
+<td>/reports/incidents[?days=&lt;num&gt;]</td>
+<td>Get all the incidents created within the past number of days</td>
+</tr>
+<tr>
+<td>GET</td>
+<td>/reports/incidentcount[?days=&lt;num&gt;]</td>
+<td>Get the number of incidents opened each day within the past number of days</td>
+</tr>
+<tr>
+<td>GET</td>
+<td>/reports/stats</td>
+<td>Get statistics on the number of currently open incidents</td>
+</tr>
+</tbody>
+</table><h2>
+<a name="history" class="anchor" href="#history"><span class="octicon octicon-link"></span></a>HISTORY</h2>
+
+<p>SimpleIMS was started by Jason Baker in the spring of 2014 as part of a software engineering graduate class
+(SEIS 626 Software Analysis and Design) offered at the <a href="http://www.stthomas.edu">University of St. Thomas</a>. Baker used his prior experience
+within the telcom and webhosting industries to design the basic models and architecture for the application.</p>
+
+<h2>
+<a name="todo" class="anchor" href="#todo"><span class="octicon octicon-link"></span></a>TODO</h2>
+
+<ol>
+<li>Better error handling needs to be implemented throughout the application.</li>
+<li>UI needs to support pagination.</li>
+<li>Email notifications and alerts.</li>
+<li>Customer accounts and interface for generating and reviewing requests.</li>
+<li>OAuth and SSO would be nice.</li>
+<li>More report types and options.</li>
+<li>Admin portal and related functionality.</li>
+<li>User password reset</li>
+</ol><h2>
+<a name="license" class="anchor" href="#license"><span class="octicon octicon-link"></span></a>LICENSE</h2>
+
+<p>The MIT License (MIT)</p>
+
+<p>Copyright (c) 2014 Jason Baker</p>
+
+<p>Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:</p>
+
+<p>The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.</p>
+
+<p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.</p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">SimpleIMS maintained by <a href="https://github.com/jasondbaker">jasondbaker</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
